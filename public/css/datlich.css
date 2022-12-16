@@ -1,0 +1,154 @@
+* {
+    text-decoration: none;
+}
+
+.background-title {
+    width: 100%;
+    height: 80px;
+}
+
+.background-title .title {
+    position: relative;
+    left: 38%;
+    top: 7px;
+    font-size: 45px;
+    color: #0d66eb;
+    font-weight: 600;
+    text-shadow: rgba(0, 0, 255, 0.267) -1px -2px 0.5em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/*Form add sinh viên*/
+.background-form {
+    position: relative;
+    width: 1415px;
+    height: 567px;
+    top: 10px;
+    left: 90px;
+}
+
+.form-datlich {
+    position: relative;
+    left: 15%;
+    top: 15px;
+    width: 600px;
+    height: 540px;
+
+    /* background-color: rgb(150, 138, 138); */
+    padding-left: 10px;
+    padding-top: 5px;
+    /* border: 1px solid black; */
+}
+
+.check {
+    position: relative;
+    color: red;
+    top: 20px;
+    left: 101px;
+}
+
+.form-datlich .title {
+    position: relative;
+    top: 7px;
+    left: -30px;
+    width: 200px;
+    height: 200px;
+    font-size: 25px;
+    border-radius: 5px;
+    padding: 8px 8px 8px 8px;
+}
+
+.form-datlich .title::before {
+    position: absolute;
+    content: '';
+    left: 10px;
+    bottom: 1px;
+    height: 5px;
+    width: 150px;
+    background-color: #0066ff;
+    border-radius: 5px;
+}
+
+.form-datlich label {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    top: 21px;
+    left: -40px;
+    margin: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+}
+
+.form-datlich input {
+    position: relative;
+    width: 400px;
+    height: 40px;
+    top: 20px;
+    left: -65px;
+    font-size: 15px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 2px solid rgba(128, 128, 128, 0.623);
+    background-color: white;
+}
+
+.form-datlich input:hover {
+    border: 2px solid rgba(0, 0, 0, 0.603);
+}
+
+.form-datlich select {
+    position: relative;
+    width: 400px;
+    height: 40px;
+    left: -65px;
+    top: -5px;
+    border: 2px solid rgba(128, 128, 128, 0.623);
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.background-form .form-datlich.gender {
+    position: relative;
+    top: -10px;
+}
+
+.form-datlich button {
+    position: relative;
+    top: 20px;
+    left: 100px;
+    width: 110px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #033681;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.form-datlich img {
+    position: absolute;
+    width: 600px;
+    height: 500px;
+    left: 520px;
+    top: 20px;
+    border-radius: 10px;
+}
+
+/* .background-form .img {
+    position: relative;
+    top: -470px;
+}*/
+
+#chon-goi-gia {
+    position: relative;
+    top: -5px;
+}
+
+.form-datlich .btn-add {
+    position: relative;
+    top: -15px;
+}

@@ -1,0 +1,191 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    place-items: center;
+}
+
+.navbar-brand #image1 {
+    position: relative;
+    left: 30px;
+}
+
+.navbar-collapse .csw-btn-button {
+    position: relative;
+    left: 100px;
+    top: -1px;
+    width: 175px;
+    margin-right: 20px;
+    cursor: pointer;
+    padding: 10px 35px;
+    color: white;
+    background-color: white;
+    font-size: 20px;
+    border: white;
+    border-radius: 10px;
+    transition: 0.4s;
+}
+
+
+.navbar-collapse.csw-btn-button:hover {
+    background: #292929;
+}
+
+/*Menu*/
+.navbar-collapse .navbar-nav .nav-item a {
+    color: #252323;
+    position: relative;
+    text-decoration: none;
+    font-size: 23px;
+    left: 100px;
+    margin-right: 50px;
+}
+
+.navbar-collapse .navbar-nav .nav-item a:hover {
+    color: black;
+}
+
+.navbar-collapse a::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background-color: #18272F;
+    bottom: 0;
+    left: 0;
+    transform-origin: center;
+    transform: scaleX(0);
+    transition: transform .3s ease-in-out;
+}
+
+.navbar-collapse .navbar-nav .nav-item a:hover::before {
+    transform-origin: center;
+    transform: scaleX(1);
+}
+
+/* Banner */
+.banner {
+    position: relative;
+}
+
+.title-banner {
+    position: absolute;
+    top: 100px;
+    left: 150px;
+    font-size: 50px;
+}
+
+.title-banner1 {
+    position: absolute;
+    top: 170px;
+    left: 150px;
+    font-size: 50px;
+}
+
+.a1 {
+    position: absolute;
+    top: 250px;
+    left: 150px;
+    font-size: 30px;
+}
+
+#dat-lich {
+    position: absolute;
+    top: 320px;
+    left: 150px;
+    width: 170px;
+    height: 60px;
+    font-size: 25px;
+    border: #7cd9ff;
+    border-radius: 5px;
+    background-color: #7cd9ff;
+    cursor: pointer;
+}
+
+.card {
+    position: absolute;
+    bottom: 300px;
+    left: 150px;
+    width: 200px;
+}
+
+#card2 {
+    position: absolute;
+    bottom: 300px;
+    left: 500px;
+    height: 255px;
+}
+
+#card3 {
+    position: absolute;
+    bottom: 300px;
+    left: 850px;
+    height: 255px;
+}
+
+#card4 {
+    position: absolute;
+    bottom: 300px;
+    left: 1200px;
+    height: 255px;
+}
+
+.banner2 {
+    position: relative;
+    top: -200px;
+    width: 100%;
+    padding: 2em 0;
+}
+.row {
+    align-items: center;
+}
+
+.btn {
+    padding: 0.5em 1.5em;
+    border-radius: 2em;
+    box-shadow: 5px 5px 5px rgba(105, 73, 73, 0.15);
+}
+
+.title-dichvu {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    font-size: 55px;
+    top: -150px;
+}
+
+.title-dichvu1 {
+    position: relative;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    top: -135px;
+}
+
+#card-dichvu1 {
+    position: relative;
+    top: -130px;
+}
+
+.dichvu #card-dichvu2 {
+    position: relative;
+    top: -544px;
+    left: 700px;
+}
+
+#card-dichvu3 {
+    position: relative;
+    top: -970px;
+    left: 1200px;
+}
+
+#cot-dichvu {
+    position: relative;
+    right: 100px;
+    height: 100px;
+
+}
+
+.footer {
+    position: relative;
+    top: 400px;
+}
