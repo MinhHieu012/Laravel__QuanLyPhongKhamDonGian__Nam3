@@ -36,7 +36,7 @@ class CustomerController extends Controller
         if ($validated) {
             $accounts = new accounts();
             // syntax: $tên_bảng_db -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
-            $accounts -> names = $request -> name;
+            $accounts -> name = $request -> name;
             $accounts -> email = $request -> email;
             $accounts -> password = bcrypt($request -> password);
             // set quyền cho tk đăng kí là tài khoản khách hàng
