@@ -53,7 +53,6 @@
                     <th>Ngày hẹn</th>
                     <th>Thời gian hẹn</th>
                     <th>Gói giá</th>
-                    <th>Tình trạng tư vấn</th>
                 </tr>
                 </thead>
                 <!-- thân bảng -->
@@ -65,7 +64,6 @@
                         <td>{{ date('d/m/Y', strtotime($datlich->dates)) }}</td>
                         <td>{{ $datlich->times }}</td>
                         <td>{{ $datlich->prices }}</td>
-                        <td>Đã khám</td>
                     </tr>
                 </tbody>
                 @empty

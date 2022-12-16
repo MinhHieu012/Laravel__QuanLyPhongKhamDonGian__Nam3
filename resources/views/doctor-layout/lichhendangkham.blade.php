@@ -48,7 +48,6 @@
                 <!-- tiêu đề bảng -->
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Họ tên</th>
                     <th>Số điện thoại</th>
                     <th>Ngày hẹn</th>
