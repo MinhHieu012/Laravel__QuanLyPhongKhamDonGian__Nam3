@@ -108,6 +108,15 @@ class CustomerController extends Controller
         return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
     }
 
+    // GET: http://localhost/Project2Final/admin/quanlybacsi/delete/{id}
+    // Trang giao diện xóa bác sĩ
+    function deleteLich($id) {
+        // Tìm đến đối tượng muốn xóa
+        $appointment_schedules = appointment_schedules::findOrFail($id);
+        $appointment_schedules->delete();
+        return redirect('/datlich')->with('deleteDone', 'Bạn đã hủy lịch hẹn thành công thành công!');
+    }
+
     // GET: http://localhost/Project2Final/public/lienhe
     function viewLienHe() {
         return view('/lienhe');

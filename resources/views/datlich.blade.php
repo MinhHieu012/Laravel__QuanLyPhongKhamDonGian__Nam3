@@ -67,16 +67,16 @@
                 <label for="cars">Thời gian hẹn</label>
                 <select style="position: relative; top:20px;" name="time" id="time">
                     <optgroup label="Sáng">
-                        <option value="8:00 giờ - 9:00 giờ">08:00 giờ đến 09:00 giờ</option>
-                        <option value="9:00 giờ đến 10:00 giờ">09:00 giờ đến 10:00 giờ</option>
-                        <option value="10:00 giờ đến 11:00 giờ">10:00 giờ đến 11:00 giờ</option>
+                        <option value="Sáng 8:00 giờ - 9:00 giờ">Sáng 08:00 giờ đến 09:00 giờ</option>
+                        <option value="Sáng 9:00 giờ đến 10:00 giờ">Sáng 09:00 giờ đến 10:00 giờ</option>
+                        <option value="Sáng 10:00 giờ đến 11:00 giờ">Sáng 10:00 giờ đến 11:00 giờ</option>
                     </optgroup>
                     <optgroup label="Chiều">
-                        <option value="01:00 giờ đến 02:00 giờ">01:00 giờ đến 02:00 giờ</option>
-                        <option value="02:00 giờ đến 03:00 giờ">02:00 giờ đến 03:00 giờ</option>
-                        <option value="03:00 giờ đến 04:00 giờ">03:00 giờ đến 04:00 giờ</option>
-                        <option value="04:00 giờ đến 05:00 giờ">04:00 giờ đến 05:00 giờ</option>
-                        <option value="05:00 giờ đến 06:00 giờ">05:00 giờ đến 06:00 giờ</option>
+                        <option value="Chiều 01:00 giờ đến 02:00 giờ">Chiều 01:00 giờ đến 02:00 giờ</option>
+                        <option value="Chiều 02:00 giờ đến 03:00 giờ">Chiều 02:00 giờ đến 03:00 giờ</option>
+                        <option value="Chiều 03:00 giờ đến 04:00 giờ">Chiều 03:00 giờ đến 04:00 giờ</option>
+                        <option value="Chiều 04:00 giờ đến 05:00 giờ">Chiều 04:00 giờ đến 05:00 giờ</option>
+                        <option value="Chiều 05:00 giờ đến 06:00 giờ">Chiều 05:00 giờ đến 06:00 giờ</option>
                     </optgroup>
                 </select>
             <br>
@@ -101,8 +101,14 @@
     <table id="lich_da_hen" class="table table-bordered border-dark" style="width: 100%">
         <!-- tiêu đề bảng -->
         @if(session()->has('done'))
-            <div class="alert alert-success" style="color: #74D15D; font-size: 17px; max-width: fit-content">
+            <div class="alert alert-success" style="color: #74D15D; font-size: 18px; max-width: fit-content">
                 {{ session()->get('done') }}
+            </div>
+        @endif
+
+        @if(session()->has('deleteDone'))
+            <div class="alert alert-success" style="background: #E1A59D;color: red; font-size: 18px; font-weight: 500; text-align: left; width: max-content">
+                {{ session()->get('deleteDone') }}
             </div>
         @endif
         <thead>
@@ -112,6 +118,7 @@
                 <th>Ngày hẹn</th>
                 <th>Thời gian hẹn</th>
                 <th>Gói giá</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <!-- thân bảng -->
@@ -123,6 +130,9 @@
                 <td>{{ date('d/m/Y', strtotime($datlich->dates)) }}</td>
                 <td>{{ $datlich->times }}</td>
                 <td>{{ $datlich->prices }}</td>
+                <td>
+                    <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn hủy lich hẹn?')" class="btn btn-danger">Hủy lịch hẹn</button>
+                </td>
             </tr>
         </tbody>
         @empty
@@ -131,6 +141,7 @@
             </tr>
         @endforelse
     </table>
+        <form id="deleteForm" action="{{ route('lichhen.delete', $datlich->id)}} }}" method="GET"></form>
     </div>
 @endsection
 </body>

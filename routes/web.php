@@ -20,17 +20,17 @@ use Illuminate\Support\Facades\Route;
 // trang register
 Route::get('/register', [CustomerController::class, 'viewRegister']);
 
-    // xử lý register (ko có giao diện)
-    Route::post('/register', [CustomerController::class, 'register']);
+// xử lý register (ko có giao diện)
+Route::post('/register', [CustomerController::class, 'register']);
 
 // trang login
 Route::get('/login', [CustomerController::class, 'viewLogin']);
 
-    // xử lý login (ko có giao diện)
-    Route::post('/login', [CustomerController::class, 'login']);
+// xử lý login (ko có giao diện)
+Route::post('/login', [CustomerController::class, 'login']);
 
-    // trang xử lý logout (ko có giao diện)
-    Route::post('/logout', [CustomerController::class, 'logout']);
+// trang xử lý logout (ko có giao diện)
+Route::post('/logout', [CustomerController::class, 'logout']);
 
 // trang chủ home
 Route::get('/', [CustomerController::class, 'viewHome']);
@@ -43,9 +43,15 @@ Route::get('/datlich', [CustomerController::class, 'viewDatLich']);
 // xử lý đặt lịch (ko có giao diện)
 Route::post('/datlich', [CustomerController::class, 'datlich']);
 
+// Hủy lịch hẹn
+Route::get('/datlich/delete/{id}', [CustomerController::class, 'deleteLich'])
+       ->name('lichhen.delete');
+
 // trang liên hệ
 Route::get('/lienhe', [CustomerController::class, 'viewLienHe']);
 //-----------------------------------------------------------------------------
+
+
 
 //---------------------------AdminController-----------------------------
 // trang home admin
@@ -79,23 +85,25 @@ Route::get('/admin/quanlylichhen/delete/{id}', [AdminController::class, 'deleteL
 Route::get('/admin/lichhendathanhtoan', [AdminController::class, 'viewLichHenDaThanhToan']);
 //-----------------------------------------------------------------------------
 
+
+
 //---------------------------DoctorController-----------------------------
-    // trang home doctor
-    Route::get('/doctor/home', [DoctorController::class, 'viewHome']);
+// trang home doctor
+Route::get('/doctor/home', [DoctorController::class, 'viewHome']);
 
-    // trang hồ sơ thông tin bác sĩ
-    Route::get('/doctor/hoso', [DoctorController::class, 'viewHoSo']);
+// trang hồ sơ thông tin bác sĩ
+Route::get('/doctor/hoso', [DoctorController::class, 'viewHoSo']);
 
-    // trang quản lý lịch hẹn của bác sĩ
-    Route::get('/doctor/lichhen', [DoctorController::class, 'viewLichHen']);
+// trang quản lý lịch hẹn của bác sĩ
+Route::get('/doctor/lichhen', [DoctorController::class, 'viewLichHen']);
 
-    // trang quản lý lịch hẹn của bác sĩ
-    // trang sửa thông tin trạng thái khám, tư vấn khách hàng
-    Route::get('/doctor/lichhen/edit', [DoctorController::class, 'viewLichHen_Edit']);
+// trang quản lý lịch hẹn của bác sĩ
+// trang sửa thông tin trạng thái khám, tư vấn khách hàng
+Route::get('/doctor/lichhen/edit', [DoctorController::class, 'viewLichHen_Edit']);
 
-    // trang lịch hẹn đang khám
-    Route::get('/doctor/lichhendangkham', [DoctorController::class, 'viewLichHenDangKham']);
+// trang lịch hẹn đang khám
+Route::get('/doctor/lichhendangkham', [DoctorController::class, 'viewLichHenDangKham']);
 
-    // trang lịch hẹn đã khám
-    Route::get('/doctor/lichhendakham', [DoctorController::class, 'viewLichHenDaKham']);
+// trang lịch hẹn đã khám
+Route::get('/doctor/lichhendakham', [DoctorController::class, 'viewLichHenDaKham']);
 
