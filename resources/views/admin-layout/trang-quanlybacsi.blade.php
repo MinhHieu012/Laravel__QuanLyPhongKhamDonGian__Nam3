@@ -66,6 +66,7 @@
                 <!-- tiêu đề bảng -->
                 <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Email</th>
                     <th>Mật khẩu</th>
                     <th>Họ tên</th>
@@ -73,6 +74,7 @@
                     <th>Ngày sinh</th>
                     <th>Giới tính</th>
                     <th>Địa chỉ</th>
+                    <th>Ngày thêm</th>
                     <th>Thao tác</th>
                 </tr>
                 </thead>
@@ -80,6 +82,7 @@
                 @forelse($bacsi as $bacsi)
                 <tbody>
                 <tr>
+                    <td>{{ $bacsi->id }}</td>
                     <td>{{ $bacsi->email }}</td>
                     <td>.....</td>
                     <td>{{ $bacsi->name }}</td>
@@ -87,6 +90,7 @@
                     <td>{{ date('d/m/Y', strtotime($bacsi->date_of_births))}}</td>
                     <td>{{ $bacsi->genders }}</td>
                     <td>{{ $bacsi->address }}</td>
+                    <td>{{ date('d/m/Y, H:i:s', strtotime($bacsi->created_at)) }}</td>
                     <td>
                         <button form="editForm" type="button" onclick="location.href='{{ route('doctor.edit', $bacsi->id) }}';" class="btn btn-warning";>Sửa</button>
                         <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="btn btn-danger">Xóa</button>

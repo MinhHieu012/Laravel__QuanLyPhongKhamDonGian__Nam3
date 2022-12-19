@@ -19,14 +19,6 @@
             border-collapse: collapse;
         }
 
-        .table1 {
-            position: relative;
-            top: 100px;
-            width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
         td, th {
             border: 1px solid #dddddd;
             text-align: left;
@@ -44,11 +36,68 @@
             justify-content: center;
 
         }
+
+        .a3 {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+        }
+
+        .a3 {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            width: 700px;
+
+        }
     </style>
 <body>
 @extends('menu')
 @section('content')
-    <!-- Sửa -->
+    <div>
+        <h2 style="position: relative; top: 15px">Sửa lịch hẹn</h2>
+        <button type="button" style="position: relative; right: -492px; top: -28px" class="btn btn-primary" onclick="window.location.href='{{URL::asset('/datlich')}}';">Quay lại</button>
+
+        <form method="POST" class="a3">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Họ tên</label>
+                <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" value="{{$datlich->names}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
+                <input type="phone" class="form-control" id="phone" name="phone" value="{{$datlich->phones}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Ngày hẹn</label>
+                <input type="date" class="form-control" id="date" name="date" value="{{$datlich->dates}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Thời gian hẹn</label>
+                <select style="position: relative; top:4px; margin-bottom: 10px; width: 700px; height: 40px; border-radius: 3px" name="time" id="time">
+                    <optgroup label="Sáng">
+                        <option value="Sáng 8:00 giờ - 9:00 giờ">Sáng 08:00 giờ đến 09:00 giờ</option>
+                        <option value="Sáng 9:00 giờ đến 10:00 giờ">Sáng 09:00 giờ đến 10:00 giờ</option>
+                        <option value="Sáng 10:00 giờ đến 11:00 giờ">Sáng 10:00 giờ đến 11:00 giờ</option>
+                    </optgroup>
+                    <optgroup label="Chiều">
+                        <option value="Chiều 01:00 giờ đến 02:00 giờ">Chiều 01:00 giờ đến 02:00 giờ</option>
+                        <option value="Chiều 02:00 giờ đến 03:00 giờ">Chiều 02:00 giờ đến 03:00 giờ</option>
+                        <option value="Chiều 03:00 giờ đến 04:00 giờ">Chiều 03:00 giờ đến 04:00 giờ</option>
+                        <option value="Chiều 04:00 giờ đến 05:00 giờ">Chiều 04:00 giờ đến 05:00 giờ</option>
+                        <option value="Chiều 05:00 giờ đến 06:00 giờ">Chiều 05:00 giờ đến 06:00 giờ</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Gói giá</label>
+                <select style="position: relative; top:4px; margin-bottom: 10px; width: 700px; height: 40px; border-radius: 3px" name="price" id="price">
+                    <option value="Gói 100.000đ">Gói 100.000đ</option>
+                    <option value="Gói 200.000đ">Gói 200.000đ</option>
+                    <option value="Gói 250.000đ">Gói 250.000đ</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-warning" id="edit" name="edit">Sửa</button>
+        </form>
+    </div>
 @endsection
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

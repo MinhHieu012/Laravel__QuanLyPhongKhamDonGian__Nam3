@@ -48,11 +48,13 @@
                 <!-- tiêu đề bảng -->
                 <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Họ tên</th>
                     <th>Số điện thoại</th>
                     <th>Ngày hẹn</th>
                     <th>Thời gian hẹn</th>
                     <th>Gói giá</th>
+                    <th>Ngày đặt lịch</th>
                     <th>Tình trạng tư vấn</th>
                 </tr>
                 </thead>
@@ -60,11 +62,13 @@
                 <tbody>
                 @forelse($datlich as $datlich)
                 <tr>
+                    <td>{{ $datlich->id }}</td>
                     <td>{{ $datlich->names }}</td>
                     <td>{{ $datlich->phones }}</td>
                     <td>{{ date('d/m/Y', strtotime($datlich->dates)) }}</td>
                     <td>{{ $datlich->times }}</td>
                     <td>{{ $datlich->prices }}</td>
+                    <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
                     <td>
                         <button type="button" class="btn btn-primary">Chưa khám</button>
                     </td>

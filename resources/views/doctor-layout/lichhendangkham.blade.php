@@ -48,11 +48,13 @@
                 <!-- tiêu đề bảng -->
                 <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Họ tên</th>
                     <th>Số điện thoại</th>
                     <th>Ngày hẹn</th>
                     <th>Thời gian hẹn</th>
                     <th>Gói giá</th>
+                    <th>Ngày đặt lịch</th>
                     <th>Tình trạng tư vấn</th>
                 </tr>
                 </thead>
@@ -60,11 +62,13 @@
                 <tbody>
                 @forelse($lichhendangkham as $lichhendangkham)
                     <tr>
+                        <td>{{ $lichhendangkham->id }}</td>
                         <td>{{ $lichhendangkham->names }}</td>
                         <td>{{ $lichhendangkham->phones }}</td>
                         <td>{{ date('d/m/Y', strtotime($lichhendangkham->dates)) }}</td>
                         <td>{{ $lichhendangkham->times }}</td>
                         <td>{{ $lichhendangkham->prices }}</td>
+                        <td>{{ date('d/m/Y, H:i:s', strtotime($lichhendangkham->created_at)) }}</td>
                         <td><button type="button" class="btn btn-success">Đang khám</button></td>
                     </tr>
                 </tbody>

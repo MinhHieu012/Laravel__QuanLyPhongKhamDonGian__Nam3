@@ -109,11 +109,11 @@ class CustomerController extends Controller
     }
 
     // GET: http://localhost/Project2Final/lichhen/edit/{id}
-    // Trang giao diện sửa bác sĩ
+    // Trang giao diện lịch hẹn
     function editLich($id)
     {
-        $appointment_schedules = appointment_schedules::where('id', '=', $id)->first();
-        return view('/datlich-edit', compact('appointment_schedules'));
+        $datlich = appointment_schedules::where('id', '=', $id)->first();
+        return view('/datlich-edit', compact('datlich'));
     }
 
     // GET: http://localhost/Project2Final/lichhen/edit/{id}
@@ -127,7 +127,7 @@ class CustomerController extends Controller
         $appointment_schedule->times = $request->time;
         $appointment_schedule->prices = $request->price;
         $appointment_schedule->save();
-        return redirect('/lichhen')->with('editDone', 'Sửa thông tin lịch hẹn thành công!');
+        return redirect('/datlich')->with('editDone', 'Sửa thông tin lịch hẹn thành công!');
     }
 
     // GET: http://localhost/Project2Final/datlich/delete/{id}

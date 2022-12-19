@@ -21,6 +21,7 @@
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Thông tin cá nhân</h2>
         <button type="button" style="position: relative; right: -270px; top: 40px; font-size: 18px" class="btn btn-primary">Thông tin cá nhân</button>
+        <p>ID: {{Auth::user()->id}}</p>
         <p>Họ tên: {{Auth::user()->name}}</p>
         <p>Số điện thoại: {{Auth::user()->phones}}</p>
         <p>Ngày sinh: {{ date('d/m/Y', strtotime(Auth::user()->date_of_births))}}</p>

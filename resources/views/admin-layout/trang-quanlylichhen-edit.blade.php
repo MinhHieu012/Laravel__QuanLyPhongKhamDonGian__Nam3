@@ -72,6 +72,7 @@
             </div>
             <button type="submit" class="btn btn-warning" id="edit" name="edit">Sửa</button>
         </form>
+    </div>
 @endsection
 </body>
 <!-- DataTable -->
