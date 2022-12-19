@@ -96,7 +96,9 @@
     </div>
 
     <!-- Bảng lịch hẹn đã đặt -->
-    <h2 style="font-size: 45px">Lịch đã hẹn</h2>
+    <h2 style="font-size: 45px">Lịch đã hẹn</h2> <!-- <br>
+    <h2 style="font-size: 18px; color: red">Lịch hẹn chỉ được chỉnh sửa và hủy trong 15 phút kể từ khi đặt lịch!</h2>
+    <h2 style="font-size: 18px; color: red">Cần hỗ trợ vui lòng liên hệ qua FB góc dưới phải màn hình</h2> -->
     <div class="table1">
     <table id="lich_da_hen" class="table table-bordered border-dark" style="width: 100%">
         <!-- tiêu đề bảng -->
@@ -109,6 +111,12 @@
         @if(session()->has('deleteDone'))
             <div class="alert alert-success" style="background: #E1A59D;color: red; font-size: 18px; font-weight: 500; text-align: left; width: max-content">
                 {{ session()->get('deleteDone') }}
+            </div>
+        @endif
+
+        @if(session()->has('editDone'))
+            <div class="alert alert-success" style="color: #74D15D; font-size: 18px; font-weight: 500; text-align: left; width: max-content">
+                {{ session()->get('editDone') }}
             </div>
         @endif
         <thead>
@@ -131,6 +139,7 @@
                 <td>{{ $datlich->times }}</td>
                 <td>{{ $datlich->prices }}</td>
                 <td>
+                    <button form="editForm" type="button" onclick="location.href='{{ route('datlich.edit', $datlich->id) }}';" class="btn btn-warning">Sửa lịch hẹn</button>
                     <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn hủy lich hẹn?')" class="btn btn-danger">Hủy lịch hẹn</button>
                 </td>
             </tr>

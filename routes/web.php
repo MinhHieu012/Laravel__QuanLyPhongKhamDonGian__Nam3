@@ -43,7 +43,14 @@ Route::get('/datlich', [CustomerController::class, 'viewDatLich']);
 // xử lý đặt lịch (ko có giao diện)
 Route::post('/datlich', [CustomerController::class, 'datlich']);
 
-// Hủy lịch hẹn
+// giao diện edit lịch hẹn
+Route::get('/datlich/edit/{id}', [CustomerController::class, 'editLich'])
+       ->name('datlich.edit');
+// giao diện edit lịch hẹn
+Route::post('/datlich/edit/{id}', [CustomerController::class, 'updateLich'])
+    ->name('datlich.update');
+
+// (Xóa) Hủy lịch hẹn
 Route::get('/datlich/delete/{id}', [CustomerController::class, 'deleteLich'])
        ->name('lichhen.delete');
 

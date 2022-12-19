@@ -49,16 +49,16 @@
                 <label for="exampleInputPassword1" class="form-label">Thời gian hẹn</label>
                 <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="time" id="time">
                     <optgroup label="Sáng">
-                        <option value="8:00 giờ - 9:00 giờ">08:00 giờ đến 09:00 giờ</option>
-                        <option value="9:00 giờ đến 10:00 giờ">09:00 giờ đến 10:00 giờ</option>
-                        <option value="10:00 giờ đến 11:00 giờ">10:00 giờ đến 11:00 giờ</option>
+                        <option value="Sáng 8:00 giờ - 9:00 giờ">Sáng 08:00 giờ đến 09:00 giờ</option>
+                        <option value="Sáng 9:00 giờ đến 10:00 giờ">Sáng 09:00 giờ đến 10:00 giờ</option>
+                        <option value="Sáng 10:00 giờ đến 11:00 giờ">Sáng 10:00 giờ đến 11:00 giờ</option>
                     </optgroup>
                     <optgroup label="Chiều">
-                        <option value="01:00 giờ đến 02:00 giờ">01:00 giờ đến 02:00 giờ</option>
-                        <option value="02:00 giờ đến 03:00 giờ">02:00 giờ đến 03:00 giờ</option>
-                        <option value="03:00 giờ đến 04:00 giờ">03:00 giờ đến 04:00 giờ</option>
-                        <option value="04:00 giờ đến 05:00 giờ">04:00 giờ đến 05:00 giờ</option>
-                        <option value="05:00 giờ đến 06:00 giờ">05:00 giờ đến 06:00 giờ</option>
+                        <option value="Chiều 01:00 giờ đến 02:00 giờ">Chiều 01:00 giờ đến 02:00 giờ</option>
+                        <option value="Chiều 02:00 giờ đến 03:00 giờ">Chiều 02:00 giờ đến 03:00 giờ</option>
+                        <option value="Chiều 03:00 giờ đến 04:00 giờ">Chiều 03:00 giờ đến 04:00 giờ</option>
+                        <option value="Chiều 04:00 giờ đến 05:00 giờ">Chiều 04:00 giờ đến 05:00 giờ</option>
+                        <option value="Chiều 05:00 giờ đến 06:00 giờ">Chiều 05:00 giờ đến 06:00 giờ</option>
                     </optgroup>
                 </select>
             </div>

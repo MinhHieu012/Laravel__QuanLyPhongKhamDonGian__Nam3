@@ -108,8 +108,30 @@ class CustomerController extends Controller
         return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
     }
 
-    // GET: http://localhost/Project2Final/admin/quanlybacsi/delete/{id}
-    // Trang giao diện xóa bác sĩ
+    // GET: http://localhost/Project2Final/lichhen/edit/{id}
+    // Trang giao diện sửa bác sĩ
+    function editLich($id)
+    {
+        $appointment_schedules = appointment_schedules::where('id', '=', $id)->first();
+        return view('/datlich-edit', compact('appointment_schedules'));
+    }
+
+    // GET: http://localhost/Project2Final/lichhen/edit/{id}
+    // Trang update thông tin đặt lịch (ko giao diện)
+    function updateLich(Request $request, $id)
+    {
+        $appointment_schedule = appointment_schedules::findOrFail($id);
+        $appointment_schedule->names = $request->name;
+        $appointment_schedule->phones = $request->phone;
+        $appointment_schedule->dates = $request->date;
+        $appointment_schedule->times = $request->time;
+        $appointment_schedule->prices = $request->price;
+        $appointment_schedule->save();
+        return redirect('/lichhen')->with('editDone', 'Sửa thông tin lịch hẹn thành công!');
+    }
+
+    // GET: http://localhost/Project2Final/datlich/delete/{id}
+    // Trang hủy lịch hẹn
     function deleteLich($id) {
         // Tìm đến đối tượng muốn xóa
         $appointment_schedules = appointment_schedules::findOrFail($id);
