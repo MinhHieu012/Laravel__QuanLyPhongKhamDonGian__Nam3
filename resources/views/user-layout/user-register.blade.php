@@ -190,4 +190,6 @@
 </div>
 </body>
 <script src="https://kit.fontawesome.com/e469ae31fa.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </html>

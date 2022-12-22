@@ -42,16 +42,32 @@
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Lịch hẹn</h2>
         <br>
-        @if(session()->has('deleteDone'))
-            <div class="alert alert-success" style="position: relative; right: -270px; top: 15px;color: #41BC66; font-size: 18px; font-weight: 500; text-align: left; width: max-content">
-                {{ session()->get('deleteDone') }}
-            </div>
+        @if (session('deleteDone'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('deleteDone') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
         @endif
 
-        @if(session()->has('editDone'))
-            <div class="alert alert-success" style="position: relative; right: -270px; top: 15px;color: #41BC66; font-size: 18px; font-weight: 500; text-align: left; width: max-content">
-                {{ session()->get('editDone') }}
-            </div>
+        @if (session('editDone'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('editDone') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
         @endif
 
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary">Lịch đã hẹn</button>
@@ -125,4 +141,7 @@
 
     });
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </html>

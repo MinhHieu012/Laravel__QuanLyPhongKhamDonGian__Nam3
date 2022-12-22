@@ -102,22 +102,74 @@
     <div class="table1">
     <table id="lich_da_hen" class="table table-bordered border-dark" style="width: 100%">
         <!-- tiêu đề bảng -->
-        @if(session()->has('done'))
-            <div class="alert alert-success" style="color: #74D15D; font-size: 18px; max-width: fit-content">
-                {{ session()->get('done') }}
-            </div>
+        @if (session('done'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('done') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
         @endif
 
-        @if(session()->has('deleteDone'))
-            <div class="alert alert-success" style="background: #E1A59D;color: red; font-size: 18px; font-weight: 500; text-align: left; width: max-content">
-                {{ session()->get('deleteDone') }}
-            </div>
+        @if (session('deleteDone'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('deleteDone') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
         @endif
 
-        @if(session()->has('editDone'))
-            <div class="alert alert-success" style="color: #74D15D; font-size: 18px; font-weight: 500; text-align: left; width: max-content">
-                {{ session()->get('editDone') }}
-            </div>
+        @if (session('editDone'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('editDone') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
+        @if (session('errorDatLich'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('errorDatLich') }}",
+                        textColor: 'black',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
+        @if (session('form_expired'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('form_expired') }}",
+                        textColor: 'black',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
         @endif
         <thead>
             <tr>
@@ -141,8 +193,9 @@
                 <td>{{ $datlich->prices }}</td>
                 <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
                 <td>
-                    {{--<button form="editForm" type="button" onclick="location.href='{{ route('datlich.edit', $datlich->id) }}';" class="btn btn-warning">Sửa lịch hẹn</button> --}}
+                    <button form="editForm" type="submit" class="btn btn-warning">Sửa lịch hẹn</button>
                     <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn hủy lich hẹn?')" class="btn btn-danger">Hủy lịch hẹn</button>
+                    <form id="editForm" action="{{ route('datlich.edit', $datlich->id) }}" method="GET"></form>
                     <form id="deleteForm" action="{{ route('lichhen.delete', $datlich->id)}} }}" method="GET"></form>
                 </td>
             </tr>
@@ -212,7 +265,16 @@
         js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+    // Ko cho ng dùng chọn ngày trong quá khứ
+    window.onload = function() {
+        const dateInput = document.getElementById('date');
+        const currentDate = new Date().toISOString().split('T')[0];
+        dateInput.min = currentDate;
+    }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </html>
 
 

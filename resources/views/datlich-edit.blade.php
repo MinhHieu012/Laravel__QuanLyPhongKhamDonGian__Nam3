@@ -1,4 +1,3 @@
-{{--
 @extends('footer')
 <!DOCTYPE html>
 <html lang="en">
@@ -141,8 +140,14 @@
         js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+    // Ko cho ng dùng chọn ngày trong quá khứ
+    window.onload = function() {
+        const dateInput = document.getElementById('date');
+        const currentDate = new Date().toISOString().split('T')[0];
+        dateInput.min = currentDate;
+    }
 </script>
 </html>
---}}
 
 

@@ -29,7 +29,7 @@
 
         <form method="POST" class="a2">
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <label for="exampleInputEmail1" class="form-label">Tên đăng nhập</label>
                 <input type="text" class="form-control" id="username" name="username" value="{{$accounts->username}}" aria-describedby="emailHelp" required>
                 <div class="text">
                     @error('username')
@@ -39,7 +39,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
-                <input type="password" class="form-control" id="password" name="password" value="{{($accounts->password)}}" required>
+                <input type="password" class="form-control" id="password" name="password" required>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Họ và tên</label>

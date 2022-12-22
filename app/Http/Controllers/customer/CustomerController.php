@@ -8,8 +8,10 @@ use App\Models\accounts;
 use App\Models\appointment_schedules;
 use http\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Validation\Rule;
@@ -94,6 +96,16 @@ class CustomerController extends Controller
     // GET: http://localhost/Project2Final/public/datlich
     // Xử lý việc đặt lịch của khách hàng
     function datlich(Request $request) {
+
+        // Kiểm tra ngày, thời gian đã đc chọn hay chưa
+        $selectedTime = appointment_schedules::where('dates', $request->date)
+            ->where('times', $request->time)
+            ->first();
+        if ($selectedTime) {
+            // Nếu ng dùng chọn ngày, giờ đã tồn tại -> hiện tbao lỗi
+            return redirect()->back()->with('errorDatLich', 'Thời gian bạn đặt lịch đã bị trùng! Vui lòng chọn ngày hoặc mốc thời gian khác');
+        }
+
         $appointment_schedules = new Appointment_schedules;
         $appointment_schedules->names = $request->name;
         $appointment_schedules->phones = $request->phone;
@@ -109,6 +121,18 @@ class CustomerController extends Controller
     // Trang giao diện lịch hẹn
     function editLich($id)
     {
+        // Get the current time
+        $currentTime = Carbon::now();
+
+        // Retrieve the id information from the database
+        $info = DB::table('appointment_schedules')->where('id', $id)->first();
+
+        // Check if the elapsed time is less than 5 minutes
+        if ($currentTime->diffInMinutes($info->created_at) > 5) {
+            // Elapsed time is greater than 10 minutes, display an error message
+            return redirect()->back()->with('form_expired', 'Đã quá 5 phút không thể xóa hay chỉnh sửa lịch hẹn! Liên hệ qua FB để được hỗ trợ');
+        }
+
         $datlich = appointment_schedules::where('id', '=', $id)->first();
         return view('/datlich-edit', compact('datlich'));
     }
@@ -129,7 +153,20 @@ class CustomerController extends Controller
 
     // GET: http://localhost/Project2Final/datlich/delete/{id}
     // Trang hủy lịch hẹn
-    function deleteLich($id) {
+    function deleteLich(Request $request, $id) {
+
+        // Get the current time
+        $currentTime = Carbon::now();
+
+        // Retrieve the id information from the database
+        $info = DB::table('appointment_schedules')->where('id', $id)->first();
+
+        // Check if the elapsed time is less than 5 minutes
+        if ($currentTime->diffInMinutes($info->created_at) > 5) {
+            // Elapsed time is greater than 5 minutes, display an error message
+            return redirect()->back()->with('form_expired', 'Đã quá 5 phút không thể xóa hay chỉnh sửa lịch hẹn! Liên hệ qua FB để được hỗ trợ');
+        }
+
         // Tìm đến đối tượng muốn xóa
         $appointment_schedules = appointment_schedules::findOrFail($id);
         $appointment_schedules->delete();
