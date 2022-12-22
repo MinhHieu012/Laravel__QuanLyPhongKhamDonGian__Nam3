@@ -49,8 +49,8 @@ class AdminController extends Controller
             $validated = $request->validated();
             if ($validated) {
                 $accounts = new accounts();
-                // syntax: $tên_bảng_db -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
-                $accounts->email = $request->email;
+                // syntax: $tên_biến -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
+                $accounts->username = $request->username;
                 $accounts->password = bcrypt($request->password);
                 $accounts->name = $request->name;
                 $accounts->phones = $request->phone;
@@ -77,7 +77,7 @@ class AdminController extends Controller
             $validated = $request->validated();
             if ($validated) {
                 $accounts = accounts::findOrFail($id);
-                $accounts->email = $request->email;
+                $accounts->username = $request->username;
                 $accounts->password = bcrypt($request->password);
                 $accounts->name = $request->name;
                 $accounts->phones = $request->phone;

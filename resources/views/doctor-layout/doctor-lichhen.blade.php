@@ -75,9 +75,6 @@
                 </tr>
                 </tbody>
                 @empty
-                    <tr>
-                        <td>Chưa có lịch hẹn</td>
-                    </tr>
                 @endforelse
             </table>
         </div>
@@ -91,7 +88,24 @@
 
 <script>
     $(document).ready(function () {
-        $('#lich-hen-chua-kham').DataTable();
+        $.fn.dataTableExt.sErrMode = 'throw';
+        $('#lich-hen-chua-kham').DataTable({
+            language: {
+                search: "Tìm kiếm",
+                lengthMenu: "Hiển thị 1 trang _MENU_ cột",
+                info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
+                infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
+                zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
+                emptyTable: "Chưa có lịch hẹn nào",
+                paginate: {
+                    first: "Trang đầu",
+                    previous: "Trang trước",
+                    next: "Trang sau",
+                    last: "Trang cuối"
+                },
+            },
+        });
+
     });
 </script>
 </html>

@@ -66,9 +66,6 @@
                         <td>{{ date('d/m/Y, H:i:s', strtotime($lich_da_thanh_toan->created_at)) }}</td>
                     </tr>
                     @empty
-                        <tr>
-                            <td>Chưa có lịch hẹn nào đã thanh toán</td>
-                        </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -82,7 +79,23 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#lich_da_thanh_toan').DataTable();
+        $.fn.dataTableExt.sErrMode = 'throw';
+        $('#lich_da_thanh_toan').DataTable({
+            language: {
+                search: "Tìm kiếm",
+                lengthMenu: "Hiển thị 1 trang _MENU_ cột",
+                info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
+                infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
+                zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
+                emptyTable: "Chưa có lịch hẹn nào được thanh toán",
+                paginate: {
+                    first: "Trang đầu",
+                    previous: "Trang trước",
+                    next: "Trang sau",
+                    last: "Trang cuối"
+                },
+            },
+        });
     });
 </script>
 </html>

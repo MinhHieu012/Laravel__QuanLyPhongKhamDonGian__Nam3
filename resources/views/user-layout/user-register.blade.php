@@ -52,7 +52,7 @@
         top: 15px;
     }
     form .form-field:nth-child(2)::before {
-        background-image: url('{{URL::asset('image/email-icon.png')}}');
+        background-image: url('{{URL::asset('image/user-icon.png')}}');
         width: 22px;
         height: 22px;
     }
@@ -140,7 +140,7 @@
             <span style="margin-left: 20px"><i class="fa-sharp fa-solid fa-circle-exclamation" style="margin-right: 13px"></i>{{ session()->get('fails') }}</span>
         </div>
     @endif
-    <h2 style="color: black; font-size: 20px;"><a href="{{url('/home')}}"> < Về trang chủ</a></h2>
+    <h2 style="color: black; font-size: 20px;"><a href="{{url('/')}}"> < Về trang chủ</a></h2>
 
     <h2 style="color: black">Đăng kí</h2>
 
@@ -148,22 +148,22 @@
 
         <!-- tên -->
         <div class="form-field">
-            <input type="text" placeholder="Nhập tên đăng kí" name="name" required/>
+            <input type="text" placeholder="Nhập họ và tên" name="name" required/>
         </div>
 
         <!-- email -->
         <div class="form-field">
-            <input type="email" placeholder="Nhập email đăng kí" name="email" required/>
+            <input type="text" placeholder="Nhập tên đăng nhập" name="username" required/>
         </div>
 
         <!-- password -->
         <div class="form-field">
-            <input type="password" placeholder="Nhập mật khẩu đăng kí" name="password" value="{{ old('password') }}" required/>
+            <input type="password" placeholder="Nhập mật khẩu" name="password" value="{{ old('password') }}" required/>
         </div>
 
         <div class="text">
-            @error('email')
-            <li style="color: red; font-size: 17px; padding-bottom: 5px">Email bạn đăng kí đã tồn tại! Vui lòng chọn email khác!</li>
+            @error('username')
+            <li style="color: red; font-size: 17px; padding-bottom: 5px">Tên đăng nhập bạn đăng kí đã tồn tại! Hoặc yêu cầu tối thiểu 4 kí tự và tối đa 30 kí tự </li>
             @enderror
         </div>
 

@@ -90,7 +90,6 @@
         <li class="li1"><a href="{{URL::asset('/doctor/home')}}" id="a1"><i class="fa-solid fa-house"></i> <span id="span1">Dashboard</span></a></li>
         <li class="li1"><a href="{{URL::asset('/doctor/hoso')}}" id="a1"><i class="fa-solid fa-user-doctor"></i> <span id="span1">Hồ sơ cá nhân</span></a></li>
         <li class="li1"><a href="{{URL::asset('/doctor/lichhen')}}" id="a1"><i class="fa-solid fa-calendar"></i> <span id="span1">Lịch hẹn chưa khám</span></a></li>
-        <li class="li1"><a href="{{URL::asset('/doctor/lichhendangkham')}}" id="a1"><i class="fa-solid fa-calendar"></i> <span id="span1">Lịch hẹn đang khám</span></a></li>
         <li class="li1"><a href="{{URL::asset('/doctor/lichhendakham')}}" id="a1"><i class="fa-solid fa-calendar"></i> <span id="span1">Lịch hẹn đã khám</span></a></li>
     </ul>
 

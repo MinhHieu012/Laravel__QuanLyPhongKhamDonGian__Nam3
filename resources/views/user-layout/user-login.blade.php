@@ -9,7 +9,7 @@
 </head>
 <style>
     form .form-field:nth-child(1)::before {
-        background-image: url('{{URL::asset('image/email-icon.png')}}');
+        background-image: url('{{URL::asset('image/user-icon.png')}}');
         width: 20px;
         height: 20px;
         top: 15px;
@@ -31,7 +31,7 @@
 
         <!-- email -->
         <div class="form-field">
-            <input type="email" placeholder="Nhập email của bạn" name="email" required/>
+            <input type="text" placeholder="Nhập tên đăng nhập của bạn" name="username" required/>
         </div>
 
         <!-- password -->

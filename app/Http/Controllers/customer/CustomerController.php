@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\accounts;
 use App\Models\appointment_schedules;
-use App\Models\payment_status;
-use App\Models\health_consultation_status;
 use http\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +13,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\URL;
 
 class CustomerController extends Controller
 {
@@ -35,9 +34,9 @@ class CustomerController extends Controller
         $validated = $request->validated();
         if ($validated) {
             $accounts = new accounts();
-            // syntax: $tên_bảng_db -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
+            // syntax: $tên_biến -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
             $accounts -> name = $request -> name;
-            $accounts -> email = $request -> email;
+            $accounts -> username = $request -> username;
             $accounts -> password = bcrypt($request -> password);
             // set quyền cho tk đăng kí là tài khoản khách hàng
             $accounts -> isCustomer = "1";
@@ -55,10 +54,10 @@ class CustomerController extends Controller
     // Hàm xử lý đăng nhập (ko có giao diện)
     function login(Request $request)
     {
-        $email = $request->get('email');
+        $username = $request->get('username');
         $password = $request->get('password');
 
-        $result = Auth::attempt(['email' => $email, 'password' => $password]);
+        $result = Auth::attempt(['username' => $username, 'password' => $password]);
         if ($result == false) {
             return redirect()->back()->withErrors(['msg' => 'Tài khoản hoặc mật khẩu không đúng']);
         } else {
@@ -101,9 +100,7 @@ class CustomerController extends Controller
         $appointment_schedules->dates = $request->date;
         $appointment_schedules->times = $request->time;
         $appointment_schedules->prices = $request->price;
-        $appointment_schedules->accounts_id = $request->id=34;
-        $appointment_schedules->health_consultation_status_id = $request->not_consulted=1;
-        $appointment_schedules->payment_status_id = $request->unpay=1;
+        $appointment_schedules->accounts_id = $request->id=67;
         $appointment_schedules->save();
         return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
     }

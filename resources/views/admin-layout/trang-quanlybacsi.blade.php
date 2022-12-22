@@ -67,7 +67,7 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Email</th>
+                    <th>Tên đăng nhập</th>
                     <th>Mật khẩu</th>
                     <th>Họ tên</th>
                     <th>Số điện thoại</th>
@@ -79,31 +79,28 @@
                 </tr>
                 </thead>
                 <!-- thân bảng -->
-                @forelse($bacsi as $bacsi)
                 <tbody>
-                <tr>
-                    <td>{{ $bacsi->id }}</td>
-                    <td>{{ $bacsi->email }}</td>
-                    <td>.....</td>
-                    <td>{{ $bacsi->name }}</td>
-                    <td>{{ $bacsi->phones }}</td>
-                    <td>{{ date('d/m/Y', strtotime($bacsi->date_of_births))}}</td>
-                    <td>{{ $bacsi->genders }}</td>
-                    <td>{{ $bacsi->address }}</td>
-                    <td>{{ date('d/m/Y, H:i:s', strtotime($bacsi->created_at)) }}</td>
-                    <td>
-                        <button form="editForm" type="button" onclick="location.href='{{ route('doctor.edit', $bacsi->id) }}';" class="btn btn-warning";>Sửa</button>
-                        <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="btn btn-danger">Xóa</button>
-                    </td>
-                </tr>
-                @empty
+                @forelse($bacsi as $bacsi)
                     <tr>
-                        <td>Chưa có bác sĩ nào!</td>
+                        <td>{{ $bacsi->id }}</td>
+                        <td>{{ $bacsi->username }}</td>
+                        <td>.....</td>
+                        <td>{{ $bacsi->name }}</td>
+                        <td>{{ $bacsi->phones }}</td>
+                        <td>{{ date('d/m/Y', strtotime($bacsi->date_of_births))}}</td>
+                        <td>{{ $bacsi->genders }}</td>
+                        <td>{{ $bacsi->address }}</td>
+                        <td>{{ date('d/m/Y, H:i:s', strtotime($bacsi->created_at)) }}</td>
+                        <td>
+                            <button form="editForm" type="button" onclick="location.href='{{ route('doctor.edit', $bacsi->id) }}';" class="btn btn-warning";>Sửa</button>
+                            <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="btn btn-danger">Xóa</button>
+                            <form id="deleteForm" action="{{ route('doctor.delete', $bacsi->id)}} }}" method="GET"></form>
+                        </td>
                     </tr>
+                    @empty
                 @endforelse
                 </tbody>
             </table>
-            <form id="deleteForm" action="{{ route('doctor.delete', $bacsi->id)}} }}" method="GET"></form>
         </div>
     </div>
 @endsection
@@ -114,7 +111,24 @@
 
 <script>
     $(document).ready(function () {
-        $('#hosobacsi').DataTable();
+        $.fn.dataTableExt.sErrMode = 'throw';
+        $('#hosobacsi').DataTable({
+            language: {
+                search: "Tìm kiếm",
+                lengthMenu: "Hiển thị 1 trang _MENU_ cột",
+                info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
+                infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
+                zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
+                emptyTable: "Chưa có bác sĩ nào",
+                paginate: {
+                    first: "Trang đầu",
+                    previous: "Trang trước",
+                    next: "Trang sau",
+                    last: "Trang cuối"
+                },
+            },
+        });
+
     });
 </script>
 </html>

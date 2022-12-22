@@ -30,16 +30,16 @@
         <form method="POST" class="a2">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="{{$accounts->email}}" aria-describedby="emailHelp" required>
+                <input type="text" class="form-control" id="username" name="username" value="{{$accounts->username}}" aria-describedby="emailHelp" required>
                 <div class="text">
-                    @error('email')
-                    <li style="color: red; font-size: 17px; margin-top: 5px">Email đã tồn tại! Vui lòng chọn email khác!</li>
+                    @error('username')
+                    <li style="color: red; font-size: 17px; padding-bottom: 5px">Tên đăng nhập bạn đăng kí đã tồn tại! Hoặc yêu cầu tối thiểu 4 kí tự và tối đa 30 kí tự </li>
                     @enderror
                 </div>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
-                <input type="password" class="form-control" id="password" name="password" value="{{$accounts->password}}" required>
+                <input type="password" class="form-control" id="password" name="password" value="{{($accounts->password)}}" required>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Họ và tên</label>

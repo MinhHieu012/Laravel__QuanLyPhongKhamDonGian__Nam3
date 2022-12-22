@@ -36,11 +36,11 @@
 
         <form action="{{ URL::asset('admin/quanlybacsi/add') }}" class="a1" method="POST">
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Nhập email của bác sĩ" required>
+                <label for="exampleInputEmail1" class="form-label">Tên đăng nhập</label>
+                <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Nhập tên đăng nhập của bác sĩ" required>
                 <div class="text">
-                    @error('email')
-                    <li style="color: red; font-size: 17px; margin-top: 5px">Email đã tồn tại! Vui lòng chọn email khác!</li>
+                    @error('username')
+                    <li style="color: red; font-size: 17px; padding-bottom: 5px">Tên đăng nhập bạn đăng kí đã tồn tại! Hoặc yêu cầu tối thiểu 4 kí tự và tối đa 30 kí tự </li>
                     @enderror
                 </div>
             </div>

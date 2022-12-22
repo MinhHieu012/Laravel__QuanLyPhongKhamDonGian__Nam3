@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:accounts',
+            'username' => 'required|min:4|max:30|unique:accounts',
             'password' => [Password::min(10)->letters()->mixedCase()->symbols()],
         ];
     }
@@ -33,7 +33,7 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-          'email.required' => 'Email đã tồn tại!',
+          'username.required' => 'Email đã tồn tại!',
           'password' => 'Mật khẩu phải có 10 kí tự bao gồm ít nhất 1 chữ thường, chữ in hoa, số 0-9 và kí tự đặc biệt (@, !, ...)'
         ];
     }

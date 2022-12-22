@@ -121,7 +121,6 @@
         @endif
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Họ tên</th>
                 <th>Số điện thoại</th>
                 <th>Ngày hẹn</th>
@@ -135,7 +134,6 @@
         @forelse($datlich as $datlich)
         <tbody>
             <tr>
-                <td>{{ $datlich->id }}</td>
                 <td>{{ $datlich->names }}</td>
                 <td>{{ $datlich->phones }}</td>
                 <td>{{ date('d/m/Y', strtotime($datlich->dates)) }}</td>
@@ -143,18 +141,15 @@
                 <td>{{ $datlich->prices }}</td>
                 <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
                 <td>
-                    <button form="editForm" type="button" onclick="location.href='{{ route('datlich.edit', $datlich->id) }}';" class="btn btn-warning">Sửa lịch hẹn</button>
+                    {{--<button form="editForm" type="button" onclick="location.href='{{ route('datlich.edit', $datlich->id) }}';" class="btn btn-warning">Sửa lịch hẹn</button> --}}
                     <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn hủy lich hẹn?')" class="btn btn-danger">Hủy lịch hẹn</button>
+                    <form id="deleteForm" action="{{ route('lichhen.delete', $datlich->id)}} }}" method="GET"></form>
                 </td>
             </tr>
+            @empty
+            @endforelse
         </tbody>
-        @empty
-            <tr>
-                <td>Chưa có lịch hẹn</td>
-            </tr>
-        @endforelse
     </table>
-        <form id="deleteForm" action="{{ route('lichhen.delete', $datlich->id)}} }}" method="GET"></form>
     </div>
 @endsection
 </body>
@@ -166,9 +161,28 @@
 
 <script>
     $(document).ready(function () {
-        $('#lich_da_hen').DataTable();
+        $.fn.dataTableExt.sErrMode = 'throw';
+        $('#lich_da_hen').DataTable({
+            language: {
+                search: "Tìm kiếm",
+                lengthMenu: "Hiển thị 1 trang _MENU_ cột",
+                info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
+                infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
+                zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
+                emptyTable: "Chưa có lịch hẹn nào được đặt",
+                paginate: {
+                    first: "Trang đầu",
+                    previous: "Trang trước",
+                    next: "Trang sau",
+                    last: "Trang cuối"
+                },
+            },
+        });
+
     });
+
 </script>
+
 <!-- Messenger Plugin chat Code -->
 <div id="fb-root"></div>
 

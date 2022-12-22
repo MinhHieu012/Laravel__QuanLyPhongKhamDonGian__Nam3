@@ -88,16 +88,13 @@
                         <button type="button" class="btn btn-primary">Đã thanh toán</button>
                         <button form="editForm" type="button" onclick="location.href='{{ route('admin.editLichHen',$appointment_schedule->id) }}';" class="btn btn-warning";>Sửa</button>
                         <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="btn btn-danger">Xóa</button>
+                        <form id="deleteForm" action="{{ route('admin.deleteLichHen',$appointment_schedule->id) }}" method="GET"></form>
                     </td>
                 </tr>
                 @empty
-                    <tr>
-                        <td>Chưa có lịch hẹn</td>
-                    </tr>
                 @endforelse
                 </tbody>
             </table>
-            <form id="deleteForm" action="{{ route('admin.deleteLichHen',$appointment_schedule->id) }}" method="GET"></form>
         </div>
     </div>
 @endsection
@@ -108,7 +105,24 @@
 
 <script>
     $(document).ready(function () {
-        $('#lich-da-hen').DataTable();
+        $.fn.dataTableExt.sErrMode = 'throw';
+        $('#lich-da-hen').DataTable({
+            language: {
+                search: "Tìm kiếm",
+                lengthMenu: "Hiển thị 1 trang _MENU_ cột",
+                info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
+                infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
+                zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
+                emptyTable: "Chưa có lịch hẹn nào",
+                paginate: {
+                    first: "Trang đầu",
+                    previous: "Trang trước",
+                    next: "Trang sau",
+                    last: "Trang cuối"
+                },
+            },
+        });
+
     });
 </script>
 </html>

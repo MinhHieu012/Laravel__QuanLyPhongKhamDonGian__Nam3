@@ -39,51 +39,13 @@
         <h2 style="position: relative; right: -270px; top: 15px">Dashboard</h2>
         <br>
         <div>
-            <h3 style="position: relative; right: -270px; top: 35px">Thông tin cá nhân</h3>
-            <button type="button" style="position: relative; right: -270px; top: 40px; font-size: 18px" class="btn btn-primary">Thông tin cá nhân</button>
-            <p style="position: relative; right: -270px; top: 65px">Họ tên: {{Auth::user()->name}}</p>
-            <p style="position: relative; right: -270px; top: 65px">Số điện thoại: {{Auth::user()->phones}}</p>
-            <p style="position: relative; right: -270px; top: 65px">Ngày sinh: {{ date('d/m/Y', strtotime(Auth::user()->date_of_births))}}</p>
-            <p style="position: relative; right: -270px; top: 65px">Giới tính: {{Auth::user()->genders}}</p>
+            <h3 style="position: relative; right: -270px; top: 35px;">Thông tin cá nhân</h3>
+            <p style="position: relative; right: -270px; top: 45px; font-size: 18px">ID: {{Auth::user()->id}}</p>
+            <p style="position: relative; right: -270px; top: 45px; font-size: 18px">Họ tên: {{Auth::user()->name}}</p>
+            <p style="position: relative; right: -270px; top: 45px; font-size: 18px">Số điện thoại: {{Auth::user()->phones}}</p>
+            <p style="position: relative; right: -270px; top: 45px; font-size: 18px">Ngày sinh: {{ date('d/m/Y', strtotime(Auth::user()->date_of_births))}}</p>
+            <p style="position: relative; right: -270px; top: 45px; font-size: 18px">Giới tính: {{Auth::user()->genders}}</p>
             <p>Địa chỉ: {{Auth::user()->address}}</p>
-        </div>
-
-        <h3 style="position: relative; right: -270px; top: 35px">Lịch hẹn</h3>
-        <button type="button" style="position: relative; right: -270px; top: 40px; font-size: 18px" class="btn btn-primary">Lịch hẹn</button>
-
-        <div class="table1">
-            <table id="lich-hen-chua-kham" class="table table-bordered border-dark" style="width: 100%">
-                <!-- tiêu đề bảng -->
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Họ tên</th>
-                    <th>Số điện thoại</th>
-                    <th>Ngày hẹn</th>
-                    <th>Thời gian hẹn</th>
-                    <th>Gói giá</th>
-                    <th>Ngày đặt lịch</th>
-                </tr>
-                </thead>
-                <!-- thân bảng -->
-                <tbody>
-                @forelse($datlich as $datlich)
-                    <tr>
-                        <td>{{ $datlich->id }}</td>
-                        <td>{{ $datlich->names }}</td>
-                        <td>{{ $datlich->phones }}</td>
-                        <td>{{ date('d/m/Y', strtotime($datlich->dates)) }}</td>
-                        <td>{{ $datlich->times }}</td>
-                        <td>{{ $datlich->prices }}</td>
-                        <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
-                    </tr>
-                </tbody>
-                @empty
-                    <tr>
-                        <td>Chưa có lịch hẹn</td>
-                    </tr>
-                @endforelse
-            </table>
         </div>
     </div>
 @endsection
