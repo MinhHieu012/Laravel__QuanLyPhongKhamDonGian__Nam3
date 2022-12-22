@@ -56,13 +56,13 @@
             <br>
             <form action="{{ URL::asset('/datlich') }}" method="POST">
             <label>Họ và tên</label>
-            <input type="text" id="name" name="name" placeholder="Nhập họ và tên">
+            <input type="text" id="name" name="name" placeholder="Nhập họ và tên" required>
             <br>
             <label>Số điện thoại</label>
-            <input type="number" id="phone" name="phone" placeholder="Nhập số điện thoại">
+            <input type="number" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
             <br>
             <label>Ngày hẹn</label>
-            <input type="date" id="date" name="date">
+            <input type="date" id="date" name="date" required>
             <br>
                 <label for="cars">Thời gian hẹn</label>
                 <select style="position: relative; top:20px;" name="time" id="time">
@@ -89,7 +89,8 @@
             <br> <br>
             <span style="position: relative; right: 17px; text-decoration: none;">Xem thông tin chuyển khoản tại <a href="{{URL::asset('/lienhe')}}">trang Liên Hệ</a> nếu thanh toán online</span>
             <br> <br>
-            <button class="btn-add" onclick="return confirm('Bạn hãy chắc chắn thông tin dưới đây là chính xác?')" type="submit">Thêm</button>
+                <button class="btn-add" onclick="return confirm('Bạn hãy chắc chắn thông tin dưới đây là chính xác?')" type="submit">Thêm</button>
+                {{--<button class="btn-add" id="confirm" type="submit">Thêm</button>--}}
             </form>
             <img class="img" src="{{URL::asset('image/banner2.jpg')}}" style="position: relative; top: -470px;" alt="banner">
         </div>
