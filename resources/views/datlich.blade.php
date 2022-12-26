@@ -97,9 +97,8 @@
     </div>
 
     <!-- Bảng lịch hẹn đã đặt -->
-    <h2 style="font-size: 45px">Lịch đã hẹn</h2> <!-- <br>
-    <h2 style="font-size: 18px; color: red">Lịch hẹn chỉ được chỉnh sửa và hủy trong 15 phút kể từ khi đặt lịch!</h2>
-    <h2 style="font-size: 18px; color: red">Cần hỗ trợ vui lòng liên hệ qua FB góc dưới phải màn hình</h2> -->
+    <h2 style="font-size: 45px">Lịch đã hẹn</h2>
+
     <div class="table1">
     <table id="lich_da_hen" class="table table-bordered border-dark" style="width: 100%">
         <!-- tiêu đề bảng -->
@@ -174,6 +173,7 @@
         @endif
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Họ tên</th>
                 <th>Số điện thoại</th>
                 <th>Ngày hẹn</th>
@@ -184,9 +184,10 @@
             </tr>
         </thead>
         <!-- thân bảng -->
-        @forelse($datlich as $datlich)
+        @forelse($datlichs as $datlich)
         <tbody>
             <tr>
+                <td>{{ $datlich->id }}</td>
                 <td>{{ $datlich->names }}</td>
                 <td>{{ $datlich->phones }}</td>
                 <td>{{ date('d/m/Y', strtotime($datlich->dates)) }}</td>
@@ -194,10 +195,12 @@
                 <td>{{ $datlich->prices }}</td>
                 <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
                 <td>
-                    <button form="editForm" type="submit" class="btn btn-warning">Sửa lịch hẹn</button>
-                    <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn hủy lich hẹn?')" class="btn btn-danger">Hủy lịch hẹn</button>
-                    <form id="editForm" action="{{ route('datlich.edit', $datlich->id) }}" method="GET"></form>
-                    <form id="deleteForm" action="{{ route('lichhen.delete', $datlich->id)}} }}" method="GET"></form>
+                    {{--<button form="editForm" type="submit" class="btn btn-warning">Sửa lịch hẹn</button>--}}
+                    {{--<form id="editForm" action="{{ route('datlich.edit', $datlich->id) }}" method="GET"></form>--}}
+                    <form action="{{ url('/datlich/delete/'. $datlich->id)}}" method="POST">
+                        {{--<input name="idLichHen" hidden value="{{ $datlich->id }}"> --}}
+                        <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn hủy lich hẹn (Nếu lịch hẹn đã đặt quá 5p ko thể hủy! Hãy liên hệ qua FB)?')" class="btn btn-danger">Hủy lịch hẹn</button>
+                    </form>
                 </td>
             </tr>
             @empty
@@ -208,7 +211,6 @@
 @endsection
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 <!-- DataTable -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
@@ -275,7 +277,6 @@
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
 </html>
 
 

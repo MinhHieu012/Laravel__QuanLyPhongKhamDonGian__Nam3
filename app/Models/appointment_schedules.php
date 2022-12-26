@@ -17,12 +17,4 @@ class appointment_schedules extends Authenticatable
     function accounts() {
         $this->belongsTo(accounts::class, 'accounts_id');
     }
-
-    function health_consultation_status() {
-        $this->belongsTo(health_consultation_status::class, 'health_consultation_status_id');
-    }
-
-    function payment_status() {
-        $this->belongsTo(payment_status::class, 'payment_status_id');
-    }
 }

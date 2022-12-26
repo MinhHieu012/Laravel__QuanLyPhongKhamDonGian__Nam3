@@ -51,7 +51,7 @@ Route::post('/datlich/edit/{id}', [CustomerController::class, 'updateLich'])
     ->name('datlich.update');
 
 // (Xóa) Hủy lịch hẹn
-Route::get('/datlich/delete/{id}', [CustomerController::class, 'deleteLich'])
+Route::post('/datlich/delete/{id}', [CustomerController::class, 'deleteLich'])
        ->name('lichhen.delete');
 
 // trang liên hệ
