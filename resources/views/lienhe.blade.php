@@ -46,6 +46,20 @@
 <div id="fb-customer-chat" class="fb-customerchat">
 </div>
 
+@if (session('checkLogin'))
+    <script>
+        window.onload = function() {
+            // Display the message box
+            Swal.fire({
+                text: "{{ session('checkLogin') }}",
+                textColor: 'black',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            })
+        }
+    </script>
+@endif
+
 <script>
     var chatbox = document.getElementById('fb-customer-chat');
     chatbox.setAttribute("page_id", "113797844541227");
@@ -69,6 +83,7 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </html>
 
 

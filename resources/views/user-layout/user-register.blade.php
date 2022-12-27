@@ -176,6 +176,20 @@
         </p>
         @enderror
 
+        @if (session('checkLogin'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('checkLogin') }}",
+                        textColor: 'black',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
         <!-- Login button -->
         <div class="form-field">
             <button class="btn" type="submit" name="action">Đăng kí</button>

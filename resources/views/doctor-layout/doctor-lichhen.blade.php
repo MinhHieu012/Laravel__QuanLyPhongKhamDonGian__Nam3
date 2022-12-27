@@ -70,7 +70,7 @@
                     <td>{{ $datlich->prices }}</td>
                     <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary">Chưa khám</button>
+                        <button type="button" class="btn btn-primary">Đã khám</button>
                     </td>
                 </tr>
                 </tbody>

@@ -41,32 +41,15 @@
 
         <div class="table1">
             <table id="lich_da_thanh_toan" class="table table-bordered border-dark" style="width: 100%">
-                <!-- tiêu đề bảng -->
+
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Họ tên</th>
-                    <th>Số điện thoại</th>
-                    <th>Ngày hẹn</th>
-                    <th>Thời gian hẹn</th>
-                    <th>Gói giá</th>
-                    <th>Ngày đặt lịch</th>
+
                 </tr>
                 </thead>
                 <!-- thân bảng -->
                 <tbody>
-                    @forelse($lich_da_thanh_toan as $lich_da_thanh_toan)
-                    <tr>
-                        <td>{{ $lich_da_thanh_toan->id }}</td>
-                        <td>{{ $lich_da_thanh_toan->names }}</td>
-                        <td>{{ $lich_da_thanh_toan->phones }}</td>
-                        <td>{{ date('d/m/Y', strtotime($lich_da_thanh_toan->dates)) }}</td>
-                        <td>{{ $lich_da_thanh_toan->times }}</td>
-                        <td>{{ $lich_da_thanh_toan->prices }}</td>
-                        <td>{{ date('d/m/Y, H:i:s', strtotime($lich_da_thanh_toan->created_at)) }}</td>
-                    </tr>
-                    @empty
-                    @endforelse
+
                 </tbody>
             </table>
         </div>

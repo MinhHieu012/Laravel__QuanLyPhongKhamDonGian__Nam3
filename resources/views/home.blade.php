@@ -14,6 +14,19 @@
 
 @extends('menu')
 @section('content')
+    @if (session('checkLogin'))
+        <script>
+            window.onload = function() {
+                // Display the message box
+                Swal.fire({
+                    text: "{{ session('checkLogin') }}",
+                    textColor: 'black',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                })
+            }
+        </script>
+    @endif
 <!-- banner -->
 <div class="banner">
     <img src="{{ URL::asset('image/banner.jpg') }}" width="100%" alt="Banner">
@@ -153,4 +166,5 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </html>

@@ -10,13 +10,16 @@ use http\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
+
 
 class CustomerController extends Controller
 {
@@ -62,7 +65,7 @@ class CustomerController extends Controller
 
         $result = Auth::attempt(['username' => $username, 'password' => $password]);
         if ($result == false) {
-            return redirect()->back()->withErrors(['msg' => 'Tài khoản hoặc mật khẩu không đúng']);
+            return redirect()->back()->with(['error' => 'Tài khoản hoặc mật khẩu không đúng']);
         } else {
             $user = Auth::user();
             if ($user -> isAdmin == 1) {
@@ -90,11 +93,14 @@ class CustomerController extends Controller
 
     // GET: http://localhost/Project2Final/public/datlich
     function viewDatLich() {
-        $datlichs = appointment_schedules::all();
-        return view('/datlich', ['datlichs' => $datlichs]);
+        if (Auth::check()) {
+            $datlichs = appointment_schedules::where('accounts_id', Auth::id())->get();
+            return view('/datlich', ['datlichs' => $datlichs]);
+        } else {
+            return redirect()->back()->with('checkLogin', 'Vui lòng đăng nhập để đặt lịch!');
+        }
     }
 
-    // GET: http://localhost/Project2Final/public/datlich
     // Xử lý việc đặt lịch của khách hàng
     function datlich(Request $request) {
 
@@ -107,22 +113,25 @@ class CustomerController extends Controller
             return redirect()->back()->with('errorDatLich', 'Thời gian bạn đặt lịch đã bị trùng! Vui lòng chọn ngày hoặc mốc thời gian khác');
         }
 
-        $appointment_schedules = new Appointment_schedules;
-        $appointment_schedules->names = $request->name;
-        $appointment_schedules->phones = $request->phone;
-        $appointment_schedules->dates = $request->date;
-        $appointment_schedules->times = $request->time;
-        $appointment_schedules->prices = $request->price;
-        $appointment_schedules->accounts_id = $request->id=67;
-        $appointment_schedules->save();
-        return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
+        if (Auth::check()) {
+            $appointment_schedules = new Appointment_schedules;
+            $appointment_schedules->accounts_id = Auth::id();
+            $appointment_schedules->names = $request->name;
+            $appointment_schedules->phones = $request->phone;
+            $appointment_schedules->dates = $request->date;
+            $appointment_schedules->times = $request->time;
+            $appointment_schedules->prices = $request->price;
+            $appointment_schedules->payment_status = $request->payment_status=1;
+            $appointment_schedules->appointment_status = $request->appointment_status=1;
+            $appointment_schedules->save();
+            return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
+        }
     }
 
     // GET: http://localhost/Project2Final/lichhen/edit/{id}
     // Trang giao diện lịch hẹn
     function editLich(Request $request, $id)
     {
-        /*
         // Get the current time
         $currentTime = Carbon::now();
 
@@ -134,9 +143,8 @@ class CustomerController extends Controller
             // Elapsed time is greater than 5 minutes, display an error message
             return redirect()->back()->with('form_expired', 'Đã quá 5 phút không thể xóa hay chỉnh sửa lịch hẹn! Liên hệ qua FB để được hỗ trợ');
         }
-        */
 
-        $datlich = appointment_schedules::where('id', '=', $id)->first();
+        $datlich = appointment_schedules::where('id', $id)->first();
         return view('/datlich-edit', compact('datlich'));
     }
 

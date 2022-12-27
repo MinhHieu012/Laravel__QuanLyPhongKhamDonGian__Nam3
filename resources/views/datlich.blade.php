@@ -22,9 +22,10 @@
         .table1 {
             position: relative;
             top: 100px;
-            width: 1300px;
+            width: 1250px;
             margin-left: auto;
             margin-right: auto;
+            color: black;
         }
 
         td, th {
@@ -54,7 +55,8 @@
         <div class="form-datlich">
             <span class="title"><u>Thông tin đặt lịch</u></span>
             <br>
-            <form action="{{ URL::asset('/datlich') }}" method="POST">
+            <form action="{{ URL::asset('/datlich') }}" id="myForm" method="POST">
+            <input type="hidden" id="id" name="unique_id" value="{{ uniqid() }}">
             <label>Họ và tên</label>
             <input type="text" id="name" name="name" placeholder="Nhập họ và tên" required>
             <br>
@@ -89,8 +91,8 @@
             <br> <br>
             <span style="position: relative; right: 17px; text-decoration: none;">Xem thông tin chuyển khoản tại <a href="{{URL::asset('/lienhe')}}">trang Liên Hệ</a> nếu thanh toán online</span>
             <br> <br>
-                <button class="btn-add" onclick="return confirm('Bạn hãy chắc chắn thông tin dưới đây là chính xác?')" type="submit">Thêm</button>
-                {{--<button class="btn-add" id="confirm" type="submit">Thêm</button>--}}
+                {{--<button class="btn-add" id="addConfirm" onclick="return confirm('Bạn hãy chắc chắn thông tin dưới đây là chính xác?')" type="submit">Thêm</button>--}}
+                <button class="btn-add" id="addConfirm" onclick="confirm('Bạn hãy chắc chắn thông tin dưới đây là chính xác?')" type="submit">Đặt lịch</button>
             </form>
             <img class="img" src="{{URL::asset('image/banner2.jpg')}}" style="position: relative; top: -470px;" alt="banner">
         </div>
@@ -171,15 +173,29 @@
                 }
             </script>
         @endif
+
+        @if (session('checkLogin'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('checkLogin') }}",
+                        textColor: 'black',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Họ tên</th>
                 <th>Số điện thoại</th>
                 <th>Ngày hẹn</th>
                 <th>Thời gian hẹn</th>
-                <th>Gói giá</th>
                 <th>Ngày giờ đặt lịch</th>
+                <th>Gói giá</th>
+                <th>Thao tác</th>
                 <th>Thao tác</th>
             </tr>
         </thead>
@@ -187,24 +203,25 @@
         @forelse($datlichs as $datlich)
         <tbody>
             <tr>
-                <td>{{ $datlich->id }}</td>
                 <td>{{ $datlich->names }}</td>
                 <td>{{ $datlich->phones }}</td>
                 <td>{{ date('d/m/Y', strtotime($datlich->dates)) }}</td>
                 <td>{{ $datlich->times }}</td>
-                <td>{{ $datlich->prices }}</td>
                 <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
+                <td>{{ $datlich->prices }}</td>
                 <td>
-                    {{--<button form="editForm" type="submit" class="btn btn-warning">Sửa lịch hẹn</button>--}}
-                    {{--<form id="editForm" action="{{ route('datlich.edit', $datlich->id) }}" method="GET"></form>--}}
+                    <form action="{{ url('/datlich/edit/' . $datlich->id)}}" method="GET">
+                        <button type="submit" class="btn btn-warning">Sửa lịch hẹn</button>
+                    </form>
+                </td>
+                <td>
                     <form action="{{ url('/datlich/delete/'. $datlich->id)}}" method="POST">
-                        {{--<input name="idLichHen" hidden value="{{ $datlich->id }}"> --}}
                         <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn hủy lich hẹn (Nếu lịch hẹn đã đặt quá 5p ko thể hủy! Hãy liên hệ qua FB)?')" class="btn btn-danger">Hủy lịch hẹn</button>
                     </form>
                 </td>
             </tr>
-            @empty
-            @endforelse
+        @empty
+        @endforelse
         </tbody>
     </table>
     </div>

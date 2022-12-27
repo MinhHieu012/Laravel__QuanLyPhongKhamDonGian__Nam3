@@ -49,16 +49,53 @@
         </div>
     </form>
 
-    @if($errors->any())
+    {{--@if($errors->any())
         <h5 style="color: red; font-size: 17px; text-align: center">{{$errors->first()}}</h5>
+    @endif--}}
+
+    @if (session('error'))
+        <script>
+            window.onload = function() {
+                // Display the message box
+                Swal.fire({
+                    text: "{{ session('error') }}",
+                    textColor: 'black',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                })
+            }
+        </script>
     @endif
 
-    @if(session()->has('success'))
-        <div class="alert alert-success" style="color: #74D15D; font-size: 17px; text-align: center">
-            {{ session()->get('success') }}
-        </div>
+    @if (session('success'))
+        <script>
+            window.onload = function() {
+                // Display the message box
+                Swal.fire({
+                    text: "{{ session('success') }}",
+                    textColor: 'black',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                })
+            }
+        </script>
+    @endif
+
+    @if (session('checkLogin'))
+        <script>
+            window.onload = function() {
+                // Display the message box
+                Swal.fire({
+                    text: "{{ session('checkLogin') }}",
+                    textColor: 'black',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                })
+            }
+        </script>
     @endif
 
 </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </html>
