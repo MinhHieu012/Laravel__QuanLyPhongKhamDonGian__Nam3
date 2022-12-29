@@ -60,6 +60,11 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
+                            <form action="{{URL::asset('/user/changepassword')}}" method="GET">
+                                <button class="dropdown-item" type="submit">Đổi mật khẩu</button>
+                            </form>
+                        </li>
+                        <li>
                             <form action="{{URL::asset('/logout')}}" method="POST">
                                 <button class="dropdown-item" type="submit">Đăng xuất</button>
                             </form>

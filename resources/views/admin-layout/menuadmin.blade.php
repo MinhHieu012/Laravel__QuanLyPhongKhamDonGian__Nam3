@@ -73,6 +73,11 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
+                    <form class="form1" action="{{URL::asset('/admin/changepassword')}}" method="GET">
+                        <button class="dropdown-item" type="submit">Đổi mật khẩu</button>
+                    </form>
+                </li>
+                <li>
                     <form class="form1" action="{{URL::asset('/logout')}}" method="POST">
                         <button class="dropdown-item" type="submit">Đăng xuất</button>
                     </form>
@@ -85,6 +90,7 @@
 <!-- Menu dọc -->
 <ul class="ul1">
     <li class="li1"><a href="{{URL::asset('/admin/home')}}" id="a1"><i class="fa-solid fa-house"></i> <span id="span1">Dashboard</span></a></li>
+    <li class="li1"><a href="{{URL::asset('/admin/quanlykhachhang')}}" id="a1"><i class="fa-solid fa-user-doctor"></i> <span id="span1">Quản lý khách hàng</span></a></li>
     <li class="li1"><a href="{{URL::asset('/admin/quanlybacsi')}}" id="a1"><i class="fa-solid fa-user-doctor"></i> <span id="span1">Quản lý bác sĩ</span></a></li>
     <li class="li1"><a href="{{URL::asset('/admin/quanlylichhen')}}" id="a1"><i class="fa-solid fa-calendar"></i> <span id="span1">Quản lý lịch hẹn</span></a></li>
     <li class="li1"><a href="{{URL::asset('/admin/lichhendathanhtoan')}}" id="a1"><i class="fa-solid fa-calendar"></i> <span id="span1">Lịch hẹn đã thanh toán</span></a></li>

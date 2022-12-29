@@ -63,6 +63,12 @@
         height: 20px;
     }
 
+    form .form-field:nth-child(4)::before {
+        background-image: url('{{URL::asset('image/lock-icon.png')}}');
+        width: 20px;
+        height: 20px;
+    }
+
     form .form-field {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -158,12 +164,18 @@
 
         <!-- password -->
         <div class="form-field">
-            <input type="password" placeholder="Nhập mật khẩu" name="password" value="{{ old('password') }}" required/>
+            <input type="password" placeholder="Nhập mật khẩu" name="password" required/>
+        </div>
+
+        <!-- confirm password -->
+        <div class="form-field">
+            <input type="password" placeholder="Nhập xác nhận mật khẩu" id="confirm_password" name="confirm_password" required/>
         </div>
 
         <div class="text">
             @error('username')
-            <li style="color: red; font-size: 17px; padding-bottom: 5px">Tên đăng nhập bạn đăng kí đã tồn tại! Hoặc yêu cầu tối thiểu 4 kí tự và tối đa 30 kí tự </li>
+            <li style="color: red; font-size: 17px; padding-bottom: 5px">Tên đăng nhập bạn đăng kí đã tồn tại!</li>
+            <li style="color: red; font-size: 17px; padding-bottom: 5px">Hoặc yêu cầu tối thiểu 4 kí tự và tối đa 30 kí tự!</li>
             @enderror
         </div>
 
@@ -174,6 +186,10 @@
             <li style="color: red; font-size: 17px;padding-bottom: 5px">Số 0-9</li>
             <li style="color: red; font-size: 17px;padding-bottom: 5px">Kí tự đặc biệt (@, !, ...)</li>
         </p>
+        @enderror
+
+        @error('confirm_password')
+        <p style="color: red; font-size: 17px; margin-top: 10px; font-weight: 500">Mật khẩu xác nhận phải trùng khớp với mật khẩu ở trên!</p>
         @enderror
 
         @if (session('checkLogin'))

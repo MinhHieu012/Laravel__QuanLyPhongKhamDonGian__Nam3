@@ -3,8 +3,14 @@
 namespace App\Http\Controllers\doctor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Models\accounts;
 use App\Models\appointment_schedules;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class DoctorController extends Controller
 {
@@ -21,7 +27,26 @@ class DoctorController extends Controller
         return view('doctor-layout/doctor-home', ['datlich' => $datlich]);
     }
 
-    // GET: http://localhost/Project2Final/doctor/hoso
+    function viewDoiMatKhau() {
+        return view('doctor-layout/doimatkhau');
+    }
+
+    function DoiMatKhau(Request $request)
+    {
+        $this->validate($request, [
+            'password' => ['required', Password::min(10)->letters()->mixedCase()->symbols()],
+            'confirm_password' => ['required', 'same:password'],
+
+            ['password.required' => 'Mật khẩu phải có 10 kí tự bao gồm ít nhất: 1 chữ thường, 1 chữ in hoa, Số 0-9, Kí tự đặc biệt (@, !, ...)',
+             'confirm_password.required' => 'Mật khẩu xác nhận không trùng khớp']
+        ]);
+
+        accounts::whereId(auth()->user()->id)->update([
+            'password' => bcrypt($request->password)
+        ]);
+        return redirect('/doctor/changepassword')->with("success", "Mật khẩu đã được đổi thành công");
+    }
+
     // Trang hồ sơ thông tin bác sĩ
     function viewHoSo() {
         return view('doctor-layout/doctor-hoso');

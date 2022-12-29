@@ -32,6 +32,12 @@ Route::post('/login', [CustomerController::class, 'login']);
 // trang xử lý logout (ko có giao diện)
 Route::post('/logout', [CustomerController::class, 'logout']);
 
+// trang đổi mật khẩu
+Route::get('/user/changepassword', [CustomerController::class, 'viewDoiMatKhau']);
+
+// Xử lý đổi mật khẩu(ko giao diện)
+Route::post('/user/changepassword', [CustomerController::class, 'DoiMatKhau']);
+
 // trang chủ home
 Route::get('/', [CustomerController::class, 'viewHome']);
 
@@ -63,6 +69,22 @@ Route::get('/lienhe', [CustomerController::class, 'viewLienHe']);
 //---------------------------AdminController-----------------------------
 // trang home admin
 Route::get('/admin/home', [AdminController::class, 'viewHome']);
+
+// trang đổi mật khẩu
+Route::get('/admin/changepassword', [AdminController::class, 'viewDoiMatKhau']);
+
+// Xử lý đổi mật khẩu(ko giao diện)
+Route::post('/admin/changepassword', [AdminController::class, 'DoiMatKhau']);
+
+// trang quản lý tài khoản khách hàng
+Route::get('/admin/quanlykhachhang', [AdminController::class, 'viewQuanLyKhachHang']);
+
+// Xóa tài khoản khách
+Route::get('/admin/quanlykhachhang/delete/{id}', [AdminController::class, 'deleteKhach']);
+
+// admin - trang quản lý bác sĩ (sửa bác sĩ)
+Route::get('/admin/quanlykhachhang/edit/{id}', [AdminController::class, 'editKhach']);
+Route::post('/admin/quanlykhachhang/edit/{id}', [AdminController::class, 'updateKhach']);
 
 // admin - trang quản lý bác sĩ
 Route::get('/admin/quanlybacsi', [AdminController::class, 'viewQuanLyBacsi']);
@@ -97,6 +119,12 @@ Route::get('/admin/lichhendathanhtoan', [AdminController::class, 'viewLichHenDaT
 //---------------------------DoctorController-----------------------------
 // trang home doctor
 Route::get('/doctor/home', [DoctorController::class, 'viewHome']);
+
+// trang đổi mật khẩu doctor
+Route::get('/doctor/changepassword', [DoctorController::class, 'viewDoiMatKhau']);
+
+// Xử lý đổi mật khẩu doctor (ko giao diện)
+Route::post('/doctor/changepassword', [DoctorController::class, 'DoiMatKhau']);
 
 // trang hồ sơ thông tin bác sĩ
 Route::get('/doctor/hoso', [DoctorController::class, 'viewHoSo']);

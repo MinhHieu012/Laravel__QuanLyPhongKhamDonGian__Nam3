@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Password;
 
 class AdminController extends Controller
 {
@@ -27,6 +28,55 @@ class AdminController extends Controller
         function viewHome()
         {
             return view('admin-layout/admin-home');
+        }
+
+        function viewDoiMatKhau() {
+            return view('admin-layout/doimatkhau');
+        }
+
+        function DoiMatKhau(Request $request)
+        {
+            $this->validate($request, [
+                'password' => ['required', Password::min(10)->letters()->mixedCase()->symbols()],
+                'confirm_password' => ['required', 'same:password'],
+            ]);
+
+            accounts::whereId(auth()->user()->id)->update([
+            'password' => bcrypt($request->password)
+            ]);
+            return redirect('/admin/changepassword')->with("success", "Mật khẩu đã được đổi thành công");
+        }
+
+        function viewQuanLyKhachHang()
+        {
+            $accounts = accounts::where('isCustomer', '=', '1')->get();
+            return view('admin-layout/quanlykhachhang', ['accounts' => $accounts]);
+        }
+
+        function editKhach($id)
+        {
+            $accounts = accounts::where('id', '=', $id)->first();
+            return view('admin-layout/add-taikhoankhach', compact('accounts'));
+        }
+
+        function updateKhach(RegisterRequest $request, $id)
+        {
+            $validated = $request->validated();
+            if ($validated) {
+                $accounts = accounts::findOrFail($id);
+                $accounts->name = $request->name;
+                $accounts->username = $request->username;
+                $accounts->password = bcrypt($request->password);
+                $accounts->save();
+                return redirect('admin/quanlykhachhang/')->with('editDone', 'Cập nhật thông tin tài khoản khách hang thành công!');
+            }
+        }
+
+        function deleteKhach($id) {
+            // Tìm đến đối tượng muốn xóa
+            $accounts = accounts::findOrFail($id);
+            $accounts->delete();
+            return redirect('admin/quanlykhachhang/')->with('deleteDone', 'Xóa tài khoản thành công!');
         }
 
         // GET: http://localhost/Project2Final/admin/quanlybacsi
@@ -89,7 +139,7 @@ class AdminController extends Controller
             }
         }
 
-        // GET: http://localhost/Project2Final/admin/quanlybacsi/delete/{id}
+        // POST: http://localhost/Project2Final/admin/quanlybacsi/delete/{id}
         // Trang giao diện xóa bác sĩ
         function deletedoctor($id) {
             // Tìm đến đối tượng muốn xóa
@@ -142,11 +192,6 @@ class AdminController extends Controller
         function viewLichHenDaThanhToan()
         {
             $lich_da_thanh_toan = appointment_schedules::all();
-
-            /*$lich_da_thanh_toan = DB::table('appointment_schedules')
-                ->where('payment_status_id')
-                ->find(2);*/
-
             return view('admin-layout/lichhendathanhtoan', ['lich_da_thanh_toan' => $lich_da_thanh_toan]);
 
         }

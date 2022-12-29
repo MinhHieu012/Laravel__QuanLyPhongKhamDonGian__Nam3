@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 use Symfony\Component\Console\Input\Input;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\URL;
@@ -36,8 +37,8 @@ class CustomerController extends Controller
     }
 
     // POST: http://localhost/Project2Final/public/register
-    function register(RegisterRequest $request) {
-        $validated = $request->validated();
+    function register(Request $request) {
+        /*$validated = $request->validated();
         if ($validated) {
             $accounts = new accounts();
             // syntax: $tên_biến -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
@@ -48,7 +49,23 @@ class CustomerController extends Controller
             $accounts -> isCustomer = "1";
             $accounts->save();
             return redirect('/login')->with('success', 'Bạn đã đăng kí thành công!');
-        }
+        }*/
+
+        $this->validate($request, [
+            'username' => 'required|min:4|max:30|unique:accounts',
+            'password' => ['required', Password::min(10)->letters()->mixedCase()->symbols()],
+            'confirm_password' => ['required', 'same:password'],
+        ]);
+
+        $accounts = new accounts();
+        // syntax: $tên_biến -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
+        $accounts -> name = $request -> name;
+        $accounts -> username = $request -> username;
+        $accounts -> password = bcrypt($request -> password);
+        // set quyền cho tk đăng kí là tài khoản khách hàng
+        $accounts -> isCustomer = "1";
+        $accounts->save();
+        return redirect('/login')->with('success', 'Bạn đã đăng kí thành công!');
     }
 
     // GET: http://localhost/Project2Final/public/login
@@ -69,13 +86,13 @@ class CustomerController extends Controller
         } else {
             $user = Auth::user();
             if ($user -> isAdmin == 1) {
-                return redirect('/admin/home');
+                return redirect('/admin/home')->with('success', 'Đăng nhập thành công!');
             }
             if ($user -> isDoctor == 1) {
-                return redirect('/doctor/home');
+                return redirect('/doctor/home')->with('success', 'Đăng nhập thành công!');
             }
             elseif ($user -> isCustomer == 1) {
-                return redirect('/');
+                return redirect('/')->with('success', 'Đăng nhập thành công!');
             }
         }
     }
@@ -83,7 +100,24 @@ class CustomerController extends Controller
     // POST: http://localhost/Project2Final/public/logout
     function logout() {
         Auth::logout();
-        return redirect('/');
+        return redirect('/')->with('successLogout', 'Đăng xuất thành công!');
+    }
+
+    function viewDoiMatKhau() {
+        return view('user-layout/doimatkhau');
+    }
+
+    function DoiMatKhau(Request $request)
+    {
+        $this->validate($request, [
+            'password' => ['required', Password::min(10)->letters()->mixedCase()->symbols()],
+            'confirm_password' => ['required', 'same:password'],
+        ]);
+
+        accounts::whereId(auth()->user()->id)->update([
+            'password' => bcrypt($request->password)
+        ]);
+        return redirect('/user/changepassword')->with("success", "Mật khẩu đã được đổi thành công");
     }
 
     // GET: http://localhost/Project2Final/public/introduce

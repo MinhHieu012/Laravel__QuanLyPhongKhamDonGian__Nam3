@@ -132,6 +132,33 @@
         </div>
     </div>
 </div>
+    @if (session('success'))
+        <script>
+            window.onload = function() {
+                // Display the message box
+                Swal.fire({
+                    text: "{{ session('success') }}",
+                    textColor: 'black',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                })
+            }
+        </script>
+    @endif
+
+    @if (session('successLogout'))
+        <script>
+            window.onload = function() {
+                // Display the message box
+                Swal.fire({
+                    text: "{{ session('successLogout') }}",
+                    textColor: 'black',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                })
+            }
+        </script>
+    @endif
 @endsection
 
 </body>
