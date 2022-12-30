@@ -70,7 +70,10 @@
                     <td>{{ $datlich->prices }}</td>
                     <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary">Đã khám</button>
+                        <form action="{{ url('/doctor/lichhen/dangkham/'. $datlich->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" onclick="return confirm('Lịch hẹn này đang khám?')" class="btn btn-primary">Đang khám</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

@@ -40,7 +40,7 @@
 @extends('doctor-layout/menu-doctor')
 @section('content2')
     <div>
-        <h2 style="position: relative; right: -270px; top: 15px">Lịch hẹn</h2>
+        <h2 style="position: relative; right: -270px; top: 15px">Lịch hẹn đang khám</h2>
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary">Lịch hẹn đã khám</button>
         @if (session('success'))
             <script>
@@ -56,7 +56,7 @@
             </script>
         @endif
         <div class="table1">
-            <table id="lich-hen-da-kham" class="table table-bordered border-dark" style="width: 100%">
+            <table id="lich-hen-dang-kham" class="table table-bordered border-dark" style="width: 100%">
                 <!-- tiêu đề bảng -->
                 <thead>
                 <tr>
@@ -67,7 +67,8 @@
                     <th>Thời gian hẹn</th>
                     <th>Gói giá</th>
                     <th>Ngày đặt lịch</th>
-                    <th>Ngày khám xong</th>
+                    <th>Ngày khám</th>
+                    <th>Thao tác</th>
                 </tr>
                 </thead>
                 <!-- thân bảng -->
@@ -82,6 +83,12 @@
                         <td>{{ $datlich->prices }}</td>
                         <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
                         <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->updated_at)) }}</td>
+                        <td>
+                            <form action="{{ url('/doctor/lichhen/dakham/'. $datlich->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" onclick="return confirm('Lịch hẹn này đã khám xong?')" class="btn btn-primary">Đã khám</button>
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
                 @empty
@@ -99,14 +106,14 @@
 <script>
     $(document).ready(function () {
         $.fn.dataTableExt.sErrMode = 'throw';
-        $('#lich-hen-da-kham').DataTable({
+        $('#lich-hen-dang-kham').DataTable({
             language: {
                 search: "Tìm kiếm",
                 lengthMenu: "Hiển thị 1 trang _MENU_ cột",
                 info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
                 infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
                 zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
-                emptyTable: "Chưa có lịch hẹn nào đã khám xong",
+                emptyTable: "Chưa có lịch hẹn nào đang khám",
                 paginate: {
                     first: "Trang đầu",
                     previous: "Trang trước",

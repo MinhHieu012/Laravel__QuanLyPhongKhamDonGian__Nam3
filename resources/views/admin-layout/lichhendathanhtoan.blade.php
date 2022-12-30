@@ -37,6 +37,21 @@
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Lịch hẹn đã thanh toán</h2>
+
+        @if (session('success'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('success') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary">Lịch hẹn đã thanh toán</button>
             <div class="table1">
                 <table id="lich_da_thanh_toan" class="table table-bordered border-dark" style="width: 100%">
@@ -67,7 +82,10 @@
                             <td>{{ date('d/m/Y, H:i', strtotime($lich_da_thanh_toan->created_at)) }}</td>
                             <td>{{ date('d/m/Y, H:i', strtotime($lich_da_thanh_toan->updated_at)) }}</td>
                             <td>
-                                <button class="btn btn-warning">Lịch này chưa thanh toán?</button>
+                                <form action="{{ url('/admin/quanlylichhen/unpaid/'. $lich_da_thanh_toan->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" onclick="return confirm('Lịch hẹn này chưa thanh toán?')" class="btn btn-warning">Chưa thanh toán</button>
+                                </form>
                             </td>
                         </tr>
                     @empty
@@ -104,4 +122,7 @@
         });
     });
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </html>

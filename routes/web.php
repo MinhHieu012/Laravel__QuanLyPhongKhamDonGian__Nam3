@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\doctor\DoctorController;
+use http\Client\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -112,6 +113,13 @@ Route::get('/admin/quanlylichhen/delete/{id}', [AdminController::class, 'deleteL
 
 // admin - trang lịch hẹn đã thanh toán
 Route::get('/admin/lichhendathanhtoan', [AdminController::class, 'viewLichHenDaThanhToan']);
+
+// admin - trang sửa trạng lịch hẹn -> đã thanh toán
+Route::post('/admin/quanlylichhen/paid/{id}', [AdminController::class, 'TrangThaiLichHen_sang_DaThanhToan']);
+
+// admin - trang sửa trạng lịch hẹn -> chưa thanh toán
+Route::post('/admin/quanlylichhen/unpaid/{id}', [AdminController::class, 'DaThanhToan_sang_ChuaThanhToan']);
+
 //-----------------------------------------------------------------------------
 
 
@@ -142,3 +150,8 @@ Route::get('/doctor/lichhendangkham', [DoctorController::class, 'viewLichHenDang
 // trang lịch hẹn đã khám
 Route::get('/doctor/lichhendakham', [DoctorController::class, 'viewLichHenDaKham']);
 
+// sửa trạng thái chưa khám -> đang khám
+Route::post('/doctor/lichhen/dangkham/{id}', [DoctorController::class, 'ChuaKham_sang_DangKham']);
+
+// sửa trạng thái đang khám -> đã khám xong
+Route::post('/doctor/lichhen/dakham/{id}', [DoctorController::class, 'DangKham_sang_DaKham']);

@@ -70,6 +70,20 @@
             </script>
         @endif
 
+        @if (session('success'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('success') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary">Lịch đã hẹn</button>
 
         <div class="table1">
@@ -84,7 +98,7 @@
                     <th>Thời gian hẹn</th>
                     <th>Gói giá</th>
                     <th>Ngày đặt lịch</th>
-                    <th>Ngày chỉnh sửa</th>
+                    <th>Thao tác</th>
                     <th>Thao tác</th>
                 </tr>
                 </thead>
@@ -99,12 +113,16 @@
                     <td>{{ $appointment_schedule->times }}</td>
                     <td>{{ $appointment_schedule->prices }}</td>
                     <td>{{ date('d/m/Y, H:i', strtotime($appointment_schedule->created_at)) }}</td>
-                    <td>{{ date('d/m/Y, H:i', strtotime($appointment_schedule->updated_at)) }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary">Đã thanh toán</button>
                         <button form="editForm" type="button" onclick="location.href='{{ route('admin.editLichHen',$appointment_schedule->id) }}';" class="btn btn-warning";>Sửa</button>
                         <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="btn btn-danger">Xóa</button>
                         <form id="deleteForm" action="{{ route('admin.deleteLichHen',$appointment_schedule->id) }}" method="GET"></form>
+                    </td>
+                    <td>
+                        <form action="{{ url('/admin/quanlylichhen/paid/'. $appointment_schedule->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" onclick="return confirm('Lịch hẹn này đã thanh toán?')" class="btn btn-primary">Đã thanh toán</button>
+                        </form>
                     </td>
                 </tr>
                 @empty

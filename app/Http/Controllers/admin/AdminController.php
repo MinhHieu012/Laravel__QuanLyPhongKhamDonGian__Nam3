@@ -191,9 +191,21 @@ class AdminController extends Controller
         // Trang lịch hẹn đã thanh toán
         function viewLichHenDaThanhToan()
         {
-            //$lich_da_thanh_toan = appointment_schedules::all();
             $lich_da_thanh_toan = appointment_schedules::where('payment_status', '=', '1')->get();
             return view('admin-layout/lichhendathanhtoan', ['lich_da_thanh_toan' => $lich_da_thanh_toan]);
+        }
 
+        function TrangThaiLichHen_sang_DaThanhToan(Request $request, $id) {
+            $appointment_schedules = appointment_schedules::findOrFail($id);
+            $appointment_schedules->payment_status = 1;
+            $appointment_schedules->save();
+            return redirect('/admin/lichhendathanhtoan')->with('success', 'Chuyển về lịch hẹn đã thanh toán thành công');
+        }
+
+        function DaThanhToan_sang_ChuaThanhToan(Request $request, $id) {
+            $appointment_schedules = appointment_schedules::findOrFail($id);
+            $appointment_schedules->payment_status = 0;
+            $appointment_schedules->save();
+            return redirect('/admin/quanlylichhen')->with('success', 'Chuyển về lịch hẹn chưa thanh toán thành công');
         }
 }
