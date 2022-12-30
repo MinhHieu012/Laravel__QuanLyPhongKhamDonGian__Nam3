@@ -98,8 +98,8 @@
                     <td>{{ date('d/m/Y', strtotime($appointment_schedule->dates)) }}</td>
                     <td>{{ $appointment_schedule->times }}</td>
                     <td>{{ $appointment_schedule->prices }}</td>
-                    <td>{{ date('d/m/Y, H:i:s', strtotime($appointment_schedule->created_at)) }}</td>
-                    <td>{{ date('d/m/Y, H:i:s', strtotime($appointment_schedule->updated_at)) }}</td>
+                    <td>{{ date('d/m/Y, H:i', strtotime($appointment_schedule->created_at)) }}</td>
+                    <td>{{ date('d/m/Y, H:i', strtotime($appointment_schedule->updated_at)) }}</td>
                     <td>
                         <button type="button" class="btn btn-primary">Đã thanh toán</button>
                         <button form="editForm" type="button" onclick="location.href='{{ route('admin.editLichHen',$appointment_schedule->id) }}';" class="btn btn-warning";>Sửa</button>

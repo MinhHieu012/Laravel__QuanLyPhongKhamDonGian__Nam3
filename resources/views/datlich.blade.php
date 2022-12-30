@@ -56,12 +56,11 @@
             <span class="title"><u>Thông tin đặt lịch</u></span>
             <br>
             <form action="{{ URL::asset('/datlich') }}" id="myForm" method="POST">
-            <input type="hidden" id="id" name="unique_id" value="{{ uniqid() }}">
             <label>Họ và tên</label>
-            <input type="text" id="name" name="name" placeholder="Nhập họ và tên" required>
+            <input type="text" id="name" name="name" placeholder="Nhập họ và tên" value="{{Auth::user()->name}}" required>
             <br>
             <label>Số điện thoại</label>
-            <input type="number" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+            <input type="number" id="phone" name="phone" placeholder="Nhập số điện thoại" value="{{Auth::user()->phones}}" required>
             <br>
             <label>Ngày hẹn</label>
             <input type="date" id="date" name="date" required>

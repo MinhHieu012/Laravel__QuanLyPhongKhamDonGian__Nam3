@@ -38,20 +38,43 @@
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Lịch hẹn đã thanh toán</h2>
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary">Lịch hẹn đã thanh toán</button>
-
-        <div class="table1">
-            <table id="lich_da_thanh_toan" class="table table-bordered border-dark" style="width: 100%">
-
-                <thead>
-                <tr>
-
-                </tr>
-                </thead>
-                <!-- thân bảng -->
-                <tbody>
-
-                </tbody>
-            </table>
+            <div class="table1">
+                <table id="lich_da_thanh_toan" class="table table-bordered border-dark" style="width: 100%">
+                    <!-- tiêu đề bảng -->
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Họ tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày hẹn</th>
+                        <th>Thời gian hẹn</th>
+                        <th>Gói giá</th>
+                        <th>Ngày đặt lịch</th>
+                        <th>Ngày thanh toán</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    </thead>
+                    <!-- thân bảng -->
+                    <tbody>
+                    @forelse($lich_da_thanh_toan as $lich_da_thanh_toan)
+                        <tr>
+                            <td>{{ $lich_da_thanh_toan->id }}</td>
+                            <td>{{ $lich_da_thanh_toan->names }}</td>
+                            <td>{{ $lich_da_thanh_toan->phones }}</td>
+                            <td>{{ date('d/m/Y', strtotime($lich_da_thanh_toan->dates)) }}</td>
+                            <td>{{ $lich_da_thanh_toan->times }}</td>
+                            <td>{{ $lich_da_thanh_toan->prices }}</td>
+                            <td>{{ date('d/m/Y, H:i', strtotime($lich_da_thanh_toan->created_at)) }}</td>
+                            <td>{{ date('d/m/Y, H:i', strtotime($lich_da_thanh_toan->updated_at)) }}</td>
+                            <td>
+                                <button class="btn btn-warning">Lịch này chưa thanh toán?</button>
+                            </td>
+                        </tr>
+                    @empty
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     </div>

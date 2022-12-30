@@ -52,18 +52,24 @@
         top: 15px;
     }
     form .form-field:nth-child(2)::before {
-        background-image: url('{{URL::asset('image/user-icon.png')}}');
+        background-image: url('{{URL::asset('image/phone-icon.png')}}');
         width: 22px;
         height: 22px;
     }
 
     form .form-field:nth-child(3)::before {
+        background-image: url('{{URL::asset('image/user-icon.png')}}');
+        width: 22px;
+        height: 22px;
+    }
+
+    form .form-field:nth-child(4)::before {
         background-image: url('{{URL::asset('image/lock-icon.png')}}');
         width: 20px;
         height: 20px;
     }
 
-    form .form-field:nth-child(4)::before {
+    form .form-field:nth-child(5)::before {
         background-image: url('{{URL::asset('image/lock-icon.png')}}');
         width: 20px;
         height: 20px;
@@ -128,14 +134,6 @@
         text-align: center;
     }
 
-    .doctor-account {
-        position: relative;
-        margin-top: 20px;
-        font-size: 18px;
-        text-align: center;
-    }
-
-
 </style>
 
 <body style="background: #EAECEE">
@@ -155,6 +153,11 @@
         <!-- tên -->
         <div class="form-field">
             <input type="text" placeholder="Nhập họ và tên" name="name" required/>
+        </div>
+
+        <!-- số điện thoại -->
+        <div class="form-field">
+            <input type="number" placeholder="Nhập số điện thoại" name="phone" required/>
         </div>
 
         <!-- email -->

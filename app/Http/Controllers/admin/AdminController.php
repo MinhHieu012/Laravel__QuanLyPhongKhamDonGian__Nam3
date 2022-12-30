@@ -152,7 +152,7 @@ class AdminController extends Controller
         // Trang giao diện quản lý lịch hẹn
         function viewQuanLyLichHen()
         {
-            $appointment_schedule = appointment_schedules::all();
+            $appointment_schedule = appointment_schedules::where('payment_status', '=', '0')->get();
             return view('admin-layout/trang-quanlylichhen', ['appointment_schedule' => $appointment_schedule]);
         }
 
@@ -191,7 +191,8 @@ class AdminController extends Controller
         // Trang lịch hẹn đã thanh toán
         function viewLichHenDaThanhToan()
         {
-            $lich_da_thanh_toan = appointment_schedules::all();
+            //$lich_da_thanh_toan = appointment_schedules::all();
+            $lich_da_thanh_toan = appointment_schedules::where('payment_status', '=', '1')->get();
             return view('admin-layout/lichhendathanhtoan', ['lich_da_thanh_toan' => $lich_da_thanh_toan]);
 
         }

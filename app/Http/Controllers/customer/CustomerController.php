@@ -60,6 +60,7 @@ class CustomerController extends Controller
         $accounts = new accounts();
         // syntax: $tên_biến -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
         $accounts -> name = $request -> name;
+        $accounts -> phones = $request -> phone;
         $accounts -> username = $request -> username;
         $accounts -> password = bcrypt($request -> password);
         // set quyền cho tk đăng kí là tài khoản khách hàng
@@ -155,8 +156,8 @@ class CustomerController extends Controller
             $appointment_schedules->dates = $request->date;
             $appointment_schedules->times = $request->time;
             $appointment_schedules->prices = $request->price;
-            $appointment_schedules->payment_status = $request->payment_status=1;
-            $appointment_schedules->appointment_status = $request->appointment_status=1;
+            $appointment_schedules->payment_status = $request->payment_status=0;
+            $appointment_schedules->appointment_status = $request->appointment_status=0;
             $appointment_schedules->save();
             return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
         }
