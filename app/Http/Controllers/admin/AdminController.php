@@ -49,7 +49,9 @@ class AdminController extends Controller
 
         function viewQuanLyKhachHang()
         {
-            $accounts = accounts::where('isCustomer', '=', '1')->get();
+            $accounts = accounts::where('isCustomer', '=', '1')
+                ->where('status', '=', '0')
+                ->get();
             return view('admin-layout/quanlykhachhang', ['accounts' => $accounts]);
         }
 
@@ -79,11 +81,35 @@ class AdminController extends Controller
             return redirect('admin/quanlykhachhang/')->with('deleteDone', 'Xóa tài khoản thành công!');
         }
 
+        function viewQuanLyKhachHang_KhoaTaiKhoan()
+        {
+            $accounts = accounts::where('isCustomer', '=', '1')
+                ->where('status', '=', '1')
+                ->get();
+            return view('admin-layout/khoataikhoan_khach', ['accounts' => $accounts]);
+        }
+
+        function KhoaTaiKhoan_Khach(Request $request, $id) {
+            $accounts = accounts::findOrFail($id);
+            $accounts->status = 1;
+            $accounts->save();
+            return redirect('/admin/quanlykhachhang/lock')->with('success', 'Khóa tài khoản thành công');
+        }
+
+        function MoKhoaTaiKhoan_Khach(Request $request, $id) {
+            $accounts = accounts::findOrFail($id);
+            $accounts->status = 0;
+            $accounts->save();
+            return redirect('/admin/quanlykhachhang')->with('success', 'Mở khóa tài khoản thành công');
+        }
+
         // GET: http://localhost/Project2Final/admin/quanlybacsi
         // Trang giao diện quản lý bác sĩ chung
         function viewQuanLyBacsi()
         {
-            $bacsi = accounts::where('isDoctor', '=', '1')->get();
+            $bacsi = accounts::where('isDoctor', '=', '1')
+                ->where('status' , '=', 0)
+                ->get();
             return view('admin-layout/trang-quanlybacsi', ['bacsi' => $bacsi]);
         }
 
@@ -148,6 +174,28 @@ class AdminController extends Controller
             return redirect('admin/quanlybacsi/')->with('deleteDone', 'Xóa bác sĩ thành công!');
         }
 
+        function viewQuanLyBacsi_KhoaTaiKhoan()
+        {
+            $bacsi = accounts::where('isDoctor', '=', '1')
+                ->where('status', '=', '1')
+                ->get();
+            return view('admin-layout/khoataikhoan_bacsi', ['bacsi' => $bacsi]);
+        }
+
+        function KhoaTaiKhoan_Bacsi(Request $request, $id) {
+            $bacsi = accounts::findOrFail($id);
+            $bacsi->status = 1;
+            $bacsi->save();
+            return redirect('/admin/quanlybacsi/lock')->with('success', 'Khóa tài khoản thành công');
+        }
+
+        function MoKhoaTaiKhoan_Bacsi(Request $request, $id) {
+            $bacsi = accounts::findOrFail($id);
+            $bacsi->status = 0;
+            $bacsi->save();
+            return redirect('/admin/quanlybacsi')->with('success', 'Mở khóa tài khoản thành công');
+        }
+
         // GET: http://localhost/Project2Final/admin/quanlylichhen
         // Trang giao diện quản lý lịch hẹn
         function viewLichHenChuaThanhToan()
@@ -207,7 +255,7 @@ class AdminController extends Controller
             $appointment_schedules->status = 0;
             $appointment_schedules->save();
             return redirect('/admin/lichhenchuaxacnhan')->with('success1', 'Hủy xác nhận lịch hẹn thành công');
-    }
+        }
 
         function viewLichHenDaXacNhan()
         {

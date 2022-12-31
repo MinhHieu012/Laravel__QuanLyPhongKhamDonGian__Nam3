@@ -80,6 +80,15 @@ Route::post('/admin/changepassword', [AdminController::class, 'DoiMatKhau']);
 // trang quản lý tài khoản khách hàng
 Route::get('/admin/quanlykhachhang', [AdminController::class, 'viewQuanLyKhachHang']);
 
+// trang khóa tài khoản khách
+Route::get('/admin/quanlykhachhang/lock', [AdminController::class, 'viewQuanLyKhachHang_KhoaTaiKhoan']);
+
+// Xử lý khóa tài khoản khách
+Route::post('/admin/quanlykhachhang/lock/{id}', [AdminController::class, 'KhoaTaiKhoan_Khach']);
+
+// Xử lý mở lại tài khoản khách
+Route::post('/admin/quanlykhachhang/unlock/{id}', [AdminController::class, 'MoKhoaTaiKhoan_Khach']);
+
 // Xóa tài khoản khách
 Route::get('/admin/quanlykhachhang/delete/{id}', [AdminController::class, 'deleteKhach']);
 
@@ -100,6 +109,20 @@ Route::get('/admin/quanlybacsi/delete/{id}', [AdminController::class, 'deletedoc
 // admin - trang quản lý bác sĩ (sửa bác sĩ)
 Route::get('/admin/quanlybacsi/edit/{id}', [AdminController::class, 'editDoctor'])->name('doctor.edit');
 Route::post('/admin/quanlybacsi/edit/{id}', [AdminController::class, 'updateDoctor'])->name('doctor.edit');
+
+
+
+// trang khóa tài khoản bác sĩ
+Route::get('/admin/quanlybacsi/lock', [AdminController::class, 'viewQuanLyBacsi_KhoaTaiKhoan']);
+
+// Xử lý khóa tài khoản bác sĩ
+Route::post('/admin/quanlybacsi/lock/{id}', [AdminController::class, 'KhoaTaiKhoan_Bacsi']);
+
+// Xử lý mở lại tài khoản bác sĩ
+Route::post('/admin/quanlybacsi/unlock/{id}', [AdminController::class, 'MoKhoaTaiKhoan_Bacsi']);
+
+
+
 
 // admin - trang lịch hẹn chưa xác nhận
 Route::get('/admin/lichhenchuaxacnhan', [AdminController::class, 'viewLichHenChuaXacNhan']);
@@ -126,10 +149,10 @@ Route::get('/admin/quanlylichhen/delete/{id}', [AdminController::class, 'deleteL
 // admin - trang lịch hẹn đã thanh toán
 Route::get('/admin/lichhendathanhtoan', [AdminController::class, 'viewLichHenDaThanhToan']);
 
-// admin - trang sửa trạng lịch hẹn -> đã thanh toán
+// admin - trang sửa trạng thái lịch hẹn -> đã thanh toán
 Route::post('/admin/quanlylichhen/paid/{id}', [AdminController::class, 'TrangThaiLichHen_sang_DaThanhToan']);
 
-// admin - trang sửa trạng lịch hẹn -> chưa thanh toán
+// admin - trang sửa trạng thái lịch hẹn -> chưa thanh toán
 Route::post('/admin/quanlylichhen/unpaid/{id}', [AdminController::class, 'DaThanhToan_sang_ChuaThanhToan']);
 
 //-----------------------------------------------------------------------------

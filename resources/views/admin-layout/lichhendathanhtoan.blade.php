@@ -84,7 +84,7 @@
                             <td>
                                 <form action="{{ url('/admin/quanlylichhen/unpaid/'. $lich_da_thanh_toan->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" onclick="return confirm('Lịch hẹn này chưa thanh toán?')" class="btn btn-warning">Chưa thanh toán</button>
+                                    <button type="submit" onclick="return confirm('Lịch hẹn này chưa thanh toán?')" class="btn btn-outline-warning">Chưa thanh toán</button>
                                 </form>
                             </td>
                         </tr>

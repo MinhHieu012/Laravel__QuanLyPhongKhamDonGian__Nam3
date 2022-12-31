@@ -112,15 +112,10 @@
                     <td>{{ $appointment_schedule->times }}</td>
                     <td>{{ $appointment_schedule->prices }}</td>
                     <td>{{ date('d/m/Y, H:i', strtotime($appointment_schedule->created_at)) }}</td>
-                    {{--<td>
-                        <button form="editForm" type="button" onclick="location.href='{{ route('admin.editLichHen',$appointment_schedule->id) }}';" class="btn btn-warning";>Sửa</button>
-                        <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="btn btn-danger">Xóa</button>
-                        <form id="deleteForm" action="{{ route('admin.deleteLichHen',$appointment_schedule->id) }}" method="GET"></form>
-                    </td>--}}
                     <td>
                         <form action="{{ url('/admin/quanlylichhen/paid/'. $appointment_schedule->id) }}" method="POST">
                             @csrf
-                            <button type="submit" onclick="return confirm('Lịch hẹn này đã thanh toán?')" class="btn btn-primary">Đã thanh toán</button>
+                            <button type="submit" onclick="return confirm('Lịch hẹn này đã thanh toán?')" class="btn btn-outline-primary">Đã thanh toán</button>
                         </form>
                     </td>
                 </tr>

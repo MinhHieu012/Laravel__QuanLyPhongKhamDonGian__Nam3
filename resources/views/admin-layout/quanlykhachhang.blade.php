@@ -20,7 +20,7 @@
 
     .table1 {
         position: relative;
-        top: 20px;
+        top: 60px;
         left: 270px;
         width: 1400px;
     }
@@ -42,6 +42,7 @@
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Quản lý khách hàng</h2>
         <br>
+        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-warning" onclick="window.location.href='{{URL::asset('/admin/quanlykhachhang/lock')}}';">Xem các tài khoản khách hàng bị khóa</button>
         @if (session('success'))
             <script>
                 window.onload = function() {
@@ -96,6 +97,7 @@
                     <th>Ngày tạo tài khoản</th>
                     <th>Thao tác</th>
                     <th>Thao tác</th>
+                    <th>Thao tác</th>
                 </tr>
                 </thead>
                 <!-- thân bảng -->
@@ -109,12 +111,18 @@
                         <td>{{ date('d/m/Y, H:i', strtotime($accounts->created_at)) }}</td>
                         <td>
                             <form action="{{ url('/admin/quanlykhachhang/edit/' . $accounts->id)}}" method="GET">
-                                <button type="submit" class="btn btn-warning">Sửa tài khoản</button>
+                                <button type="submit" class="btn btn-outline-warning">Sửa tài khoản</button>
                             </form>
                         </td>
                         <td>
                             <form action="{{ url('/admin/quanlykhachhang/delete/'. $accounts->id)}}" method="GET">
-                                <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản (Thao tác này không thể quay lại!)?')" class="btn btn-danger">Xóa tài khoản</button>
+                                <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản (Thao tác này không thể quay lại!)?')" class="btn btn-outline-danger">Xóa tài khoản</button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form action="{{ url('/admin/quanlykhachhang/lock/' . $accounts->id) }}" method="POST">
+                                <button type="submit" class="btn btn-outline-danger" onclick="confirm('Bạn muốn khóa tài khoản này?')">Khóa tài khoản</button>
                             </form>
                         </td>
                     </tr>

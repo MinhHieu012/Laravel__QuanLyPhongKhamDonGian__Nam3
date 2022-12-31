@@ -86,7 +86,7 @@
                         <td>
                             <form action="{{ url('/admin/lichhen/chuaxacnhan/'. $lich_da_xac_nhan->id) }}" method="POST">
                                 @csrf
-                                <button type="submit" onclick="return confirm('Hủy xác nhận lịch hẹn này?')" class="btn btn-warning">Hủy xác nhận lịch hẹn</button>
+                                <button type="submit" onclick="return confirm('Hủy xác nhận lịch hẹn này?')" class="btn btn-outline-warning">Hủy xác nhận lịch hẹn</button>
                             </form>
                         </td>
                     </tr>

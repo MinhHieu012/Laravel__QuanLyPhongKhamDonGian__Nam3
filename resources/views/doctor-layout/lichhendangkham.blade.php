@@ -101,13 +101,13 @@
                         <td>
                             <form action="{{ url('/doctor/lichhen/chuakham/'. $datlich->id) }}" method="POST">
                                 @csrf
-                                <button type="submit" onclick="return confirm('Lịch hẹn này đang không khám?')" class="btn btn-primary">Đang chưa khám</button>
+                                <button type="submit" onclick="return confirm('Lịch hẹn này đang không khám?')" class="btn btn-outline-warning">Đang chưa khám</button>
                             </form>
                         </td>
                         <td>
                             <form action="{{ url('/doctor/lichhen/dakham/'. $datlich->id) }}" method="POST">
                                 @csrf
-                                <button type="submit" onclick="return confirm('Lịch hẹn này đã khám xong?')" class="btn btn-primary">Đã khám</button>
+                                <button type="submit" onclick="return confirm('Lịch hẹn này đã khám xong?')" class="btn btn-outline-success">Đã khám</button>
                             </form>
                         </td>
                     </tr>

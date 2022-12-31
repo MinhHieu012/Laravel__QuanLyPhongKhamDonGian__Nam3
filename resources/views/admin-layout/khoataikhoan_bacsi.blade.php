@@ -12,36 +12,35 @@
 
 </head>
 
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-        }
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+    }
 
-        .table1 {
-            position: relative;
-            top: 60px;
-            left: 270px;
-            width: 1400px;
-        }
+    .table1 {
+        position: relative;
+        top: 60px;
+        left: 270px;
+        width: 1400px;
+    }
 
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
 
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-    </style>
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
 
 <body>
 @extends('admin-layout/menuadmin')
 @section('content2')
     <div>
-        <h2 style="position: relative; right: -270px; top: 15px">Thông tin các bác sĩ</h2>
-        <br>
+        <h2 style="position: relative; right: -270px; top: 15px">Các tài khoản bác sĩ bị khóa</h2>
         @if (session('success'))
             <script>
                 window.onload = function() {
@@ -83,27 +82,19 @@
                 }
             </script>
         @endif
-
-        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary" onclick="window.location.href='{{URL::asset('admin/quanlybacsi/add')}}';">+ Thêm bác sĩ</button>
-        <br> <br>
-        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-warning" onclick="window.location.href='{{URL::asset('/admin/quanlybacsi/lock')}}';">Xem các tài khoản bác sĩ bị khóa</button>
+        <br>
+        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary" onclick="window.location.href='{{URL::asset('/admin/quanlybacsi')}}'">Quay lại</button>
         <div class="table1">
             <table id="hosobacsi" class="table table-bordered border-dark" style="width: 100%">
                 <!-- tiêu đề bảng -->
                 <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Họ tên</th>
                     <th>Tên đăng nhập</th>
                     <th>Mật khẩu</th>
-                    <th>Họ tên</th>
-                    <th>Số điện thoại</th>
-                    <th>Ngày sinh</th>
-                    <th>Giới tính</th>
-                    <th>Địa chỉ</th>
-                    <th>Ngày thêm</th>
-                    <th>Sửa</th>
-                    <th>Xóa</th>
-                    <th>Khóa</th>
+                    <th>Ngày khóa tài khoản</th>
+                    <th>Thao tác</th>
                 </tr>
                 </thead>
                 <!-- thân bảng -->
@@ -111,32 +102,17 @@
                 @forelse($bacsi as $bacsi)
                     <tr>
                         <td>{{ $bacsi->id }}</td>
+                        <td>{{ $bacsi->name }}</td>
                         <td>{{ $bacsi->username }}</td>
                         <td>.....</td>
-                        <td>{{ $bacsi->name }}</td>
-                        <td>{{ $bacsi->phones }}</td>
-                        <td>{{ date('d/m/Y', strtotime($bacsi->date_of_births))}}</td>
-                        <td>{{ $bacsi->genders }}</td>
-                        <td>{{ $bacsi->address }}</td>
-                        <td>{{ date('d/m/Y, H:i:s', strtotime($bacsi->created_at)) }}</td>
+                        <td>{{ date('d/m/Y, H:i:s', strtotime($bacsi->updated_at)) }}</td>
                         <td>
-                            <form id="deleteForm" action="{{ url('admin/quanlybacsi/edit/' . $bacsi->id)}} }}" method="GET">
-                                <button type="submit" class="btn btn-outline-warning">Sửa</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="{{ url('admin/quanlybacsi/delete/' . $bacsi->id)}} }}" method="GET">
-                                <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa bác sĩ này?')" class="btn btn-outline-danger">Xóa</button>
-                            </form>
-                        </td>
-
-                        <td>
-                            <form action="{{ url('/admin/quanlybacsi/lock/' . $bacsi->id) }}" method="POST">
-                                <button type="submit" class="btn btn-outline-danger">Khóa tài khoản</button>
+                            <form action="{{ url('/admin/quanlybacsi/unlock/' . $bacsi->id) }}" method="POST">
+                            <button type="submit" class="btn btn-outline-warning" onclick="confirm('Bạn muốn mở khóa tài khoản này?')">Mở khóa tài khoản</button>
                             </form>
                         </td>
                     </tr>
-                    @empty
+                @empty
                 @endforelse
                 </tbody>
             </table>
@@ -158,7 +134,7 @@
                 info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
                 infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
                 zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
-                emptyTable: "Chưa có bác sĩ nào",
+                emptyTable: "Chưa có tài khoản bác sĩ nào bị khóa",
                 paginate: {
                     first: "Trang đầu",
                     previous: "Trang trước",

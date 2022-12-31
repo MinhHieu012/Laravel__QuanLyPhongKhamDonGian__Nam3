@@ -38,18 +38,6 @@ class CustomerController extends Controller
 
     // POST: http://localhost/Project2Final/public/register
     function register(Request $request) {
-        /*$validated = $request->validated();
-        if ($validated) {
-            $accounts = new accounts();
-            // syntax: $tên_biến -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
-            $accounts -> name = $request -> name;
-            $accounts -> username = $request -> username;
-            $accounts -> password = bcrypt($request -> password);
-            // set quyền cho tk đăng kí là tài khoản khách hàng
-            $accounts -> isCustomer = "1";
-            $accounts->save();
-            return redirect('/login')->with('success', 'Bạn đã đăng kí thành công!');
-        }*/
 
         $this->validate($request, [
             'username' => 'required|min:4|max:30|unique:accounts',
@@ -65,6 +53,7 @@ class CustomerController extends Controller
         $accounts -> password = bcrypt($request -> password);
         // set quyền cho tk đăng kí là tài khoản khách hàng
         $accounts -> isCustomer = "1";
+        $accounts -> status = "0";
         $accounts->save();
         return redirect('/login')->with('success', 'Bạn đã đăng kí thành công!');
     }
@@ -81,10 +70,19 @@ class CustomerController extends Controller
         $username = $request->get('username');
         $password = $request->get('password');
 
+        $account = accounts::where('username', $username)->first();
+        if ($account && $account->status == 1) {
+            $account->status = 1;
+            $account->save();
+            return redirect()->back()->with(['error' => 'Tài khoản đã bị khóa! Vui lòng liên hệ qua FB để được hỗ trợ']);
+        }
+
         $result = Auth::attempt(['username' => $username, 'password' => $password]);
+
         if ($result == false) {
-            return redirect()->back()->with(['error' => 'Tài khoản hoặc mật khẩu không đúng']);
-        } else {
+            return redirect()->back()->with(['error' => 'Tài khoản hoặc mật khẩu không đúng!']);
+        }
+        else {
             $user = Auth::user();
             if ($user -> isAdmin == 1) {
                 return redirect('/admin/home')->with('success', 'Đăng nhập thành công!');
@@ -152,7 +150,6 @@ class CustomerController extends Controller
             return redirect()->back()->with('errorDatLich', 'Thời gian bạn đặt lịch đã quá nhiều người đặt! Vui lòng chọn ngày hoặc mốc thời gian khác');
         }
 
-        if (Auth::check()) {
             $appointment_schedules = new Appointment_schedules;
             $appointment_schedules->accounts_id = Auth::id();
             $appointment_schedules->names = $request->name;
@@ -161,12 +158,12 @@ class CustomerController extends Controller
             $appointment_schedules->times = $request->time;
             $appointment_schedules->prices = $request->price;
             $appointment_schedules->payment_status = $request->payment_status=0;
-            $appointment_schedules->appointment_status = $request->appointment_status=3;
+            $appointment_schedules->appointment_status = $request->appointment_status=0;
             $appointment_schedules->status = $request->status=0;
             $appointment_schedules->save();
             return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
         }
-    }
+
 
     // GET: http://localhost/Project2Final/lichhen/edit/{id}
     // Trang giao diện lịch hẹn

@@ -67,6 +67,20 @@
         </script>
     @endif
 
+    @if (session('errorKhoa'))
+        <script>
+            window.onload = function() {
+                // Display the message box
+                Swal.fire({
+                    text: "{{ session('errorKhoa') }}",
+                    textColor: 'black',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                })
+            }
+        </script>
+    @endif
+
     @if (session('success'))
         <script>
             window.onload = function() {

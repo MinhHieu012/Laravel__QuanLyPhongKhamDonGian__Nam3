@@ -84,7 +84,7 @@
                     <td>
                         <form action="{{ url('/doctor/lichhen/dangkham/'. $datlich->id) }}" method="POST">
                             @csrf
-                            <button type="submit" onclick="return confirm('Khám lịch hẹn này?')" class="btn btn-primary">Khám</button>
+                            <button type="submit" onclick="return confirm('Khám lịch hẹn này?')" class="btn btn-outline-primary">Khám</button>
                         </form>
                     </td>
                 </tr>

@@ -109,6 +109,7 @@
                     <th>Ngày đặt lịch</th>
                     <th>Thao tác</th>
                     <th>Thao tác</th>
+                    <th>Thao tác</th>
                 </tr>
                 </thead>
                 <!-- thân bảng -->
@@ -122,17 +123,21 @@
                         <td>{{ $lich_chua_xac_nhan->times }}</td>
                         <td>{{ $lich_chua_xac_nhan->prices }}</td>
                         <td>{{ date('d/m/Y, H:i', strtotime($lich_chua_xac_nhan->created_at)) }}</td>
-
                         <td>
-                            <button form="editForm" type="button" onclick="location.href='{{ route('admin.editLichHen',$lich_chua_xac_nhan->id) }}';" class="btn btn-warning";>Sửa</button>
-                            <button form="deleteForm" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="btn btn-danger">Xóa</button>
-                            <form id="deleteForm" action="{{ route('admin.deleteLichHen',$lich_chua_xac_nhan->id) }}" method="GET"></form>
+                            <form action="{{ url('/admin/quanlylichhen/edit/' . $lich_chua_xac_nhan->id) }}" method="GET">
+                                <button type="submit" class="btn btn-outline-warning">Sửa</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{{ url('/admin/quanlylichhen/delete/' . $lich_chua_xac_nhan->id) }}" method="GET">
+                                <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="btn btn-outline-danger">Xóa</button>
+                            </form>
                         </td>
 
                         <td>
                             <form action="{{ url('/admin/lichhen/xacnhan/'. $lich_chua_xac_nhan->id) }}" method="POST">
                                 @csrf
-                                <button type="submit" onclick="return confirm('Xác nhận lịch hẹn này?')" class="btn btn-warning">Xác nhận lịch hẹn</button>
+                                <button type="submit" onclick="return confirm('Xác nhận lịch hẹn này?')" class="btn btn-outline-success">Xác nhận lịch hẹn</button>
                             </form>
                         </td>
                     </tr>
