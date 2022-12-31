@@ -24,11 +24,11 @@ class DoctorController extends Controller
     // Trang home của doctor
     function viewHome() {
         $datlich = appointment_schedules::all();
-        return view('doctor-layout/doctor-home', ['datlich' => $datlich]);
+        return view('doctor-layout/dashboard_homepage/home', ['datlich' => $datlich]);
     }
 
     function viewDoiMatKhau() {
-        return view('doctor-layout/doimatkhau');
+        return view('doctor-layout/Change_Password/doimatkhau');
     }
 
     function DoiMatKhau(Request $request)
@@ -49,29 +49,23 @@ class DoctorController extends Controller
 
     // Trang hồ sơ thông tin bác sĩ
     function viewHoSo() {
-        return view('doctor-layout/doctor-hoso');
+        return view('doctor-layout/info_bacsi/hoso');
     }
 
     // GET: http://localhost/Project2Final/doctor/lichhen
     // Trang hồ sơ thông tin bác sĩ
-    function viewLichHen() {
+    function viewLichHenChuaKham() {
         $datlich = appointment_schedules::where('appointment_status', '=', '0')
             ->where('status', '=', '1')
             ->get();
-        return view('/doctor-layout/doctor-lichhen', ['datlich' => $datlich]);
-    }
-
-    // GET: http://localhost/Project2Final/doctor/lichhen
-    // trang sửa thông tin trạng thái khám, tư vấn khách hàng
-    function viewLichHen_Edit() {
-        return view('doctor-layout/sua-lichhen');
+        return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/chua_kham', ['datlich' => $datlich]);
     }
 
     function viewLichHenDangKham() {
         $datlich = appointment_schedules::where('appointment_status', '=', '1')
             ->where('status', '=', '1')
             ->get();
-        return view('doctor-layout/lichhendangkham', ['datlich' => $datlich]);
+        return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/dang_kham', ['datlich' => $datlich]);
     }
 
     // GET: http://localhost/Project2Final/doctor/lichhendakham
@@ -80,7 +74,7 @@ class DoctorController extends Controller
         $datlich = appointment_schedules::where('appointment_status', '=', '2')
             ->where('status', '=', '1')
             ->get();
-        return view('doctor-layout/lichhendakham', ['datlich' => $datlich]);
+        return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/da_kham_xong', ['datlich' => $datlich]);
     }
 
     function ChuaKham_sang_DangKham(Request $request, $id) {

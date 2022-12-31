@@ -27,11 +27,11 @@ class AdminController extends Controller
         // Trang home của admin
         function viewHome()
         {
-            return view('admin-layout/admin-home');
+            return view('admin-layout/dashboard_homepage/home');
         }
 
         function viewDoiMatKhau() {
-            return view('admin-layout/doimatkhau');
+            return view('admin-layout/Change_Password/doimatkhau');
         }
 
         function DoiMatKhau(Request $request)
@@ -52,13 +52,13 @@ class AdminController extends Controller
             $accounts = accounts::where('isCustomer', '=', '1')
                 ->where('status', '=', '0')
                 ->get();
-            return view('admin-layout/quanlykhachhang', ['accounts' => $accounts]);
+            return view('admin-layout/Quan_Ly_Khach_Hang/customer-all', ['accounts' => $accounts]);
         }
 
         function editKhach($id)
         {
             $accounts = accounts::where('id', '=', $id)->first();
-            return view('admin-layout/add-taikhoankhach', compact('accounts'));
+            return view('admin-layout/Quan_Ly_Khach_Hang/customer-edit', compact('accounts'));
         }
 
         function updateKhach(RegisterRequest $request, $id)
@@ -86,7 +86,7 @@ class AdminController extends Controller
             $accounts = accounts::where('isCustomer', '=', '1')
                 ->where('status', '=', '1')
                 ->get();
-            return view('admin-layout/khoataikhoan_khach', ['accounts' => $accounts]);
+            return view('admin-layout/Quan_Ly_Khach_Hang/khoa_tai_khoan', ['accounts' => $accounts]);
         }
 
         function KhoaTaiKhoan_Khach(Request $request, $id) {
@@ -110,14 +110,14 @@ class AdminController extends Controller
             $bacsi = accounts::where('isDoctor', '=', '1')
                 ->where('status' , '=', 0)
                 ->get();
-            return view('admin-layout/trang-quanlybacsi', ['bacsi' => $bacsi]);
+            return view('admin-layout/Quan_Ly_Bac_Si/bacsi-all', ['bacsi' => $bacsi]);
         }
 
         // GET: http://localhost/Project2Final/admin/quanlybacsi/add
         // Trang giao diện thêm bác sĩ
         function viewQuanLyBacsi_Add()
         {
-            return view('admin-layout/trang-quanlybacsi-add');
+            return view('admin-layout/Quan_Ly_Bac_Si/bacsi-add');
         }
         // Xử lý thêm bác sĩ
         function addbacsi(RegisterRequest $request)
@@ -143,7 +143,7 @@ class AdminController extends Controller
         function editDoctor($id)
         {
             $accounts = accounts::where('id', '=', $id)->first();
-            return view('admin-layout/trang-quanlybacsi-edit', compact('accounts'));
+            return view('admin-layout/Quan_Ly_Bac_Si/bacsi-edit', compact('accounts'));
         }
 
         // POST: http://localhost/Project2Final/admin/quanlybacsi/edit/{id}
@@ -179,7 +179,7 @@ class AdminController extends Controller
             $bacsi = accounts::where('isDoctor', '=', '1')
                 ->where('status', '=', '1')
                 ->get();
-            return view('admin-layout/khoataikhoan_bacsi', ['bacsi' => $bacsi]);
+            return view('admin-layout/Quan_Ly_Bac_Si/khoa_tai_khoan', ['bacsi' => $bacsi]);
         }
 
         function KhoaTaiKhoan_Bacsi(Request $request, $id) {
@@ -196,14 +196,12 @@ class AdminController extends Controller
             return redirect('/admin/quanlybacsi')->with('success', 'Mở khóa tài khoản thành công');
         }
 
-        // GET: http://localhost/Project2Final/admin/quanlylichhen
-        // Trang giao diện quản lý lịch hẹn
         function viewLichHenChuaThanhToan()
         {
             $appointment_schedule = appointment_schedules::where('payment_status', '=', '0')
                 ->where('status', '=', '1')
                 ->get();
-            return view('admin-layout/trang-quanlylichhen', ['appointment_schedule' => $appointment_schedule]);
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_thanh_toan', ['appointment_schedule' => $appointment_schedule]);
         }
 
         // GET: http://localhost/Project2Final/admin/quanlylichhen/edit/{id}
@@ -211,7 +209,7 @@ class AdminController extends Controller
         function editLichHen($id)
         {
             $appointment_schedule = appointment_schedules::where('id', '=', $id)->first();
-            return view('admin-layout/trang-quanlylichhen-edit', compact('appointment_schedule'));
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan-edit', compact('appointment_schedule'));
         }
 
         // POST: http://localhost/Project2Final/admin/quanlylichhen/edit/{id}
@@ -240,7 +238,7 @@ class AdminController extends Controller
         function viewLichHenChuaXacNhan()
         {
             $lich_chua_xac_nhan = appointment_schedules::where('status', '=', '0')->get();
-            return view('admin-layout/lichhenchuaxacnhan', ['lich_chua_xac_nhan' => $lich_chua_xac_nhan]);
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan', ['lich_chua_xac_nhan' => $lich_chua_xac_nhan]);
         }
 
         function LichHenChuaXacNhan_sang_LichHenDaXacNhan(Request $request, $id) {
@@ -260,7 +258,7 @@ class AdminController extends Controller
         function viewLichHenDaXacNhan()
         {
             $lich_da_xac_nhan = appointment_schedules::where('status', '=', '1')->get();
-            return view('admin-layout/lichhendaxacnhan', ['lich_da_xac_nhan' => $lich_da_xac_nhan]);
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/da_xac_nhan', ['lich_da_xac_nhan' => $lich_da_xac_nhan]);
         }
 
         // GET: http://localhost/Project2Final/admin/lichhendathanhtoan
@@ -270,7 +268,7 @@ class AdminController extends Controller
             $lich_da_thanh_toan = appointment_schedules::where('payment_status', '=', '1')
                 ->where('status', '=', '1')
                 ->get();
-            return view('admin-layout/lichhendathanhtoan', ['lich_da_thanh_toan' => $lich_da_thanh_toan]);
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/da_thanh_toan', ['lich_da_thanh_toan' => $lich_da_thanh_toan]);
         }
 
         function TrangThaiLichHen_sang_DaThanhToan(Request $request, $id) {

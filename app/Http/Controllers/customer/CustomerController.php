@@ -24,16 +24,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class CustomerController extends Controller
 {
-    // Các trang xử lý chung
 
-    // GET: http://localhost/Project2Final/public/
     function viewHome() {
-        return view('home');
+        return view('customer-layout/Homepage/home');
     }
 
     // GET: http://localhost/Project2Final/public/register
     function viewRegister() {
-        return view('user-layout/user-register');
+        return view('customer-layout/Login_and_Register/register');
     }
 
     // POST: http://localhost/Project2Final/public/register
@@ -60,7 +58,7 @@ class CustomerController extends Controller
 
     // GET: http://localhost/Project2Final/public/login
     function viewLogin() {
-        return view('user-layout/user-login');
+        return view('customer-layout/Login_and_Register/login');
     }
 
     // POST: http://localhost/Project2Final/public/login
@@ -103,7 +101,7 @@ class CustomerController extends Controller
     }
 
     function viewDoiMatKhau() {
-        return view('user-layout/doimatkhau');
+        return view('customer-layout/Change_Password/doimatkhau');
     }
 
     function DoiMatKhau(Request $request)
@@ -121,14 +119,14 @@ class CustomerController extends Controller
 
     // GET: http://localhost/Project2Final/public/introduce
     function viewIntroduce() {
-        return view('/introduce');
+        return view('customer-layout/Gioi_thieu_page/introduce');
     }
 
     // GET: http://localhost/Project2Final/public/datlich
     function viewDatLich() {
         if (Auth::check()) {
             $datlichs = appointment_schedules::where('accounts_id', Auth::id())->get();
-            return view('/datlich', ['datlichs' => $datlichs]);
+            return view('customer-layout/Dat_lich/datlich', ['datlichs' => $datlichs]);
         } else {
             return redirect('/login')->with('checkLogin', 'Vui lòng đăng nhập để đặt lịch!');
         }
@@ -137,7 +135,7 @@ class CustomerController extends Controller
     // Xử lý việc đặt lịch của khách hàng
     function datlich(Request $request) {
 
-        // Kiểm tra ngày, thời gian đã đc chọn hay chưa
+        // Kiểm tra ngày, thời gian đã đc chọn quá 5 lần hay chưa
         $selectedTime = appointment_schedules::where('dates', $request->date)
             ->where('times', $request->time)
             ->first();
@@ -145,6 +143,7 @@ class CustomerController extends Controller
         $count = appointment_schedules::where('dates', $request->date)
             ->where('times', $request->time)
             ->count();
+
         // Nếu lịch hẹn có ngày và tgian trùng nhau quá 5 lần hiện tbao
         if ($selectedTime && $count > 4) {
             return redirect()->back()->with('errorDatLich', 'Thời gian bạn đặt lịch đã quá nhiều người đặt! Vui lòng chọn ngày hoặc mốc thời gian khác');
@@ -176,7 +175,7 @@ class CustomerController extends Controller
         }
         else {
             $datlich = appointment_schedules::where('id', $id)->first();
-            return view('/datlich-edit', compact('datlich'));
+            return view('customer-layout/Dat_lich/datlich-edit', compact('datlich'));
         }
     }
 
@@ -211,6 +210,6 @@ class CustomerController extends Controller
 
     // GET: http://localhost/Project2Final/public/lienhe
     function viewLienHe() {
-        return view('/lienhe');
+        return view('customer-layout/Lienhe_page/lienhe');
     }
 }

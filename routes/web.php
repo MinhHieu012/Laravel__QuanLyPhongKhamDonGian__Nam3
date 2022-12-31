@@ -173,7 +173,7 @@ Route::post('/doctor/changepassword', [DoctorController::class, 'DoiMatKhau']);
 Route::get('/doctor/hoso', [DoctorController::class, 'viewHoSo']);
 
 // trang quản lý lịch hẹn của bác sĩ
-Route::get('/doctor/lichhen', [DoctorController::class, 'viewLichHen']);
+Route::get('/doctor/lichhenchuakham', [DoctorController::class, 'viewLichHenChuaKham']);
 
 // trang quản lý lịch hẹn của bác sĩ
 // trang sửa thông tin trạng thái khám, tư vấn khách hàng
