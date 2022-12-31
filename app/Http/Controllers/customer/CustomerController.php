@@ -143,9 +143,13 @@ class CustomerController extends Controller
         $selectedTime = appointment_schedules::where('dates', $request->date)
             ->where('times', $request->time)
             ->first();
-        if ($selectedTime) {
-            // Nếu ng dùng chọn ngày, giờ đã tồn tại -> hiện tbao lỗi
-            return redirect()->back()->with('errorDatLich', 'Thời gian bạn đặt lịch đã bị trùng! Vui lòng chọn ngày hoặc mốc thời gian khác');
+
+        $count = appointment_schedules::where('dates', $request->date)
+            ->where('times', $request->time)
+            ->count();
+        // Nếu lịch hẹn có ngày và tgian trùng nhau quá 5 lần hiện tbao
+        if ($selectedTime && $count > 4) {
+            return redirect()->back()->with('errorDatLich', 'Thời gian bạn đặt lịch đã quá nhiều người đặt! Vui lòng chọn ngày hoặc mốc thời gian khác');
         }
 
         if (Auth::check()) {

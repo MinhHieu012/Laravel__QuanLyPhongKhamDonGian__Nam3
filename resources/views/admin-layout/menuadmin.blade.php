@@ -32,6 +32,7 @@
             background-color: #555;
             color: white;
         }
+
         i {
             margin-right: 15px;
             font-size: 20px;
@@ -41,7 +42,6 @@
             text-align: center;
             justify-content: center;
         }
-
     </style>
 <body>
 @section('navbaradmin')
@@ -88,7 +88,7 @@
 </nav>
 
 <!-- Menu dọc -->
-<ul class="ul1">
+<ul class="ul1" id="menu">
     <li class="li1"><a href="{{URL::asset('/admin/home')}}" id="a1"><i class="fa-solid fa-house"></i> <span id="span1">Dashboard</span></a></li>
     <li class="li1"><a href="{{URL::asset('/admin/quanlykhachhang')}}" id="a1"><i class="fa-solid fa-user-doctor"></i> <span id="span1">Quản lý khách hàng</span></a></li>
     <li class="li1"><a href="{{URL::asset('/admin/quanlybacsi')}}" id="a1"><i class="fa-solid fa-user-doctor"></i> <span id="span1">Quản lý bác sĩ</span></a></li>
@@ -101,4 +101,7 @@
 @yield('content2')
 </body>
 <script src="https://kit.fontawesome.com/e469ae31fa.js" crossorigin="anonymous"></script>
+<script>
+
+</script>
 </html>
