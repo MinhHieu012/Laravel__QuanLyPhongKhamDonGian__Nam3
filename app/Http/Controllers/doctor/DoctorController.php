@@ -88,7 +88,7 @@ class DoctorController extends Controller
         $appointment_schedules = appointment_schedules::findOrFail($id);
         $appointment_schedules->appointment_status = 0;
         $appointment_schedules->save();
-        return redirect('/doctor/lichhen')->with('success', 'Chuyển về lịch hẹn chưa khám thành công');
+        return redirect('/doctor/lichhenchuakham')->with('success', 'Chuyển về lịch hẹn chưa khám thành công');
     }
 
     function DangKham_sang_DaKham(Request $request, $id) {
