@@ -101,8 +101,20 @@ Route::get('/admin/quanlybacsi/delete/{id}', [AdminController::class, 'deletedoc
 Route::get('/admin/quanlybacsi/edit/{id}', [AdminController::class, 'editDoctor'])->name('doctor.edit');
 Route::post('/admin/quanlybacsi/edit/{id}', [AdminController::class, 'updateDoctor'])->name('doctor.edit');
 
-// admin - trang quản lý lịch hẹn
-Route::get('/admin/quanlylichhen', [AdminController::class, 'viewQuanLyLichHen']);
+// admin - trang lịch hẹn chưa xác nhận
+Route::get('/admin/lichhenchuaxacnhan', [AdminController::class, 'viewLichHenChuaXacNhan']);
+
+// admin - trang sửa trạng lịch hẹn chưa xác nhận -> đã xác nhận
+Route::post('/admin/lichhen/xacnhan/{id}', [AdminController::class, 'LichHenChuaXacNhan_sang_LichHenDaXacNhan']);
+
+// admin - trang sửa trạng lịch hẹn đã xác nhận -> chưa xác nhận
+Route::post('/admin/lichhen/chuaxacnhan/{id}', [AdminController::class, 'LichHenDaXacNhan_sang_LichHenChuaXacNhan']);
+
+// admin - trang lịch hẹn đã xác nhận
+Route::get('/admin/lichhendaxacnhan', [AdminController::class, 'viewLichHenDaXacNhan']);
+
+// admin - trang quản lý lịch hẹn chưa thanh toán
+Route::get('/admin/lichhenchuathanhtoan', [AdminController::class, 'viewLichHenChuaThanhToan']);
 
 // admin - trang quản lý lịch hẹn (sửa lịch hẹn)
 Route::get('/admin/quanlylichhen/edit/{id}', [AdminController::class, 'editLichHen'])->name('admin.editLichHen');
@@ -153,5 +165,11 @@ Route::get('/doctor/lichhendakham', [DoctorController::class, 'viewLichHenDaKham
 // sửa trạng thái chưa khám -> đang khám
 Route::post('/doctor/lichhen/dangkham/{id}', [DoctorController::class, 'ChuaKham_sang_DangKham']);
 
+// sửa trạng thái đang khám -> chưa khám khám
+Route::post('/doctor/lichhen/chuakham/{id}', [DoctorController::class, 'DangKham_sang_ChuaKham']);
+
 // sửa trạng thái đang khám -> đã khám xong
 Route::post('/doctor/lichhen/dakham/{id}', [DoctorController::class, 'DangKham_sang_DaKham']);
+
+// sửa trạng thái đang khám xong -> chưa khám xong
+Route::post('/doctor/lichhen/backdangkham/{id}', [DoctorController::class, 'DaKham_sang_DangKham']);

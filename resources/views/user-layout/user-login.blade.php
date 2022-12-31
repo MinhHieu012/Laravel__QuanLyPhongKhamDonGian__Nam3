@@ -88,7 +88,7 @@
                 Swal.fire({
                     text: "{{ session('checkLogin') }}",
                     textColor: 'black',
-                    icon: 'error',
+                    icon: 'warning',
                     confirmButtonText: 'OK',
                 })
             }

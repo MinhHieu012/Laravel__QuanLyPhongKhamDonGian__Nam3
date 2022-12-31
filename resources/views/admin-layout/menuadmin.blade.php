@@ -25,7 +25,7 @@
             color: #000;
             padding: 8px 16px;
             text-decoration: none;
-
+            width: 420px;
         }
 
         .li1 #a1:hover:not(.active) {
@@ -92,7 +92,8 @@
     <li class="li1"><a href="{{URL::asset('/admin/home')}}" id="a1"><i class="fa-solid fa-house"></i> <span id="span1">Dashboard</span></a></li>
     <li class="li1"><a href="{{URL::asset('/admin/quanlykhachhang')}}" id="a1"><i class="fa-solid fa-user-doctor"></i> <span id="span1">Quản lý khách hàng</span></a></li>
     <li class="li1"><a href="{{URL::asset('/admin/quanlybacsi')}}" id="a1"><i class="fa-solid fa-user-doctor"></i> <span id="span1">Quản lý bác sĩ</span></a></li>
-    <li class="li1"><a href="{{URL::asset('/admin/quanlylichhen')}}" id="a1"><i class="fa-solid fa-calendar"></i> <span id="span1">Quản lý lịch hẹn</span></a></li>
+    <li class="li1"><a href="{{URL::asset('/admin/lichhenchuaxacnhan')}}" id="a1"><i class="fa-solid fa-calendar"></i> <span id="span1">Xác nhận lịch hẹn</span></a></li>
+    <li class="li1"><a href="{{URL::asset('/admin/lichhenchuathanhtoan')}}" id="a1"><i class="fa-solid fa-calendar"></i> <span id="span1">Lịch hẹn chưa thanh toán</span></a></li>
     <li class="li1"><a href="{{URL::asset('/admin/lichhendathanhtoan')}}" id="a1"><i class="fa-solid fa-calendar"></i> <span id="span1">Lịch hẹn đã thanh toán</span></a></li>
 </ul>
 

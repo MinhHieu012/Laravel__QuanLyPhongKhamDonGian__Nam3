@@ -215,7 +215,7 @@
                 </td>
                 <td>
                     <form action="{{ url('/datlich/delete/'. $datlich->id)}}" method="POST">
-                        <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn hủy lich hẹn (Nếu lịch hẹn đã đặt quá 5p ko thể hủy! Hãy liên hệ qua FB)?')" class="btn btn-danger">Hủy lịch hẹn</button>
+                        <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn hủy lich hẹn (Nếu lịch hẹn đã xác nhận ko thể hủy! Hãy liên hệ qua FB)?')" class="btn btn-danger">Hủy lịch hẹn</button>
                     </form>
                 </td>
             </tr>

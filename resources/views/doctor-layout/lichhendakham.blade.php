@@ -40,7 +40,7 @@
 @extends('doctor-layout/menu-doctor')
 @section('content2')
     <div>
-        <h2 style="position: relative; right: -270px; top: 15px">Lịch hẹn</h2>
+        <h2 style="position: relative; right: -270px; top: 15px">Lịch hẹn đã khám</h2>
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary">Lịch hẹn đã khám</button>
         @if (session('success'))
             <script>
@@ -68,6 +68,7 @@
                     <th>Gói giá</th>
                     <th>Ngày đặt lịch</th>
                     <th>Ngày khám xong</th>
+                    <th>Thao tác</th>
                 </tr>
                 </thead>
                 <!-- thân bảng -->
@@ -82,6 +83,12 @@
                         <td>{{ $datlich->prices }}</td>
                         <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
                         <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->updated_at)) }}</td>
+                        <td>
+                            <form action="{{ url('/doctor/lichhen/backdangkham/'. $datlich->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" onclick="return confirm('Lịch hẹn này chưa khám xong?')" class="btn btn-primary">Chưa khám xong</button>
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
                 @empty

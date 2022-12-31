@@ -55,7 +55,9 @@ class DoctorController extends Controller
     // GET: http://localhost/Project2Final/doctor/lichhen
     // Trang hồ sơ thông tin bác sĩ
     function viewLichHen() {
-        $datlich = appointment_schedules::where('appointment_status', '=', '0')->get();
+        $datlich = appointment_schedules::where('appointment_status', '=', '0')
+            ->where('status', '=', '1')
+            ->get();
         return view('/doctor-layout/doctor-lichhen', ['datlich' => $datlich]);
     }
 
@@ -66,14 +68,18 @@ class DoctorController extends Controller
     }
 
     function viewLichHenDangKham() {
-        $datlich = appointment_schedules::where('appointment_status', '=', '1')->get();
+        $datlich = appointment_schedules::where('appointment_status', '=', '1')
+            ->where('status', '=', '1')
+            ->get();
         return view('doctor-layout/lichhendangkham', ['datlich' => $datlich]);
     }
 
     // GET: http://localhost/Project2Final/doctor/lichhendakham
     // trang lịch hẹn đã khám
     function viewLichHenDaKham() {
-        $datlich = appointment_schedules::where('appointment_status', '=', '2')->get();
+        $datlich = appointment_schedules::where('appointment_status', '=', '2')
+            ->where('status', '=', '1')
+            ->get();
         return view('doctor-layout/lichhendakham', ['datlich' => $datlich]);
     }
 
@@ -84,11 +90,25 @@ class DoctorController extends Controller
         return redirect('/doctor/lichhendangkham')->with('success', 'Chuyển về lịch hẹn đang khám thành công');
     }
 
+    function DangKham_sang_ChuaKham(Request $request, $id) {
+        $appointment_schedules = appointment_schedules::findOrFail($id);
+        $appointment_schedules->appointment_status = 0;
+        $appointment_schedules->save();
+        return redirect('/doctor/lichhen')->with('success', 'Chuyển về lịch hẹn chưa khám thành công');
+    }
+
     function DangKham_sang_DaKham(Request $request, $id) {
         $appointment_schedules = appointment_schedules::findOrFail($id);
         $appointment_schedules->appointment_status = 2;
         $appointment_schedules->save();
         return redirect('/doctor/lichhendakham')->with('success', 'Chuyển về lịch hẹn đã khám xong thành công');
+    }
+
+    function DaKham_sang_DangKham(Request $request, $id) {
+        $appointment_schedules = appointment_schedules::findOrFail($id);
+        $appointment_schedules->appointment_status = 1;
+        $appointment_schedules->save();
+        return redirect('/doctor/lichhendangkham')->with('success1', 'Chuyển về lịch hẹn đã khám xong thành công');
     }
 }
 

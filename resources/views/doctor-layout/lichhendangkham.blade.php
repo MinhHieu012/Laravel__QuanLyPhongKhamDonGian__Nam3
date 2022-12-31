@@ -41,13 +41,27 @@
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Lịch hẹn đang khám</h2>
-        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary">Lịch hẹn đã khám</button>
+        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary">Lịch hẹn đang khám</button>
         @if (session('success'))
             <script>
                 window.onload = function() {
                     // Display the message box
                     Swal.fire({
                         text: "{{ session('success') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
+        @if (session('success1'))
+            <script>
+                window.onload = function() {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('success1') }}",
                         textColor: 'black',
                         icon: 'success',
                         confirmButtonText: 'OK',
@@ -69,6 +83,7 @@
                     <th>Ngày đặt lịch</th>
                     <th>Ngày khám</th>
                     <th>Thao tác</th>
+                    <th>Thao tác</th>
                 </tr>
                 </thead>
                 <!-- thân bảng -->
@@ -83,6 +98,12 @@
                         <td>{{ $datlich->prices }}</td>
                         <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
                         <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->updated_at)) }}</td>
+                        <td>
+                            <form action="{{ url('/doctor/lichhen/chuakham/'. $datlich->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" onclick="return confirm('Lịch hẹn này đang không khám?')" class="btn btn-primary">Đang chưa khám</button>
+                            </form>
+                        </td>
                         <td>
                             <form action="{{ url('/doctor/lichhen/dakham/'. $datlich->id) }}" method="POST">
                                 @csrf

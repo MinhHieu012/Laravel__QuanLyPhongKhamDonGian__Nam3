@@ -30,7 +30,7 @@
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Sửa lịch hẹn</h2>
-        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary" onclick="window.location.href='{{URL::asset('admin/quanlylichhen')}}';">Quay lại</button>
+        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary" onclick="window.location.href='{{URL::asset('admin/lichhenchuaxacnhan')}}';">Quay lại</button>
 
         <form method="POST" class="a3">
             <div class="mb-3">

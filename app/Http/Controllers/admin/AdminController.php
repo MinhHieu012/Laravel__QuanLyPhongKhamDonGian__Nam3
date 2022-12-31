@@ -150,9 +150,11 @@ class AdminController extends Controller
 
         // GET: http://localhost/Project2Final/admin/quanlylichhen
         // Trang giao diện quản lý lịch hẹn
-        function viewQuanLyLichHen()
+        function viewLichHenChuaThanhToan()
         {
-            $appointment_schedule = appointment_schedules::where('payment_status', '=', '0')->get();
+            $appointment_schedule = appointment_schedules::where('payment_status', '=', '0')
+                ->where('status', '=', '1')
+                ->get();
             return view('admin-layout/trang-quanlylichhen', ['appointment_schedule' => $appointment_schedule]);
         }
 
@@ -175,7 +177,7 @@ class AdminController extends Controller
             $appointment_schedule->times = $request->time;
             $appointment_schedule->prices = $request->price;
             $appointment_schedule->save();
-            return redirect('admin/quanlylichhen')->with('editDone', 'Cập nhật thông tin lịch hẹn thành công!');
+            return redirect('admin/lichhenchuaxacnhan')->with('editDone', 'Cập nhật thông tin lịch hẹn thành công!');
         }
 
         // GET: http://localhost/Project2Final/admin/quanlylichhen/delete/{id}
@@ -184,14 +186,42 @@ class AdminController extends Controller
             // Tìm đến đối tượng muốn xóa
             $accounts = appointment_schedules::findOrFail($id);
             $accounts->delete();
-            return redirect('admin/quanlylichhen/')->with('deleteDone', 'Xóa lịch hẹn thành công!');
+            return redirect('admin/lichhenchuaxacnhan/')->with('deleteDone', 'Xóa lịch hẹn thành công!');
+        }
+
+        function viewLichHenChuaXacNhan()
+        {
+            $lich_chua_xac_nhan = appointment_schedules::where('status', '=', '0')->get();
+            return view('admin-layout/lichhenchuaxacnhan', ['lich_chua_xac_nhan' => $lich_chua_xac_nhan]);
+        }
+
+        function LichHenChuaXacNhan_sang_LichHenDaXacNhan(Request $request, $id) {
+            $appointment_schedules = appointment_schedules::findOrFail($id);
+            $appointment_schedules->status = 1;
+            $appointment_schedules->save();
+            return redirect('/admin/lichhendaxacnhan')->with('success', 'Lịch hẹn đã xác nhận thành công');
+        }
+
+        function LichHenDaXacNhan_sang_LichHenChuaXacNhan(Request $request, $id) {
+            $appointment_schedules = appointment_schedules::findOrFail($id);
+            $appointment_schedules->status = 0;
+            $appointment_schedules->save();
+            return redirect('/admin/lichhenchuaxacnhan')->with('success1', 'Hủy xác nhận lịch hẹn thành công');
+    }
+
+        function viewLichHenDaXacNhan()
+        {
+            $lich_da_xac_nhan = appointment_schedules::where('status', '=', '1')->get();
+            return view('admin-layout/lichhendaxacnhan', ['lich_da_xac_nhan' => $lich_da_xac_nhan]);
         }
 
         // GET: http://localhost/Project2Final/admin/lichhendathanhtoan
         // Trang lịch hẹn đã thanh toán
         function viewLichHenDaThanhToan()
         {
-            $lich_da_thanh_toan = appointment_schedules::where('payment_status', '=', '1')->get();
+            $lich_da_thanh_toan = appointment_schedules::where('payment_status', '=', '1')
+                ->where('status', '=', '1')
+                ->get();
             return view('admin-layout/lichhendathanhtoan', ['lich_da_thanh_toan' => $lich_da_thanh_toan]);
         }
 
@@ -206,6 +236,6 @@ class AdminController extends Controller
             $appointment_schedules = appointment_schedules::findOrFail($id);
             $appointment_schedules->payment_status = 0;
             $appointment_schedules->save();
-            return redirect('/admin/quanlylichhen')->with('success', 'Chuyển về lịch hẹn chưa thanh toán thành công');
+            return redirect('/admin/lichhenchuathanhtoan')->with('success', 'Chuyển về lịch hẹn chưa thanh toán thành công');
         }
 }
