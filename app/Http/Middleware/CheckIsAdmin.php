@@ -21,10 +21,10 @@ class CheckIsAdmin
             // Kiểm tra có phải là admin ko
             $user = Auth::user();
             if ($user -> isAdmin == 0) {
-                return redirect('/login');
+                return redirect('/')->with('permissionDenied', 'Bạn không có quyền truy cập');
             }
         } else {
-            return redirect('/login');
+            return redirect('/')->with('permissionDenied', 'Bạn không có quyền truy cập');
         }
         return $next($request);
     }

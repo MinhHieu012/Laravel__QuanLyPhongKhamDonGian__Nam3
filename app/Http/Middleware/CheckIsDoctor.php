@@ -18,13 +18,13 @@ class CheckIsDoctor
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            // Kiểm tra có phải là admin ko
+            // Kiểm tra có phải là bác sĩ ko
             $user = Auth::user();
             if ($user -> isDoctor == 0) {
-                return redirect('/login');
+                return redirect('/')->with('permissionDenied', 'Bạn không có quyền truy cập');
             }
         } else {
-            return redirect('/login');
+            return redirect('/')->with('permissionDenied', 'Bạn không có quyền truy cập');
         }
         return $next($request);
     }

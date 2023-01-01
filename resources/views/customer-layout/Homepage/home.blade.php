@@ -169,6 +169,20 @@
             }
         </script>
     @endif
+
+    @if (session('permissionDenied'))
+        <script>
+            window.onload = function() {
+                // Display the message box
+                Swal.fire({
+                    text: "{{ session('permissionDenied') }}",
+                    textColor: 'red',
+                    icon: 'error',
+                    confirmButtonText: 'Thoát',
+                })
+            }
+        </script>
+    @endif
 @endsection
 
 </body>
