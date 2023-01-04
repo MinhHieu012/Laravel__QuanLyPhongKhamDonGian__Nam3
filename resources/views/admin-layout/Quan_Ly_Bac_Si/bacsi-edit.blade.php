@@ -33,15 +33,7 @@
         <form method="POST" class="a2">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Tên đăng nhập</label>
-                <input type="text" class="form-control" id="username" name="username" value="{{$accounts->username}}"
-                       aria-describedby="emailHelp" required>
-                <div class="text">
-                    @error('username')
-                    <li style="color: red; font-size: 17px; padding-bottom: 5px">Tên đăng nhập bạn đăng kí đã tồn tại!
-                        Hoặc yêu cầu tối thiểu 4 kí tự và tối đa 30 kí tự
-                    </li>
-                    @enderror
-                </div>
+                <input type="text" class="form-control" id="username" name="username" value="{{$accounts->username}}" required>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
@@ -81,6 +73,10 @@
                 <label for="exampleInputPassword1" class="form-label">Địa chỉ</label>
                 <input type="text" class="form-control" id="address" name="address" value="{{$accounts->address}}"
                        required>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Lĩnh vực khám</label>
+                <input type="text" class="form-control" id="work_area" name="work_area" placeholder="Nhập lĩnh vực khám của bác sĩ" value="{{$accounts->work_areas}}" required>
             </div>
             <button type="submit" class=" btn btn-success" name="edit" id="edit"><i class="fa-solid fa-user-pen"></i>Sửa
             </button>

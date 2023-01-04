@@ -53,9 +53,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Thời gian hẹn</label>
-                <select
-                    style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px"
-                    name="time" id="time">
+                <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="time" id="time">
                     <optgroup label="Sáng">
                         <option value="Sáng 8:00 giờ - 9:00 giờ">Sáng 08:00 giờ đến 09:00 giờ</option>
                         <option value="Sáng 9:00 giờ đến 10:00 giờ">Sáng 09:00 giờ đến 10:00 giờ</option>
@@ -71,13 +69,49 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Gói giá</label>
-                <select
-                    style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px"
-                    name="price" id="price">
-                    <option value="Gói 100.000đ">Gói 100.000đ</option>
-                    <option value="Gói 200.000đ">Gói 200.000đ</option>
-                    <option value="Gói 250.000đ">Gói 250.000đ</option>
+                <label for="exampleInputPassword1" class="form-label">Gói khám</label>
+                <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="price" id="price">
+                    <optgroup label="Khám lâm sàng">
+                        <option value="Đo Mạch, Huyết Áp, Chỉ số BMI (Nam/Nữ): 50.000đ">Đo Mạch, Huyết Áp, Chỉ số BMI (Nam/Nữ): 50.000đ</option>
+                        <option value="Khám tổng quát (Nam/Nữ/Trẻ em): 500.000đ">Khám tổng quát (Nam/Nữ/Trẻ em): 500.000đ</option>
+                        <option value="Khám Mắt (Nam/Nữ/Trẻ em): 300.000đ">Khám Mắt (Nam/Nữ/Trẻ em): 300.000đ</option>
+                        <option value="Khám Tai Mũi Họng (Nam/Nữ/Trẻ em): 150.000đ">Khám Tai Mũi Họng (Nam/Nữ/Trẻ em): 150.000đ</option>
+                        <option value="Khám Răng (Nam/Nữ/Trẻ em): 350.000đ">Khám Răng (Nam/Nữ/Trẻ em): 350.000đ</option>
+                    </optgroup>
+                    <optgroup label="Xét nghiệm máu">
+                        <option value="Xét nghiệm máu toàn phần (CBC): 200.000đ">Xét nghiệm máu toàn phần (CBC): 250.000đ</option>
+                        <option value="Xét nghiệm Sinh Hóa Máu (Serum Biochemistry: 200.000đ)">Xét nghiệm Sinh Hóa Máu (SB): 200.000đ</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Bác sĩ khám</label>
+                <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" id="doctor_examine" name="doctor_examine">
+                    @foreach ($doctors as $doctor)
+                        <option value="ID: {{ $doctor->id }} - Họ tên: {{ $doctor->name }}">ID: {{ $doctor->id }} - Họ tên: {{ $doctor->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Phòng khám</label>
+                <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="room" id="room">
+                    <optgroup label="Phòng khám lâm sàng">
+                        <option value="Phòng LS01">Phòng LS01</option>
+                        <option value="Phòng LS02">Phòng LS02</option>
+                        <option value="Phòng LS03">Phòng LS03</option>
+                        <option value="Phòng LS04">Phòng LS04</option>
+                        <option value="Phòng LS05">Phòng LS05</option>
+                        <option value="Phòng LS06">Phòng LS06</option>
+                        <option value="Phòng LS07">Phòng LS07</option>
+                        <option value="Phòng LS08">Phòng LS08</option>
+                    </optgroup>
+                    <optgroup label="Phòng khám xét nghiệm">
+                        <option value="Phòng XN01">Phòng XN01</option>
+                        <option value="Phòng XN02">Phòng XN02</option>
+                        <option value="Phòng XN03">Phòng XN03</option>
+                        <option value="Phòng XN04">Phòng XN04</option>
+                        <option value="Phòng XN05">Phòng XN05</option>
+                    </optgroup>
                 </select>
             </div>
             <button type="submit" class="btn btn-warning" id="edit" name="edit">Sửa</button>

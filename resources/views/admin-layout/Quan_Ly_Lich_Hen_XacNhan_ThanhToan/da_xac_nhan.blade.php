@@ -61,48 +61,84 @@
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary">Lịch hẹn đã
             xác nhận
         </button>
+
         <div class="table1">
-            <table id="lich_da_xac_nhan" class="table table-bordered border-dark" style="width: 100%">
-                <!-- tiêu đề bảng -->
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Họ tên</th>
-                    <th>Số điện thoại</th>
-                    <th>Ngày hẹn</th>
-                    <th>Thời gian hẹn</th>
-                    <th>Gói giá</th>
-                    <th>Ngày đặt lịch</th>
-                    <th>Ngày xác nhận lịch hẹn</th>
-                    <th>Thao tác</th>
-                </tr>
-                </thead>
-                <!-- thân bảng -->
-                <tbody>
-                @forelse($lich_da_xac_nhan as $lich_da_xac_nhan)
+            @foreach ($appointments as $date => $appointmentsForDate)
+                <table id="{{ $date }}" class="table table-bordered border-dark" style="width: 100%">
+                    <br>
+                    <h4>Lịch hẹn đã xác nhận ngày {{ $date }}</h4>
+                    <!-- tiêu đề bảng -->
+                    <thead>
                     <tr>
-                        <td>{{ $lich_da_xac_nhan->id }}</td>
-                        <td>{{ $lich_da_xac_nhan->names }}</td>
-                        <td>{{ $lich_da_xac_nhan->phones }}</td>
-                        <td>{{ date('d/m/Y', strtotime($lich_da_xac_nhan->dates)) }}</td>
-                        <td>{{ $lich_da_xac_nhan->times }}</td>
-                        <td>{{ $lich_da_xac_nhan->prices }}</td>
-                        <td>{{ date('d/m/Y, H:i', strtotime($lich_da_xac_nhan->created_at)) }}</td>
-                        <td>{{ date('d/m/Y, H:i', strtotime($lich_da_xac_nhan->updated_at)) }}</td>
-                        <td>
-                            <form action="{{ url('/admin/lichhen/chuaxacnhan/'. $lich_da_xac_nhan->id) }}"
-                                  method="POST">
-                                @csrf
-                                <button type="submit" onclick="return confirm('Hủy xác nhận lịch hẹn này?')"
-                                        class="btn btn-outline-warning">Hủy xác nhận lịch hẹn
-                                </button>
-                            </form>
-                        </td>
+                        <th>ID</th>
+                        <th>Họ tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày hẹn</th>
+                        <th>Thời gian hẹn</th>
+                        <th>Gói khám</th>
+                        <th>Ngày đặt lịch</th>
+                        <th>Ghi chú</th>
+                        <th>Phòng khám</th>
+                        <th>Bác sĩ khám</th>
+                        <th>Thao tác</th>
                     </tr>
-                @empty
-                @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <!-- thân bảng -->
+                    <tbody>
+                    @forelse($appointmentsForDate as $appointment)
+                        <tr>
+                            <td>{{ $appointment->id }}</td>
+                            <td>{{ $appointment->names }}</td>
+                            <td>{{ $appointment->phones }}</td>
+                            <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
+                            <td>{{ $appointment->times }}</td>
+                            <td>{{ $appointment->prices }}</td>
+                            <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>
+                            <td>{{ $appointment->notes }}</td>
+                            <td>{{ $appointment->rooms }}</td>
+                            <td>{{ $appointment->doctor_examines }}</td>
+                            <td>
+                                <form action="{{ url('/admin/lichhen/chuaxacnhan/'. $appointment->id) }}"
+                                      method="POST">
+                                    @csrf
+                                    <button type="submit" onclick="return confirm('Hủy xác nhận lịch hẹn này?')"
+                                            class="btn btn-outline-warning">Hủy xác nhận lịch hẹn
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="12">Không có lịch hẹn nào</td>
+                        </tr>
+                    @endforelse
+                    <script>
+                        $(document).ready(function () {
+                            $.fn.dataTableExt.sErrMode = 'throw';
+                            $('#{{ $date }}').DataTable({
+                                language: {
+                                    search: "Tìm kiếm",
+                                    lengthMenu: "Hiển thị 1 trang _MENU_ cột",
+                                    info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
+                                    infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
+                                    zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
+                                    emptyTable: "Chưa có lịch hẹn được xác nhận",
+                                    paginate: {
+                                        first: "Trang đầu",
+                                        previous: "Trang trước",
+                                        next: "Trang sau",
+                                        last: "Trang cuối"
+                                    },
+                                },
+                            });
+                        });
+                    </script>
+                    @endforeach
+                    </tbody>
+                </table>
+        </div>
+
+
         </div>
     </div>
     </div>

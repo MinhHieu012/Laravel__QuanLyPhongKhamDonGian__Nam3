@@ -92,6 +92,10 @@
                 <input type="text" class="form-control" id="address" name="address"
                        placeholder="Nhập địa chỉ của bác sĩ" required>
             </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Lĩnh vực khám</label>
+                <input type="text" class="form-control" id="work_area" name="work_area" placeholder="Nhập lĩnh vực khám của bác sĩ" required>
+            </div>
             <button type="submit" class=" btn btn-success" id="add" name="add"><i class="fa-regular fa-plus"></i>Thêm
                 bác sĩ
             </button>

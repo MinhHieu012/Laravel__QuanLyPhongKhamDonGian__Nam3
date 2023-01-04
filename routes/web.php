@@ -92,7 +92,7 @@ Route::post('/admin/quanlykhachhang/unlock/{id}', [AdminController::class, 'MoKh
 // Xóa tài khoản khách
 Route::get('/admin/quanlykhachhang/delete/{id}', [AdminController::class, 'deleteKhach']);
 
-// admin - trang quản lý bác sĩ (sửa bác sĩ)
+// admin - trang sửa khách hàng
 Route::get('/admin/quanlykhachhang/edit/{id}', [AdminController::class, 'editKhach']);
 Route::post('/admin/quanlykhachhang/edit/{id}', [AdminController::class, 'updateKhach']);
 
@@ -107,10 +107,8 @@ Route::post('/admin/quanlybacsi/add', [AdminController::class, 'addbacsi']);
 Route::get('/admin/quanlybacsi/delete/{id}', [AdminController::class, 'deletedoctor'])->name('doctor.delete');
 
 // admin - trang quản lý bác sĩ (sửa bác sĩ)
-Route::get('/admin/quanlybacsi/edit/{id}', [AdminController::class, 'editDoctor'])->name('doctor.edit');
-Route::post('/admin/quanlybacsi/edit/{id}', [AdminController::class, 'updateDoctor'])->name('doctor.edit');
-
-
+Route::get('/admin/quanlybacsi/edit/{id}', [AdminController::class, 'editDoctor']);
+Route::post('/admin/quanlybacsi/edit/{id}', [AdminController::class, 'updateDoctor']);
 
 // trang khóa tài khoản bác sĩ
 Route::get('/admin/quanlybacsi/lock', [AdminController::class, 'viewQuanLyBacsi_KhoaTaiKhoan']);
@@ -120,9 +118,6 @@ Route::post('/admin/quanlybacsi/lock/{id}', [AdminController::class, 'KhoaTaiKho
 
 // Xử lý mở lại tài khoản bác sĩ
 Route::post('/admin/quanlybacsi/unlock/{id}', [AdminController::class, 'MoKhoaTaiKhoan_Bacsi']);
-
-
-
 
 // admin - trang lịch hẹn chưa xác nhận
 Route::get('/admin/lichhenchuaxacnhan', [AdminController::class, 'viewLichHenChuaXacNhan']);

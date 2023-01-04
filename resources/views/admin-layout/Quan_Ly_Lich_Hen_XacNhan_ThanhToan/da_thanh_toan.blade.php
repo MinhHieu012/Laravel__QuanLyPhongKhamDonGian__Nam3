@@ -57,49 +57,80 @@
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary">Lịch hẹn đã
             thanh toán
         </button>
+
         <div class="table1">
-            <table id="lich_da_thanh_toan" class="table table-bordered border-dark" style="width: 100%">
-                <!-- tiêu đề bảng -->
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Họ tên</th>
-                    <th>Số điện thoại</th>
-                    <th>Ngày hẹn</th>
-                    <th>Thời gian hẹn</th>
-                    <th>Gói giá</th>
-                    <th>Ngày đặt lịch</th>
-                    <th>Ngày thanh toán</th>
-                    <th>Thao tác</th>
-                </tr>
-                </thead>
-                <!-- thân bảng -->
-                <tbody>
-                @forelse($lich_da_thanh_toan as $lich_da_thanh_toan)
+            @foreach ($appointments as $date => $appointmentsForDate)
+                <table id="{{ $date }}" class="table table-bordered border-dark" style="width: 100%">
+                    <br>
+                    <h4>Lịch hẹn đã thanh toán ngày {{ $date }}</h4>
+                    <!-- tiêu đề bảng -->
+                    <thead>
                     <tr>
-                        <td>{{ $lich_da_thanh_toan->id }}</td>
-                        <td>{{ $lich_da_thanh_toan->names }}</td>
-                        <td>{{ $lich_da_thanh_toan->phones }}</td>
-                        <td>{{ date('d/m/Y', strtotime($lich_da_thanh_toan->dates)) }}</td>
-                        <td>{{ $lich_da_thanh_toan->times }}</td>
-                        <td>{{ $lich_da_thanh_toan->prices }}</td>
-                        <td>{{ date('d/m/Y, H:i', strtotime($lich_da_thanh_toan->created_at)) }}</td>
-                        <td>{{ date('d/m/Y, H:i', strtotime($lich_da_thanh_toan->updated_at)) }}</td>
-                        <td>
-                            <form action="{{ url('/admin/quanlylichhen/unpaid/'. $lich_da_thanh_toan->id) }}"
-                                  method="POST">
-                                @csrf
-                                <button type="submit" onclick="return confirm('Lịch hẹn này chưa thanh toán?')"
-                                        class="btn btn-outline-warning">Chưa thanh toán
-                                </button>
-                            </form>
-                        </td>
+                        <th>ID</th>
+                        <th>Họ tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày hẹn</th>
+                        <th>Thời gian hẹn</th>
+                        <th>Gói khám</th>
+                        <th>Ngày đặt lịch</th>
+                        <th>Ngày thanh toán</th>
+                        <th>Thao tác</th>
                     </tr>
-                @empty
-                @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <!-- thân bảng -->
+                    <tbody>
+                    @forelse($appointmentsForDate as $appointment)
+                        <tr>
+                            <td>{{ $appointment->id }}</td>
+                            <td>{{ $appointment->names }}</td>
+                            <td>{{ $appointment->phones }}</td>
+                            <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
+                            <td>{{ $appointment->times }}</td>
+                            <td>{{ $appointment->prices }}</td>
+                            <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>
+                            <td>{{ date('d/m/Y, H:i', strtotime($appointment->updated_at)) }}</td>
+                            <td>
+                                <form action="{{ url('/admin/quanlylichhen/unpaid/'. $appointment->id) }}"
+                                      method="POST">
+                                    @csrf
+                                    <button type="submit" onclick="return confirm('Lịch hẹn này chưa thanh toán?')"
+                                            class="btn btn-outline-warning">Chưa thanh toán
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="12">Không có lịch hẹn nào</td>
+                        </tr>
+                    @endforelse
+                    <script>
+                        $(document).ready(function () {
+                            $.fn.dataTableExt.sErrMode = 'throw';
+                            $('#{{ $date }}').DataTable({
+                                language: {
+                                    search: "Tìm kiếm",
+                                    lengthMenu: "Hiển thị 1 trang _MENU_ cột",
+                                    info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
+                                    infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
+                                    zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
+                                    emptyTable: "Chưa có lịch hẹn được xác nhận",
+                                    paginate: {
+                                        first: "Trang đầu",
+                                        previous: "Trang trước",
+                                        next: "Trang sau",
+                                        last: "Trang cuối"
+                                    },
+                                },
+                            });
+                        });
+                    </script>
+                    @endforeach
+                    </tbody>
+                </table>
         </div>
+
+
     </div>
     </div>
     </div>
@@ -109,27 +140,7 @@
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $.fn.dataTableExt.sErrMode = 'throw';
-        $('#lich_da_thanh_toan').DataTable({
-            language: {
-                search: "Tìm kiếm",
-                lengthMenu: "Hiển thị 1 trang _MENU_ cột",
-                info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
-                infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
-                zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
-                emptyTable: "Chưa có lịch hẹn nào được thanh toán",
-                paginate: {
-                    first: "Trang đầu",
-                    previous: "Trang trước",
-                    next: "Trang sau",
-                    last: "Trang cuối"
-                },
-            },
-        });
-    });
-</script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 

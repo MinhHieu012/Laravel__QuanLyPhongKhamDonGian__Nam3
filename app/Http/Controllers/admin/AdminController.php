@@ -70,7 +70,7 @@ class AdminController extends Controller
                 $accounts->username = $request->username;
                 $accounts->password = bcrypt($request->password);
                 $accounts->save();
-                return redirect('admin/quanlykhachhang/')->with('editDone', 'Cập nhật thông tin tài khoản khách hang thành công!');
+                return redirect('admin/quanlykhachhang/')->with('editDone', 'Cập nhật thông tin tài khoản khách hàng thành công!');
             }
         }
 
@@ -133,14 +133,16 @@ class AdminController extends Controller
                 $accounts->date_of_births = $request->date_of_birth;
                 $accounts->genders = $request->gender;
                 $accounts->address = $request->address;
+                $accounts->work_areas = $request->work_area;
                 $accounts->isDoctor = "1";
+                $accounts->status = "0";
                 $accounts->save();
                 return redirect('admin/quanlybacsi/')->with('success', 'Thêm bác sĩ thành công!');
             }
         }
         // GET: http://localhost/Project2Final/admin/quanlybacsi/edit/{id}
         // Trang giao diện sửa bác sĩ
-        function editDoctor($id)
+        function editDoctor(Request $request, $id)
         {
             $accounts = accounts::where('id', '=', $id)->first();
             return view('admin-layout/Quan_Ly_Bac_Si/bacsi-edit', compact('accounts'));
@@ -160,6 +162,7 @@ class AdminController extends Controller
                 $accounts->date_of_births = $request->date_of_birth;
                 $accounts->genders = $request->gender;
                 $accounts->address = $request->address;
+                $accounts->work_areas = $request->work_area;
                 $accounts->save();
                 return redirect('admin/quanlybacsi/')->with('editDone', 'Cập nhật thông tin bác sĩ thành công!');
             }
@@ -198,10 +201,25 @@ class AdminController extends Controller
 
         function viewLichHenChuaThanhToan()
         {
-            $appointment_schedule = appointment_schedules::where('payment_status', '=', '0')
+            $appointments = appointment_schedules::where('payment_status', '=', '0')
                 ->where('status', '=', '1')
                 ->get();
-            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_thanh_toan', ['appointment_schedule' => $appointment_schedule]);
+
+            // Convert the dates field to a Carbon instance
+            $appointments->transform(function ($appointment) {
+                $appointment->dates = Carbon::parse($appointment->dates);
+                return $appointment;
+            });
+
+            // Group the appointments by the dates field
+            $appointmentsByDate = $appointments->groupBy(function ($appointment) {
+                return $appointment->dates->format('d-m-Y');
+            });
+
+            // Pass the grouped appointments to the view
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_thanh_toan', ['appointments' => $appointmentsByDate]);
+
+            //return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_thanh_toan', ['appointments' => $appointmentsByDate]);
         }
 
         // GET: http://localhost/Project2Final/admin/quanlylichhen/edit/{id}
@@ -209,7 +227,8 @@ class AdminController extends Controller
         function editLichHen($id)
         {
             $appointment_schedule = appointment_schedules::where('id', '=', $id)->first();
-            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan-edit', compact('appointment_schedule'));
+            $doctors = accounts::where('isDoctor', '=', '1')->get();
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan-edit', compact('appointment_schedule', 'doctors'));
         }
 
         // POST: http://localhost/Project2Final/admin/quanlylichhen/edit/{id}
@@ -222,6 +241,8 @@ class AdminController extends Controller
             $appointment_schedule->dates = $request->date;
             $appointment_schedule->times = $request->time;
             $appointment_schedule->prices = $request->price;
+            $appointment_schedule->doctor_examines = $request->doctor_examine;
+            $appointment_schedule->rooms = $request->room;
             $appointment_schedule->save();
             return redirect('admin/lichhenchuaxacnhan')->with('editDone', 'Cập nhật thông tin lịch hẹn thành công!');
         }
@@ -237,8 +258,24 @@ class AdminController extends Controller
 
         function viewLichHenChuaXacNhan()
         {
-            $lich_chua_xac_nhan = appointment_schedules::where('status', '=', '0')->get();
-            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan', ['lich_chua_xac_nhan' => $lich_chua_xac_nhan]);
+            // $lich_chua_xac_nhan = appointment_schedules::where('status', '=', '0')->get();
+            // return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan', ['lich_chua_xac_nhan' => $lich_chua_xac_nhan]);
+
+            $appointments = appointment_schedules::where('status', '=', '0')->get();
+
+            // Convert the dates field to a Carbon instance
+            $appointments->transform(function ($appointment) {
+                $appointment->dates = Carbon::parse($appointment->dates);
+                return $appointment;
+            });
+
+            // Group the appointments by the dates field
+            $appointmentsByDate = $appointments->groupBy(function ($appointment) {
+                return $appointment->dates->format('d-m-Y');
+            });
+
+            // Pass the grouped appointments to the view
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan', ['appointments' => $appointmentsByDate]);
         }
 
         function LichHenChuaXacNhan_sang_LichHenDaXacNhan(Request $request, $id) {
@@ -257,18 +294,48 @@ class AdminController extends Controller
 
         function viewLichHenDaXacNhan()
         {
-            $lich_da_xac_nhan = appointment_schedules::where('status', '=', '1')->get();
-            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/da_xac_nhan', ['lich_da_xac_nhan' => $lich_da_xac_nhan]);
+            //$lich_da_xac_nhan = appointment_schedules::where('status', '=', '1')->get();
+            //return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/da_xac_nhan', ['lich_da_xac_nhan' => $lich_da_xac_nhan]);
+
+            $appointments = appointment_schedules::where('status', '=', '1')->get();
+
+            // Convert the dates field to a Carbon instance
+            $appointments->transform(function ($appointment) {
+                $appointment->dates = Carbon::parse($appointment->dates);
+                return $appointment;
+            });
+
+            // Group the appointments by the dates field
+            $appointmentsByDate = $appointments->groupBy(function ($appointment) {
+                return $appointment->dates->format('d-m-Y');
+            });
+
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/da_xac_nhan', ['appointments' => $appointmentsByDate]);
         }
 
         // GET: http://localhost/Project2Final/admin/lichhendathanhtoan
         // Trang lịch hẹn đã thanh toán
         function viewLichHenDaThanhToan()
         {
-            $lich_da_thanh_toan = appointment_schedules::where('payment_status', '=', '1')
+            $appointments = appointment_schedules::where('payment_status', '=', '1')
                 ->where('status', '=', '1')
                 ->get();
-            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/da_thanh_toan', ['lich_da_thanh_toan' => $lich_da_thanh_toan]);
+
+            // Convert the dates field to a Carbon instance
+            $appointments->transform(function ($appointment) {
+                $appointment->dates = Carbon::parse($appointment->dates);
+                return $appointment;
+            });
+
+            // Group the appointments by the dates field
+            $appointmentsByDate = $appointments->groupBy(function ($appointment) {
+                return $appointment->dates->format('d-m-Y');
+            });
+
+            // Pass the grouped appointments to the view
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/da_thanh_toan', ['appointments' => $appointmentsByDate]);
+
+            //return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/da_thanh_toan', ['lich_da_thanh_toan' => $lich_da_thanh_toan]);
         }
 
         function TrangThaiLichHen_sang_DaThanhToan(Request $request, $id) {

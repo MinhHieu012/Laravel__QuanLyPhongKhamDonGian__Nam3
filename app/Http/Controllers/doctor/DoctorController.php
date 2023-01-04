@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\accounts;
 use App\Models\appointment_schedules;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
@@ -54,27 +55,72 @@ class DoctorController extends Controller
 
     // GET: http://localhost/Project2Final/doctor/lichhen
     // Trang hồ sơ thông tin bác sĩ
-    function viewLichHenChuaKham() {
-        $datlich = appointment_schedules::where('appointment_status', '=', '0')
-            ->where('status', '=', '1')
-            ->get();
-        return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/chua_kham', ['datlich' => $datlich]);
+    function viewLichHenChuaKham(Request $request) {
+
+        $appointments = appointment_schedules::where('appointment_status', '=', '0')
+                ->where('status', '=', '1')
+                ->get();
+
+        // Convert the dates field to a Carbon instance
+        $appointments->transform(function ($appointment) {
+            $appointment->dates = Carbon::parse($appointment->dates);
+            return $appointment;
+        });
+
+        // Group the appointments by the dates field
+        $appointmentsByDate = $appointments->groupBy(function ($appointment) {
+            return $appointment->dates->format('d-m-Y');
+        });
+
+        // Pass the grouped appointments to the view
+        return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/chua_kham', ['appointments' => $appointmentsByDate]);
+
+        //return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/chua_kham', ['datlich' => $datlich]);
     }
 
     function viewLichHenDangKham() {
-        $datlich = appointment_schedules::where('appointment_status', '=', '1')
+        $appointments = appointment_schedules::where('appointment_status', '=', '1')
             ->where('status', '=', '1')
             ->get();
-        return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/dang_kham', ['datlich' => $datlich]);
+
+        // Convert the dates field to a Carbon instance
+        $appointments->transform(function ($appointment) {
+            $appointment->dates = Carbon::parse($appointment->dates);
+            return $appointment;
+        });
+
+        // Group the appointments by the dates field
+        $appointmentsByDate = $appointments->groupBy(function ($appointment) {
+            return $appointment->dates->format('d-m-Y');
+        });
+
+        // Pass the grouped appointments to the view
+        return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/dang_kham', ['appointments' => $appointmentsByDate]);
+        //return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/dang_kham', ['datlich' => $datlich]);
     }
 
     // GET: http://localhost/Project2Final/doctor/lichhendakham
     // trang lịch hẹn đã khám
     function viewLichHenDaKham() {
-        $datlich = appointment_schedules::where('appointment_status', '=', '2')
+        $appointments = appointment_schedules::where('appointment_status', '=', '2')
             ->where('status', '=', '1')
             ->get();
-        return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/da_kham_xong', ['datlich' => $datlich]);
+
+        // Convert the dates field to a Carbon instance
+        $appointments->transform(function ($appointment) {
+            $appointment->dates = Carbon::parse($appointment->dates);
+            return $appointment;
+        });
+
+        // Group the appointments by the dates field
+        $appointmentsByDate = $appointments->groupBy(function ($appointment) {
+            return $appointment->dates->format('d-m-Y');
+        });
+
+        // Pass the grouped appointments to the view
+        return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/da_kham_xong', ['appointments' => $appointmentsByDate]);
+
+        //return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/da_kham_xong', ['datlich' => $datlich]);
     }
 
     function ChuaKham_sang_DangKham(Request $request, $id) {

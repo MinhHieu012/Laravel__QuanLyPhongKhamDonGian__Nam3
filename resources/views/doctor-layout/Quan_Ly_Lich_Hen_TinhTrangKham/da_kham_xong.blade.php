@@ -59,49 +59,79 @@
                 }
             </script>
         @endif
+
         <div class="table1">
-            <table id="lich-hen-da-kham" class="table table-bordered border-dark" style="width: 100%">
-                <!-- tiêu đề bảng -->
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Họ tên</th>
-                    <th>Số điện thoại</th>
-                    <th>Ngày hẹn</th>
-                    <th>Thời gian hẹn</th>
-                    <th>Gói giá</th>
-                    <th>Ngày đặt lịch</th>
-                    <th>Ngày khám xong</th>
-                    <th>Thao tác</th>
-                </tr>
-                </thead>
-                <!-- thân bảng -->
-                <tbody>
-                @forelse($datlich as $datlich)
+            @foreach ($appointments as $date => $appointmentsForDate)
+                <table id="{{ $date }}" class="table table-bordered border-dark" style="width: 100%">
+                    <br>
+                    <h4>Lịch hẹn đã khám xong ngày {{ $date }}</h4>
+                    <!-- tiêu đề bảng -->
+                    <thead>
                     <tr>
-                        <td>{{ $datlich->id }}</td>
-                        <td>{{ $datlich->names }}</td>
-                        <td>{{ $datlich->phones }}</td>
-                        <td>{{ date('d/m/Y', strtotime($datlich->dates)) }}</td>
-                        <td>{{ $datlich->times }}</td>
-                        <td>{{ $datlich->prices }}</td>
-                        <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->created_at)) }}</td>
-                        <td>{{ date('d/m/Y, H:i:s', strtotime($datlich->updated_at)) }}</td>
-                        <td>
-                            <form action="{{ url('/doctor/lichhen/backdangkham/'. $datlich->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" onclick="return confirm('Lịch hẹn này chưa khám xong?')"
-                                        class="btn btn-outline-warning">Chưa khám xong
-                                </button>
-                            </form>
-                        </td>
+                        <th>ID</th>
+                        <th>Họ tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày hẹn</th>
+                        <th>Thời gian hẹn</th>
+                        <th>Gói khám</th>
+                        <th>Phòng khám</th>
+                        <th>Ngày khám xong</th>
+                        <th>Thao tác</th>
                     </tr>
-                </tbody>
-                @empty
-                @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <!-- thân bảng -->
+                    <tbody>
+                    @forelse($appointmentsForDate as $appointment)
+                        <tr>
+                            <td>{{ $appointment->id }}</td>
+                            <td>{{ $appointment->names }}</td>
+                            <td>{{ $appointment->phones }}</td>
+                            <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
+                            <td>{{ $appointment->times }}</td>
+                            <td>{{ $appointment->prices }}</td>
+                            <td>{{ $appointment->rooms }}</td>
+                            <td>{{ date('d/m/Y, H:i:s', strtotime($appointment->updated_at)) }}</td>
+                            <td>
+                                <form action="{{ url('/doctor/lichhen/backdangkham/'. $appointment->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" onclick="return confirm('Lịch hẹn này chưa khám xong?')"
+                                            class="btn btn-outline-warning">Chưa khám xong
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="12">Không có lịch hẹn nào</td>
+                        </tr>
+                    @endforelse
+                    <script>
+                        $(document).ready(function () {
+                            $.fn.dataTableExt.sErrMode = 'throw';
+                            $('#{{ $date }}').DataTable({
+                                language: {
+                                    search: "Tìm kiếm",
+                                    lengthMenu: "Hiển thị 1 trang _MENU_ cột",
+                                    info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
+                                    infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
+                                    zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
+                                    emptyTable: "Chưa có lịch hẹn được xác nhận",
+                                    paginate: {
+                                        first: "Trang đầu",
+                                        previous: "Trang trước",
+                                        next: "Trang sau",
+                                        last: "Trang cuối"
+                                    },
+                                },
+                            });
+                        });
+                    </script>
+                    @endforeach
+                    </tbody>
+                </table>
         </div>
+
+
     </div>
 @endsection
 </body>

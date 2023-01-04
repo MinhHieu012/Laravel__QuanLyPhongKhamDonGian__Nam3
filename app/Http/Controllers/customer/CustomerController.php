@@ -125,8 +125,23 @@ class CustomerController extends Controller
     // GET: http://localhost/Project2Final/public/datlich
     function viewDatLich() {
         if (Auth::check()) {
-            $datlichs = appointment_schedules::where('accounts_id', Auth::id())->get();
-            return view('customer-layout/Dat_lich/datlich', ['datlichs' => $datlichs]);
+            $appointments = appointment_schedules::where('accounts_id', Auth::id())->get();
+
+            // Convert the dates field to a Carbon instance
+            $appointments->transform(function ($appointment) {
+                $appointment->dates = Carbon::parse($appointment->dates);
+                return $appointment;
+            });
+
+            // Group the appointments by the dates field
+            $appointmentsByDate = $appointments->groupBy(function ($appointment) {
+                return $appointment->dates->format('d-m-Y');
+            });
+
+            // Pass the grouped appointments to the view
+            return view('customer-layout/Dat_lich/datlich', ['appointments' => $appointmentsByDate]);
+
+            //return view('customer-layout/Dat_lich/datlich', ['datlichs' => $datlichs]);
         } else {
             return redirect('/login')->with('checkLogin', 'Vui lòng đăng nhập để đặt lịch!');
         }
@@ -156,13 +171,13 @@ class CustomerController extends Controller
             $appointment_schedules->dates = $request->date;
             $appointment_schedules->times = $request->time;
             $appointment_schedules->prices = $request->price;
+            $appointment_schedules->notes = $request->note;
             $appointment_schedules->payment_status = $request->payment_status=0;
             $appointment_schedules->appointment_status = $request->appointment_status=0;
             $appointment_schedules->status = $request->status=0;
             $appointment_schedules->save();
             return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
         }
-
 
     // GET: http://localhost/Project2Final/lichhen/edit/{id}
     // Trang giao diện lịch hẹn

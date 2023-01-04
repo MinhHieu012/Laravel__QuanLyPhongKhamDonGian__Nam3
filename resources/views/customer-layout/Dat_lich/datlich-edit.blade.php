@@ -96,13 +96,19 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Gói giá</label>
-                <select
-                    style="position: relative; top:4px; margin-bottom: 10px; width: 700px; height: 40px; border-radius: 3px"
-                    name="price" id="price">
-                    <option value="Gói 100.000đ">Gói 100.000đ</option>
-                    <option value="Gói 200.000đ">Gói 200.000đ</option>
-                    <option value="Gói 250.000đ">Gói 250.000đ</option>
+                <label for="exampleInputPassword1" class="form-label">Gói khám</label>
+                <select style="position: relative; top:4px; margin-bottom: 10px; width: 700px; height: 40px; border-radius: 3px" name="price" id="price">
+                    <optgroup label="Khám lâm sàng">
+                        <option value="Đo Mạch, Huyết Áp, Chỉ số BMI (Nam/Nữ): 50.000đ">Đo Mạch, Huyết Áp, Chỉ số BMI (Nam/Nữ): 50.000đ</option>
+                        <option value="Khám tổng quát (Nam/Nữ/Trẻ em): 500.000đ">Khám tổng quát (Nam/Nữ/Trẻ em): 500.000đ</option>
+                        <option value="Khám Mắt (Nam/Nữ/Trẻ em): 300.000đ">Khám Mắt (Nam/Nữ/Trẻ em): 300.000đ</option>
+                        <option value="Khám Tai Mũi Họng (Nam/Nữ/Trẻ em): 150.000đ">Khám Tai Mũi Họng (Nam/Nữ/Trẻ em): 150.000đ</option>
+                        <option value="Khám Răng (Nam/Nữ/Trẻ em): 350.000đ">Khám Răng (Nam/Nữ/Trẻ em): 350.000đ</option>
+                    </optgroup>
+                    <optgroup label="Xét nghiệm máu">
+                        <option value="Xét nghiệm máu toàn phần (CBC): 200.000đ">Xét nghiệm máu toàn phần (CBC): 250.000đ</option>
+                        <option value="Xét nghiệm Sinh Hóa Máu (Serum Biochemistry: 200.000đ)">Xét nghiệm Sinh Hóa Máu (SB): 200.000đ</option>
+                    </optgroup>
                 </select>
             </div>
             <button type="submit" class="btn btn-warning" id="edit" name="edit">Sửa</button>

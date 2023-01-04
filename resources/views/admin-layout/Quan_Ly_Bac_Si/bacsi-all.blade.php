@@ -100,14 +100,12 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Tên đăng nhập</th>
-                    <th>Mật khẩu</th>
                     <th>Họ tên</th>
                     <th>Số điện thoại</th>
                     <th>Ngày sinh</th>
                     <th>Giới tính</th>
                     <th>Địa chỉ</th>
-                    <th>Ngày thêm</th>
+                    <th>Lĩnh vực khám</th>
                     <th>Sửa</th>
                     <th>Xóa</th>
                     <th>Khóa</th>
@@ -118,22 +116,20 @@
                 @forelse($bacsi as $bacsi)
                     <tr>
                         <td>{{ $bacsi->id }}</td>
-                        <td>{{ $bacsi->username }}</td>
-                        <td>.....</td>
                         <td>{{ $bacsi->name }}</td>
                         <td>{{ $bacsi->phones }}</td>
                         <td>{{ date('d/m/Y', strtotime($bacsi->date_of_births))}}</td>
                         <td>{{ $bacsi->genders }}</td>
                         <td>{{ $bacsi->address }}</td>
-                        <td>{{ date('d/m/Y, H:i:s', strtotime($bacsi->created_at)) }}</td>
+                        <td>{{ $bacsi->work_areas }}</td>
                         <td>
-                            <form id="deleteForm" action="{{ url('admin/quanlybacsi/edit/' . $bacsi->id)}} }}"
+                            <form action="{{ url('admin/quanlybacsi/edit/' . $bacsi->id) }}"
                                   method="GET">
                                 <button type="submit" class="btn btn-outline-warning">Sửa</button>
                             </form>
                         </td>
                         <td>
-                            <form action="{{ url('admin/quanlybacsi/delete/' . $bacsi->id)}} }}" method="GET">
+                            <form action="{{ url('admin/quanlybacsi/delete/' . $bacsi->id) }}" method="GET">
                                 <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa bác sĩ này?')"
                                         class="btn btn-outline-danger">Xóa
                                 </button>
