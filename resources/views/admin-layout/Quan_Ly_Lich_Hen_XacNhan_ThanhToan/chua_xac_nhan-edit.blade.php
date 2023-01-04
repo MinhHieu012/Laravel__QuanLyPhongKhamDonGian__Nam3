@@ -88,7 +88,7 @@
                 <label for="exampleInputPassword1" class="form-label">Bác sĩ khám</label>
                 <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" id="doctor_examine" name="doctor_examine">
                     @foreach ($doctors as $doctor)
-                        <option value="ID: {{ $doctor->id }} - Họ tên: {{ $doctor->name }}">ID: {{ $doctor->id }} - Họ tên: {{ $doctor->name }}</option>
+                        <option value="{{ $doctor->id }} - {{ $doctor->name }}">ID: {{ $doctor->id }} - Họ tên: {{ $doctor->name }}</option>
                     @endforeach
                 </select>
             </div>
