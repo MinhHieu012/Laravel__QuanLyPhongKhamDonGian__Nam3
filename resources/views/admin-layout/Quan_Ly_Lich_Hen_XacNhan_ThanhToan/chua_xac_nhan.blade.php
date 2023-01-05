@@ -68,6 +68,20 @@
             </script>
         @endif
 
+        @if (session('success2'))
+            <script>
+                window.onload = function () {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('success2') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
         @if (session('editDone'))
             <script>
                 window.onload = function () {
@@ -96,6 +110,24 @@
             </script>
         @endif
 
+        @if (session('errorDatLich'))
+            <script>
+                window.onload = function () {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('errorDatLich') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
+        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
+                onclick="window.location.href='{{URL::asset('/admin/quanlylichhen/add')}}';">+ Thêm lịch hẹn
+        </button>
+        <br> <br>
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
                 onclick="window.location.href='{{URL::asset('/admin/lichhendaxacnhan')}}';">Xem lịch hẹn đã xác nhận
         </button>

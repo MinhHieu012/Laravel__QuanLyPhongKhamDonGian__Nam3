@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\accounts;
 use App\Models\appointment_schedules;
+use App\Models\appointment_times;
 use App\Models\health_checkup_packages;
 use App\Models\payment_status;
 use Illuminate\Http\Request;
@@ -229,6 +230,53 @@ class AdminController extends Controller
             return redirect('admin/quanlygoikham/')->with('deleteDone', 'Xóa gói khám thành công!');
         }
 
+        // trang giao diện hiển thị all gói khám + nút thêm, sửa, xóa
+        function viewQuanLyThoiGianHen() {
+            $time = appointment_times::all();
+            return view('admin-layout/Quan_Ly_Thoi_Gian_Hen/thoigian-hen-all', ['time' => $time]);
+        }
+
+        // Trang giao diện thêm bác sĩ
+        function viewQuanLyThoiGianHen_Add()
+        {
+            return view('admin-layout/Quan_Ly_Thoi_Gian_Hen/thoigian-hen-add');
+        }
+
+        // Xử lý thêm bác sĩ
+        function addThoiGianHen(Request $request)
+        {
+            $time = new appointment_times();
+            // syntax: $variable -> column(db) = $request -> name(giá trị thẻ name trong html)
+            $time->types = $request->type;
+            $time->times = $request->time;
+            $time->save();
+            return redirect('admin/quanlythoigianhen/')->with('success', 'Thêm thời gian hẹn thành công!');
+        }
+
+        // Trang giao diện sửa bác sĩ
+        function editThoiGianHen(Request $request, $id)
+        {
+            $time = appointment_times::where('id', '=', $id)->first();
+            return view('admin-layout/Quan_Ly_Thoi_Gian_Hen/thoigian-hen-edit', compact('time'));
+        }
+
+        // update thông tin gói khám
+        function updateThoiGianHen(Request $request, $id)
+        {
+            $time = appointment_times::findOrFail($id);
+            $time->types = $request->type;
+            $time->times = $request->time;
+            $time->save();
+            return redirect('admin/quanlythoigianhen/')->with('editDone', 'Cập nhật thông tin thời gian hẹn thành công!');
+        }
+
+        // Xóa gói khám
+        function deleteThoiGianHen($id) {
+            $time = appointment_times::findOrFail($id);
+            $time->delete();
+            return redirect('admin/quanlythoigianhen/')->with('deleteDone', 'Xóa mốc thời gian hẹn thành công!');
+        }
+
         function viewQuanLyBacsi_KhoaTaiKhoan()
         {
             $bacsi = accounts::where('isDoctor', '=', '1')
@@ -274,13 +322,68 @@ class AdminController extends Controller
             //return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_thanh_toan', ['appointments' => $appointmentsByDate]);
         }
 
-        // GET: http://localhost/Project2Final/admin/quanlylichhen/edit/{id}
+        // Trang thêm lịch hẹn (tự chọn tgian cho khách chưa đặt lịch) ở trang lịch hẹn chưa xác nhân
+        function viewLichHen_Add() {
+
+            // Gói các gói khám có cùng types và hiển thị trên select
+            $health_checkup_packages = health_checkup_packages::all();
+            $grouped_packages = $health_checkup_packages->groupBy('types');
+
+            // Gói các mốc thời gian có cùng types (buổi) và hiển thị trên select
+            $appointment_times = appointment_times::all();
+            $grouped_packages_times = $appointment_times->groupBy('types');
+
+            $doctors = accounts::where('isDoctor', '=', '1')->get();
+
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/lichhen-add', compact( 'doctors', 'grouped_packages', 'grouped_packages_times'));
+        }
+
+        // Xử lý thêm lịch
+        function addLichHen1(Request $request) {
+            // Kiểm tra ngày, thời gian đã đc chọn quá 5 lần hay chưa
+            $selectedTime = appointment_schedules::where('dates', $request->date)
+                ->where('times', $request->time)
+                ->first();
+
+            $count = appointment_schedules::where('dates', $request->date)
+                ->where('times', $request->time)
+                ->count();
+
+            // Nếu lịch hẹn có ngày và tgian trùng nhau quá 5 lần hiện tbao
+            if ($selectedTime && $count > 4) {
+                return redirect()->back()->with('errorDatLich', 'Thời gian bạn đặt lịch đã quá nhiều người đặt! Vui lòng chọn ngày hoặc mốc thời gian khác');
+            }
+
+            $appointment_schedules = new Appointment_schedules;
+            $appointment_schedules->accounts_id = Auth::id();
+            $appointment_schedules->names = $request->name;
+            $appointment_schedules->phones = $request->phone;
+            $appointment_schedules->dates = $request->date;
+            $appointment_schedules->times = $request->time;
+            $appointment_schedules->prices = $request->price;
+            $appointment_schedules->notes = $request->note;
+            $appointment_schedules->payment_status = $request->payment_status=0;
+            $appointment_schedules->appointment_status = $request->appointment_status=0;
+            $appointment_schedules->status = $request->status=0;
+            $appointment_schedules->save();
+            return redirect('/admin/lichhenchuaxacnhan')->with('success2', 'Đặt lịch thành công!');
+        }
+
         // Trang sửa lịch hen
         function editLichHen($id)
         {
             $appointment_schedule = appointment_schedules::where('id', '=', $id)->first();
             $doctors = accounts::where('isDoctor', '=', '1')->get();
-            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan-edit', compact('appointment_schedule', 'doctors'));
+
+            // Gói các gói khám có cùng types và hiển thị trên select
+            $health_checkup_packages = health_checkup_packages::all();
+            $grouped_packages = $health_checkup_packages->groupBy('types');
+
+            // Gói các mốc thời gian có cùng types (buổi) và hiển thị trên select
+            $appointment_times = appointment_times::all();
+            $grouped_packages_times = $appointment_times->groupBy('types');
+
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan-edit', compact('appointment_schedule', 'doctors', 'grouped_packages', 'grouped_packages_times'));
         }
 
         // POST: http://localhost/Project2Final/admin/quanlylichhen/edit/{id}

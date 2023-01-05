@@ -71,7 +71,7 @@
                 <input type="date" id="date" name="date" required>
                 <br>
                 <label for="cars">Thời gian hẹn</label>
-                <select style="position: relative; top:20px;" name="time" id="time">
+                {{--<select style="position: relative; top:20px;" name="time" id="time">
                     <optgroup label="Sáng">
                         <option value="Sáng 8:00 giờ - 9:00 giờ">Sáng 08:00 giờ đến 09:00 giờ</option>
                         <option value="Sáng 9:00 giờ đến 10:00 giờ">Sáng 09:00 giờ đến 10:00 giờ</option>
@@ -84,22 +84,30 @@
                         <option value="Chiều 04:00 giờ đến 05:00 giờ">Chiều 04:00 giờ đến 05:00 giờ</option>
                         <option value="Chiều 05:00 giờ đến 06:00 giờ">Chiều 05:00 giờ đến 06:00 giờ</option>
                     </optgroup>
+                </select>--}}
+
+                <select style="position: relative; top:20px;" name="time" id="time">
+                    @foreach($grouped_packages_times as $type => $times)
+                        <optgroup label="{{ $type }}">
+                            @foreach($times as $time)
+                                <option value="{{ $time->times }}">{{ $time->times }}</option>
+                            @endforeach
+                        </optgroup>
+                    @endforeach
                 </select>
+
                 <br>
                 <label for="cars">Gói khám</label>
                 <select style="position: relative; top:20px;" name="price" id="price">
-                    <optgroup label="Khám lâm sàng">
-                        <option value="Đo Mạch, Huyết Áp, Chỉ số BMI (Nam/Nữ): 50.000đ">Đo Mạch, Huyết Áp, Chỉ số BMI (Nam/Nữ): 50.000đ</option>
-                        <option value="Khám tổng quát (Nam/Nữ/Trẻ em): 350.000đ">Khám tổng quát (Nam/Nữ/Trẻ em): 500.000đ</option>
-                        <option value="Khám Mắt (Nam/Nữ/Trẻ em): 300.000đ">Khám Mắt (Nam/Nữ/Trẻ em): 300.000đ</option>
-                        <option value="Khám Tai Mũi Họng (Nam/Nữ/Trẻ em): 150.000đ">Khám Tai Mũi Họng (Nam/Nữ/Trẻ em): 150.000đ</option>
-                        <option value="Khám Răng (Nam/Nữ/Trẻ em): 350.000đ">Khám Răng (Nam/Nữ/Trẻ em): 350.000đ</option>
-                    </optgroup>
-                    <optgroup label="Xét nghiệm máu">
-                        <option value="Xét nghiệm máu toàn phần (CBC): 300.000đ">Xét nghiệm máu toàn phần (CBC): 250.000đ</option>
-                        <option value="Xét nghiệm Sinh Hóa Máu (Serum Biochemistry: 200.000đ)">Xét nghiệm Sinh Hóa Máu (SB): 200.000đ</option>
-                    </optgroup>
+                    @foreach ($grouped_packages as $type => $packages)
+                        <optgroup label="{{ $type }}">
+                            @foreach ($packages as $package)
+                                <option value="{{ $package->names }}">{{ $package->names }} - Giá: {{ $package->prices }}</option>
+                            @endforeach
+                        </optgroup>
+                    @endforeach
                 </select>
+
                 <label>Ghi chú</label>
                 <input type="text" id="note" name="note" placeholder="Nhập thông tin thêm (nếu có)">
                 <br> <br>

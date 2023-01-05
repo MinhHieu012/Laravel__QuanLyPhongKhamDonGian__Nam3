@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý lịch hẹn</title>
+    <title>Thêm lịch hẹn</title>
 
     <!-- DataTable -->
     <link rel="stylesheet" type="text/css"
@@ -30,7 +30,7 @@
 @extends('admin-layout.menu.menu')
 @section('content2')
     <div>
-        <h2 style="position: relative; right: -270px; top: 15px">Sửa lịch hẹn</h2>
+        <h2 style="position: relative; right: -270px; top: 15px">Thêm lịch hẹn</h2>
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
                 onclick="window.location.href='{{URL::asset('admin/lichhenchuaxacnhan')}}';">Quay lại
         </button>
@@ -39,16 +39,16 @@
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Họ tên</label>
                 <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp"
-                       value="{{$appointment_schedule->names}}" required>
+                     required>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
                 <input type="phone" class="form-control" id="phone" name="phone"
-                       value="{{$appointment_schedule->phones}}" required>
+                        required>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Ngày hẹn</label>
-                <input type="date" class="form-control" id="date" name="date" value="{{$appointment_schedule->dates}}"
+                <input type="date" class="form-control" id="date" name="date"
                        required>
             </div>
             <div class="mb-3">
@@ -107,7 +107,7 @@
                     </optgroup>
                 </select>
             </div>
-            <button type="submit" class="btn btn-warning" id="edit" name="edit">Sửa</button>
+            <button type="submit" class="btn btn-warning" id="edit" name="edit">Thêm</button>
         </form>
     </div>
 @endsection

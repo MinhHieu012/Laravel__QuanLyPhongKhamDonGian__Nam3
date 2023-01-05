@@ -119,15 +119,12 @@ Route::post('/admin/quanlybacsi/lock/{id}', [AdminController::class, 'KhoaTaiKho
 // Xử lý mở lại tài khoản bác sĩ
 Route::post('/admin/quanlybacsi/unlock/{id}', [AdminController::class, 'MoKhoaTaiKhoan_Bacsi']);
 
-
-
-
 // trang quản lý gói khám (hiển thị all gói khám)
 Route::get('/admin/quanlygoikham/', [AdminController::class, 'viewQuanLyGoiKham']);
 
 // admin - trang quản lý gói khám (thêm gói khám)
 Route::get('/admin/quanlygoikham/add', [AdminController::class, 'viewQuanLyGoiKham_Add']);
-// Xử lý thêm bác sĩ
+// Xử lý thêm gói khám
 Route::post('/admin/quanlygoikham/add', [AdminController::class, 'addGoiKham']);
 
 // admin - trang quản lý gói khám (sửa gói khám)
@@ -137,8 +134,20 @@ Route::post('/admin/quanlygoikham/edit/{id}', [AdminController::class, 'updateGo
 // Xóa gói khám
 Route::get('/admin/quanlygoikham/delete/{id}', [AdminController::class, 'deleteGoiKham']);
 
+// trang quản lý thời gian hẹn (hiển thị all thời gian hẹn)
+Route::get('/admin/quanlythoigianhen/', [AdminController::class, 'viewQuanLyThoiGianHen']);
 
+// admin - trang quản lý thời gian hẹn (thêm thời gian hẹn)
+Route::get('/admin/quanlythoigianhen/add', [AdminController::class, 'viewQuanLyThoiGianHen_Add']);
+// Xử lý thêm thời gian hẹn
+Route::post('/admin/quanlythoigianhen/add', [AdminController::class, 'addThoiGianHen']);
 
+// admin - trang quản lý thời gian hẹn (sửa thời gian hẹn)
+Route::get('/admin/quanlythoigianhen/edit/{id}', [AdminController::class, 'editThoiGianHen']);
+Route::post('/admin/quanlythoigianhen/edit/{id}', [AdminController::class, 'updateThoiGianHen']);
+
+// Xóa thời gian hẹn
+Route::get('/admin/quanlythoigianhen/delete/{id}', [AdminController::class, 'deleteThoiGianHen']);
 
 // admin - trang lịch hẹn chưa xác nhận
 Route::get('/admin/lichhenchuaxacnhan', [AdminController::class, 'viewLichHenChuaXacNhan']);
@@ -154,6 +163,10 @@ Route::get('/admin/lichhendaxacnhan', [AdminController::class, 'viewLichHenDaXac
 
 // admin - trang quản lý lịch hẹn chưa thanh toán
 Route::get('/admin/lichhenchuathanhtoan', [AdminController::class, 'viewLichHenChuaThanhToan']);
+
+// admin - trang quản lý lịch hẹn (thêm lịch hẹn)
+Route::get('/admin/quanlylichhen/add', [AdminController::class, 'viewLichHen_Add']);
+Route::post('/admin/quanlylichhen/add', [AdminController::class, 'addLichHen1']);
 
 // admin - trang quản lý lịch hẹn (sửa lịch hẹn)
 Route::get('/admin/quanlylichhen/edit/{id}', [AdminController::class, 'editLichHen'])->name('admin.editLichHen');

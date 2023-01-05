@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\accounts;
 use App\Models\appointment_schedules;
+use App\Models\appointment_times;
 use App\Models\health_checkup_packages;
 use http\Message;
 use Illuminate\Http\Request;
@@ -126,6 +127,15 @@ class CustomerController extends Controller
 
     // GET: http://localhost/Project2Final/public/datlich
     function viewDatLich() {
+
+        // Gói các gói khám có cùng types và hiển thị trên select
+        $health_checkup_packages = health_checkup_packages::all();
+        $grouped_packages = $health_checkup_packages->groupBy('types');
+
+        // Gói các mốc thời gian có cùng types (buổi) và hiển thị trên select
+        $appointment_times = appointment_times::all();
+        $grouped_packages_times = $appointment_times->groupBy('types');
+
         if (Auth::check()) {
             $appointments = appointment_schedules::where('accounts_id', Auth::id())->get();
 
@@ -141,7 +151,7 @@ class CustomerController extends Controller
             });
 
             // Pass the grouped appointments to the view
-            return view('customer-layout/Dat_lich/datlich', ['appointments' => $appointmentsByDate]);
+            return view('customer-layout/Dat_lich/datlich', ['appointments' => $appointmentsByDate], compact('grouped_packages', 'grouped_packages_times'));
 
             //return view('customer-layout/Dat_lich/datlich', ['datlichs' => $datlichs]);
         } else {
@@ -185,6 +195,14 @@ class CustomerController extends Controller
     // Trang giao diện lịch hẹn
     function editLich(Request $request, $id)
     {
+        // Gói các gói khám có cùng types và hiển thị trên select
+        $health_checkup_packages = health_checkup_packages::all();
+        $grouped_packages = $health_checkup_packages->groupBy('types');
+
+        // Gói các mốc thời gian có cùng types (buổi) và hiển thị trên select
+        $appointment_times = appointment_times::all();
+        $grouped_packages_times = $appointment_times->groupBy('types');
+
         $info = appointment_schedules::where('status', '=', '1')->first();
 
         if ($info) {
@@ -192,7 +210,7 @@ class CustomerController extends Controller
         }
         else {
             $datlich = appointment_schedules::where('id', $id)->first();
-            return view('customer-layout/Dat_lich/datlich-edit', compact('datlich'));
+            return view('customer-layout/Dat_lich/datlich-edit', compact('datlich', 'grouped_packages', 'grouped_packages_times'));
         }
     }
 
