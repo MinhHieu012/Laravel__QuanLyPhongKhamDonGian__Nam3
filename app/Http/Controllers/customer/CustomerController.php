@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\accounts;
 use App\Models\appointment_schedules;
+use App\Models\health_checkup_packages;
 use http\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -119,7 +120,8 @@ class CustomerController extends Controller
 
     // GET: http://localhost/Project2Final/public/introduce
     function viewIntroduce() {
-        return view('customer-layout/Gioi_thieu_page/introduce');
+        $goikham = health_checkup_packages::all();
+        return view('customer-layout/Gioi_thieu_page/introduce', ['goikham' => $goikham]);
     }
 
     // GET: http://localhost/Project2Final/public/datlich

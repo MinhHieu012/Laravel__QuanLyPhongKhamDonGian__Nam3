@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\accounts;
 use App\Models\appointment_schedules;
+use App\Models\health_checkup_packages;
 use App\Models\payment_status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -175,6 +176,57 @@ class AdminController extends Controller
             $accounts = accounts::findOrFail($id);
             $accounts->delete();
             return redirect('admin/quanlybacsi/')->with('deleteDone', 'Xóa bác sĩ thành công!');
+        }
+
+        // trang giao diện hiển thị all gói khám + nút thêm, sửa, xóa
+        function viewQuanLyGoiKham() {
+            $goikham = health_checkup_packages::all();
+            return view('admin-layout/Quan_Ly_Goi_Kham/goi-kham-all', ['goikham' => $goikham]);
+        }
+
+        // Trang giao diện thêm bác sĩ
+        function viewQuanLyGoiKham_Add()
+        {
+            return view('admin-layout/Quan_Ly_Goi_Kham/goi-kham-add');
+        }
+
+        // Xử lý thêm bác sĩ
+        function addGoiKham(Request $request)
+        {
+            $goikham = new health_checkup_packages();
+            // syntax: $tên_biến -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
+            $goikham->types = $request->type;
+            $goikham->names = $request->name;
+            $goikham->prices = $request->price;
+            $goikham->descriptions = $request->description;
+            $goikham->save();
+            return redirect('admin/quanlygoikham/')->with('success', 'Thêm gói khám thành công!');
+        }
+
+        // Trang giao diện sửa bác sĩ
+        function editGoiKham(Request $request, $id)
+        {
+            $goikham = health_checkup_packages::where('id', '=', $id)->first();
+            return view('admin-layout/Quan_Ly_Goi_Kham/goi-kham-edit', compact('goikham'));
+        }
+
+        // update thông tin gói khám
+        function updateGoiKham(Request $request, $id)
+        {
+            $goikham = health_checkup_packages::findOrFail($id);
+            $goikham->types = $request->type;
+            $goikham->names = $request->name;
+            $goikham->prices = $request->price;
+            $goikham->descriptions = $request->description;
+            $goikham->save();
+            return redirect('admin/quanlygoikham/')->with('editDone', 'Cập nhật thông tin gói khám thành công!');
+        }
+
+        // Xóa gói khám
+        function deleteGoiKham($id) {
+            $goikham = health_checkup_packages::findOrFail($id);
+            $goikham->delete();
+            return redirect('admin/quanlygoikham/')->with('deleteDone', 'Xóa gói khám thành công!');
         }
 
         function viewQuanLyBacsi_KhoaTaiKhoan()

@@ -119,6 +119,27 @@ Route::post('/admin/quanlybacsi/lock/{id}', [AdminController::class, 'KhoaTaiKho
 // Xử lý mở lại tài khoản bác sĩ
 Route::post('/admin/quanlybacsi/unlock/{id}', [AdminController::class, 'MoKhoaTaiKhoan_Bacsi']);
 
+
+
+
+// trang quản lý gói khám (hiển thị all gói khám)
+Route::get('/admin/quanlygoikham/', [AdminController::class, 'viewQuanLyGoiKham']);
+
+// admin - trang quản lý gói khám (thêm gói khám)
+Route::get('/admin/quanlygoikham/add', [AdminController::class, 'viewQuanLyGoiKham_Add']);
+// Xử lý thêm bác sĩ
+Route::post('/admin/quanlygoikham/add', [AdminController::class, 'addGoiKham']);
+
+// admin - trang quản lý gói khám (sửa gói khám)
+Route::get('/admin/quanlygoikham/edit/{id}', [AdminController::class, 'editGoiKham']);
+Route::post('/admin/quanlygoikham/edit/{id}', [AdminController::class, 'updateGoiKham']);
+
+// Xóa gói khám
+Route::get('/admin/quanlygoikham/delete/{id}', [AdminController::class, 'deleteGoiKham']);
+
+
+
+
 // admin - trang lịch hẹn chưa xác nhận
 Route::get('/admin/lichhenchuaxacnhan', [AdminController::class, 'viewLichHenChuaXacNhan']);
 

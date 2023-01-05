@@ -90,13 +90,13 @@
                 <select style="position: relative; top:20px;" name="price" id="price">
                     <optgroup label="Khám lâm sàng">
                         <option value="Đo Mạch, Huyết Áp, Chỉ số BMI (Nam/Nữ): 50.000đ">Đo Mạch, Huyết Áp, Chỉ số BMI (Nam/Nữ): 50.000đ</option>
-                        <option value="Khám tổng quát (Nam/Nữ/Trẻ em): 500.000đ">Khám tổng quát (Nam/Nữ/Trẻ em): 500.000đ</option>
+                        <option value="Khám tổng quát (Nam/Nữ/Trẻ em): 350.000đ">Khám tổng quát (Nam/Nữ/Trẻ em): 500.000đ</option>
                         <option value="Khám Mắt (Nam/Nữ/Trẻ em): 300.000đ">Khám Mắt (Nam/Nữ/Trẻ em): 300.000đ</option>
                         <option value="Khám Tai Mũi Họng (Nam/Nữ/Trẻ em): 150.000đ">Khám Tai Mũi Họng (Nam/Nữ/Trẻ em): 150.000đ</option>
                         <option value="Khám Răng (Nam/Nữ/Trẻ em): 350.000đ">Khám Răng (Nam/Nữ/Trẻ em): 350.000đ</option>
                     </optgroup>
                     <optgroup label="Xét nghiệm máu">
-                        <option value="Xét nghiệm máu toàn phần (CBC): 200.000đ">Xét nghiệm máu toàn phần (CBC): 250.000đ</option>
+                        <option value="Xét nghiệm máu toàn phần (CBC): 300.000đ">Xét nghiệm máu toàn phần (CBC): 250.000đ</option>
                         <option value="Xét nghiệm Sinh Hóa Máu (Serum Biochemistry: 200.000đ)">Xét nghiệm Sinh Hóa Máu (SB): 200.000đ</option>
                     </optgroup>
                 </select>
