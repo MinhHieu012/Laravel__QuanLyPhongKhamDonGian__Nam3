@@ -53,8 +53,9 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Thời gian hẹn</label>
-
-                <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="time" id="time">
+                <input type="text" class="form-control" id="time" name="time"
+                       placeholder="Nhập thời gian hẹn" required>
+                {{--<select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="time" id="time">
                     @foreach($grouped_packages_times as $type => $times)
                         <optgroup label="{{ $type }}">
                             @foreach($times as $time)
@@ -62,7 +63,7 @@
                             @endforeach
                         </optgroup>
                     @endforeach
-                </select>
+                </select>--}}
 
             </div>
             <div class="mb-3">
@@ -87,26 +88,6 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Phòng khám</label>
-                {{--<select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="room" id="room">
-                    <optgroup label="Phòng khám lâm sàng">
-                        <option value="Phòng LS01">Phòng LS01</option>
-                        <option value="Phòng LS02">Phòng LS02</option>
-                        <option value="Phòng LS03">Phòng LS03</option>
-                        <option value="Phòng LS04">Phòng LS04</option>
-                        <option value="Phòng LS05">Phòng LS05</option>
-                        <option value="Phòng LS06">Phòng LS06</option>
-                        <option value="Phòng LS07">Phòng LS07</option>
-                        <option value="Phòng LS08">Phòng LS08</option>
-                    </optgroup>
-                    <optgroup label="Phòng khám xét nghiệm">
-                        <option value="Phòng XN01">Phòng XN01</option>
-                        <option value="Phòng XN02">Phòng XN02</option>
-                        <option value="Phòng XN03">Phòng XN03</option>
-                        <option value="Phòng XN04">Phòng XN04</option>
-                        <option value="Phòng XN05">Phòng XN05</option>
-                    </optgroup>
-                </select>--}}
-
                 <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="room" id="room">
                     @foreach ($grouped_packages_rooms as $type => $rooms)
                         <optgroup label="{{ $type }}">

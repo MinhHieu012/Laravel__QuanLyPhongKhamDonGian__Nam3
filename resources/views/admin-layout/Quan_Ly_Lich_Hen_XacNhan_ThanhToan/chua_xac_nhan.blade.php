@@ -124,10 +124,10 @@
             </script>
         @endif
 
-        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
+        {{--<button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
                 onclick="window.location.href='{{URL::asset('/admin/quanlylichhen/add')}}';">+ Thêm lịch hẹn
-        </button>
-        <br> <br>
+        </button>--}}
+        <br>
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
                 onclick="window.location.href='{{URL::asset('/admin/lichhendaxacnhan')}}';">Xem lịch hẹn đã xác nhận
         </button>

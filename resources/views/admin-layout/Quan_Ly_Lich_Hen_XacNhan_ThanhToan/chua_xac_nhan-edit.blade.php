@@ -53,7 +53,6 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Thời gian hẹn</label>
-
                 <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="time" id="time">
                     @foreach($grouped_packages_times as $type => $times)
                         <optgroup label="{{ $type }}">
