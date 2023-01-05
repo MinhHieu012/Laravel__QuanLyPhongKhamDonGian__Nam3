@@ -9,6 +9,7 @@ use App\Models\appointment_schedules;
 use App\Models\appointment_times;
 use App\Models\health_checkup_packages;
 use App\Models\payment_status;
+use App\Models\rooms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -277,6 +278,78 @@ class AdminController extends Controller
             return redirect('admin/quanlythoigianhen/')->with('deleteDone', 'Xóa mốc thời gian hẹn thành công!');
         }
 
+
+
+
+
+
+
+
+        // trang giao diện hiển thị all phòng khám + nút thêm, sửa, xóa
+        function viewQuanLyPhongKham() {
+            $room = rooms::all();
+            return view('admin-layout/Quan_Ly_Phong_Kham/phongkham-all', ['room' => $room]);
+        }
+
+        // Trang giao diện thêm bác sĩ
+        function viewQuanLyPhongKham_Add()
+        {
+            return view('admin-layout/Quan_Ly_Phong_Kham/phongkham-add');
+        }
+
+        // Xử lý thêm bác sĩ
+        function addPhongKham(Request $request)
+        {
+            $room = new rooms();
+            // syntax: $variable -> column(db) = $request -> name(giá trị thẻ name trong html)
+            $room->types = $request->type;
+            $room->rooms = $request->room;
+            $room->save();
+            return redirect('admin/quanlyphongkham/')->with('success', 'Thêm phòng khám thành công!');
+        }
+
+        // Trang giao diện sửa bác sĩ
+        function editPhongKham(Request $request, $id)
+        {
+            $room = rooms::where('id', '=', $id)->first();
+            return view('admin-layout/Quan_Ly_Phong_Kham/phongkham-edit', compact('room'));
+        }
+
+        // update thông tin gói khám
+        function updatePhongKham(Request $request, $id)
+        {
+            $room = rooms::findOrFail($id);
+            $room->types = $request->type;
+            $room->rooms = $request->room;
+            $room->save();
+            return redirect('admin/quanlyphongkham/')->with('editDone', 'Cập nhật thông tin phòng khám thành công!');
+        }
+
+        // Xóa gói khám
+        function deletePhongKham($id) {
+            $room = rooms::findOrFail($id);
+            $room->delete();
+            return redirect('admin/quanlyphongkham/')->with('deleteDone', 'Xóa phòng khám thành công!');
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         function viewQuanLyBacsi_KhoaTaiKhoan()
         {
             $bacsi = accounts::where('isDoctor', '=', '1')
@@ -333,9 +406,13 @@ class AdminController extends Controller
             $appointment_times = appointment_times::all();
             $grouped_packages_times = $appointment_times->groupBy('types');
 
+            // Gói các phòng có cùng types (kiểu phòng) và hiển thị trên select
+            $rooms = rooms::all();
+            $grouped_packages_rooms = $rooms->groupBy('types');
+
             $doctors = accounts::where('isDoctor', '=', '1')->get();
 
-            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/lichhen-add', compact( 'doctors', 'grouped_packages', 'grouped_packages_times'));
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/lichhen-add', compact( 'doctors', 'grouped_packages', 'grouped_packages_times', 'grouped_packages_rooms'));
         }
 
         // Xử lý thêm lịch
@@ -383,7 +460,11 @@ class AdminController extends Controller
             $appointment_times = appointment_times::all();
             $grouped_packages_times = $appointment_times->groupBy('types');
 
-            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan-edit', compact('appointment_schedule', 'doctors', 'grouped_packages', 'grouped_packages_times'));
+            // Gói các phòng có cùng types (kiểu phòng) và hiển thị trên select
+            $rooms = rooms::all();
+            $grouped_packages_rooms = $rooms->groupBy('types');
+
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan-edit', compact('appointment_schedule', 'doctors', 'grouped_packages', 'grouped_packages_times', 'grouped_packages_rooms'));
         }
 
         // POST: http://localhost/Project2Final/admin/quanlylichhen/edit/{id}

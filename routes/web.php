@@ -149,6 +149,39 @@ Route::post('/admin/quanlythoigianhen/edit/{id}', [AdminController::class, 'upda
 // Xóa thời gian hẹn
 Route::get('/admin/quanlythoigianhen/delete/{id}', [AdminController::class, 'deleteThoiGianHen']);
 
+
+
+
+
+
+
+// trang quản lý phòng khám (hiển thị all phòng khám)
+Route::get('/admin/quanlyphongkham/', [AdminController::class, 'viewQuanLyPhongKham']);
+
+// admin - trang quản lý phòng khám (thêm phòng khám)
+Route::get('/admin/quanlyphongkham/add', [AdminController::class, 'viewQuanLyPhongKham_Add']);
+// Xử lý thêm phòng khám
+Route::post('/admin/quanlyphongkham/add', [AdminController::class, 'addPhongKham']);
+
+// admin - trang quản lý phòng khám (sửa phòng khám)
+Route::get('/admin/quanlyphongkham/edit/{id}', [AdminController::class, 'editPhongKham']);
+Route::post('/admin/quanlyphongkham/edit/{id}', [AdminController::class, 'updatePhongKham']);
+
+// Xóa phòng khám
+Route::get('/admin/quanlyphongkham/delete/{id}', [AdminController::class, 'deletePhongKham']);
+
+
+
+
+
+
+
+
+
+
+
+
+
 // admin - trang lịch hẹn chưa xác nhận
 Route::get('/admin/lichhenchuaxacnhan', [AdminController::class, 'viewLichHenChuaXacNhan']);
 

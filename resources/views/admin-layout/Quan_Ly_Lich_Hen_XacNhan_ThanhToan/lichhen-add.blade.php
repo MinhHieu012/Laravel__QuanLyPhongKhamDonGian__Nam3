@@ -87,7 +87,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Phòng khám</label>
-                <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="room" id="room">
+                {{--<select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="room" id="room">
                     <optgroup label="Phòng khám lâm sàng">
                         <option value="Phòng LS01">Phòng LS01</option>
                         <option value="Phòng LS02">Phòng LS02</option>
@@ -105,7 +105,18 @@
                         <option value="Phòng XN04">Phòng XN04</option>
                         <option value="Phòng XN05">Phòng XN05</option>
                     </optgroup>
+                </select>--}}
+
+                <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="room" id="room">
+                    @foreach ($grouped_packages_rooms as $type => $rooms)
+                        <optgroup label="{{ $type }}">
+                            @foreach ($rooms as $room)
+                                <option value="{{ $room->rooms }}">{{ $room->rooms }}</option>
+                            @endforeach
+                        </optgroup>
+                    @endforeach
                 </select>
+
             </div>
             <button type="submit" class="btn btn-warning" id="edit" name="edit">Thêm</button>
         </form>
