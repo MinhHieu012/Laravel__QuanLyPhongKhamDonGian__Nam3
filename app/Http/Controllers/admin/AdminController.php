@@ -432,14 +432,6 @@ class AdminController extends Controller
             }
 
             $appointment_schedules = new appointment_schedules;
-            /*$appointment_schedules->accounts_id = Auth::id();
-            $appointment_schedules->names = $request->name;
-            $appointment_schedules->phones = $request->phone;
-            $appointment_schedules->dates = $request->date;
-            $appointment_schedules->times = $request->time;
-            $appointment_schedules->prices = $request->price;
-            $appointment_schedules->notes = $request->note;*/
-
             $appointment_schedules->accounts_id = Auth::id();
             $appointment_schedules->names = $request->name;
             $appointment_schedules->phones = $request->phone;
