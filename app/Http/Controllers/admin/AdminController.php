@@ -428,7 +428,7 @@ class AdminController extends Controller
 
             // Nếu lịch hẹn có ngày và tgian trùng nhau quá 5 lần hiện tbao
             if ($selectedTime && $count > 4) {
-                return redirect()->back()->with('errorDatLich', 'Thời gian bạn đặt lịch đã quá nhiều người đặt! Vui lòng chọn ngày hoặc mốc thời gian khác');
+                return redirect()->back()->with('errorDatLich', 'Thời gian đặt lịch này đã quá nhiều người đặt! Vui lòng chọn ngày hoặc mốc thời gian khác');
             }
 
             $appointment_schedules = new appointment_schedules;
