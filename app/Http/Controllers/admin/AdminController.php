@@ -431,14 +431,24 @@ class AdminController extends Controller
                 return redirect()->back()->with('errorDatLich', 'Thời gian bạn đặt lịch đã quá nhiều người đặt! Vui lòng chọn ngày hoặc mốc thời gian khác');
             }
 
-            $appointment_schedules = new Appointment_schedules;
+            $appointment_schedules = new appointment_schedules;
+            /*$appointment_schedules->accounts_id = Auth::id();
+            $appointment_schedules->names = $request->name;
+            $appointment_schedules->phones = $request->phone;
+            $appointment_schedules->dates = $request->date;
+            $appointment_schedules->times = $request->time;
+            $appointment_schedules->prices = $request->price;
+            $appointment_schedules->notes = $request->note;*/
+
             $appointment_schedules->accounts_id = Auth::id();
             $appointment_schedules->names = $request->name;
             $appointment_schedules->phones = $request->phone;
             $appointment_schedules->dates = $request->date;
             $appointment_schedules->times = $request->time;
             $appointment_schedules->prices = $request->price;
-            $appointment_schedules->notes = $request->note;
+            $appointment_schedules->doctor_examines = $request->doctor_examine;
+            $appointment_schedules->rooms = $request->room;
+
             $appointment_schedules->payment_status = $request->payment_status=0;
             $appointment_schedules->appointment_status = $request->appointment_status=0;
             $appointment_schedules->status = $request->status=0;
