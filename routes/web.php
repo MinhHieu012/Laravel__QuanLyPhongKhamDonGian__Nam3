@@ -155,20 +155,20 @@ Route::get('/admin/quanlythoigianhen/delete/{id}', [AdminController::class, 'del
 
 
 
-// trang quản lý phòng khám (hiển thị all phòng khám)
-Route::get('/admin/quanlyphongkham/', [AdminController::class, 'viewQuanLyPhongKham']);
+// trang thông tin phòng khám (hiển thị all phòng khám)
+Route::get('/admin/thongtinphongkham/', [AdminController::class, 'viewThongTinPhongKham']);
 
-// admin - trang quản lý phòng khám (thêm phòng khám)
-Route::get('/admin/quanlyphongkham/add', [AdminController::class, 'viewQuanLyPhongKham_Add']);
+// admin - trang thông tin phòng khám (thêm phòng khám)
+Route::get('/admin/thongtinphongkham/add', [AdminController::class, 'viewThongTinPhongKham_Add']);
 // Xử lý thêm phòng khám
-Route::post('/admin/quanlyphongkham/add', [AdminController::class, 'addPhongKham']);
+Route::post('/admin/thongtinphongkham/add', [AdminController::class, 'addPhongKham']);
 
-// admin - trang quản lý phòng khám (sửa phòng khám)
-Route::get('/admin/quanlyphongkham/edit/{id}', [AdminController::class, 'editPhongKham']);
-Route::post('/admin/quanlyphongkham/edit/{id}', [AdminController::class, 'updatePhongKham']);
+// admin - trang thông tin phòng khám (sửa phòng khám)
+Route::get('/admin/thongtinphongkham/edit/{id}', [AdminController::class, 'editPhongKham']);
+Route::post('/admin/thongtinphongkham/edit/{id}', [AdminController::class, 'updatePhongKham']);
 
 // Xóa phòng khám
-Route::get('/admin/quanlyphongkham/delete/{id}', [AdminController::class, 'deletePhongKham']);
+Route::get('/admin/thongtinphongkham/delete/{id}', [AdminController::class, 'deletePhongKham']);
 
 
 

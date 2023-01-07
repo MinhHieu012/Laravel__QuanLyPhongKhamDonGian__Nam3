@@ -278,26 +278,19 @@ class AdminController extends Controller
             return redirect('admin/quanlythoigianhen/')->with('deleteDone', 'Xóa mốc thời gian hẹn thành công!');
         }
 
-
-
-
-
-
-
-
         // trang giao diện hiển thị all phòng khám + nút thêm, sửa, xóa
-        function viewQuanLyPhongKham() {
+        function viewThongTinPhongKham() {
             $room = rooms::all();
             return view('admin-layout/Quan_Ly_Phong_Kham/phongkham-all', ['room' => $room]);
         }
 
         // Trang giao diện thêm bác sĩ
-        function viewQuanLyPhongKham_Add()
+        function viewThongTinPhongKham_Add()
         {
             return view('admin-layout/Quan_Ly_Phong_Kham/phongkham-add');
         }
 
-        // Xử lý thêm bác sĩ
+        // Xử lý thêm phòng khám
         function addPhongKham(Request $request)
         {
             $room = new rooms();
@@ -308,7 +301,7 @@ class AdminController extends Controller
             return redirect('admin/quanlyphongkham/')->with('success', 'Thêm phòng khám thành công!');
         }
 
-        // Trang giao diện sửa bác sĩ
+        // Trang giao diện sửa phòng khám
         function editPhongKham(Request $request, $id)
         {
             $room = rooms::where('id', '=', $id)->first();
@@ -331,24 +324,6 @@ class AdminController extends Controller
             $room->delete();
             return redirect('admin/quanlyphongkham/')->with('deleteDone', 'Xóa phòng khám thành công!');
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         function viewQuanLyBacsi_KhoaTaiKhoan()
         {
