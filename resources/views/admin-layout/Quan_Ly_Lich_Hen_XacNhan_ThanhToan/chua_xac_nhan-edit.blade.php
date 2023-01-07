@@ -76,6 +76,7 @@
                     @endforeach
                 </select>
             </div>
+
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Bác sĩ khám</label>
                 <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" id="doctor_examine" name="doctor_examine">
