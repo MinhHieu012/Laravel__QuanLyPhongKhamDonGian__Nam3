@@ -39,7 +39,7 @@
 </style>
 
 <body>
-@extends('admin-layout.menu.menu')
+@extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Thông tin các thời gian hẹn</h2>
@@ -85,7 +85,7 @@
             </script>
         @endif
 
-        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
+        <button type="button" style="position: relative; right: -270px; bottom: -60px" class="btn btn-primary"
                 onclick="window.location.href='{{URL::asset('admin/quanlythoigianhen/add')}}';">+ Thêm thời gian hẹn
         </button>
         <br> <br>
@@ -129,7 +129,7 @@
             </table>
         </div>
     </div>
-@endsection
+
 </body>
 <!-- DataTable -->
 <script type="text/javascript"
@@ -160,5 +160,5 @@
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+@endsection
 </html>

@@ -9,23 +9,26 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-@extends('admin-layout.menu.menu')
+@extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
 @section('content2')
-    <div>
-        <h2 style="position: relative; right: -270px; top: 15px">Dashboard</h2>
-        @if (session('success'))
-            <script>
-                window.onload = function () {
-                    // Display the message box
-                    Swal.fire({
-                        text: "{{ session('success') }}",
-                        textColor: 'black',
-                        icon: 'success',
-                        confirmButtonText: 'OK',
-                    })
-                }
-            </script>
-        @endif
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Dashboard</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{URL::asset('/admin/home')}}">Home</a></li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- /.content -->
     </div>
 @endsection
 </body>

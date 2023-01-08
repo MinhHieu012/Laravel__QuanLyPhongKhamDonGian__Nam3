@@ -30,7 +30,7 @@
 </style>
 
 <body>
-@extends('admin-layout.menu.menu')
+@extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Thêm thời gian hẹn</h2>
@@ -52,13 +52,14 @@
                        placeholder="Nhập tên gói khám" required>
             </div>
 
-            <button type="submit" class=" btn btn-success" id="add" name="add"><i class="fa-regular fa-plus"></i>Thêm</button>
+            <button type="submit" class=" btn btn-success" id="add" name="add">Thêm</button>
         </form>
     </div>
-@endsection
+
 </body>
 <!-- DataTable -->
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
+@endsection
 </html>

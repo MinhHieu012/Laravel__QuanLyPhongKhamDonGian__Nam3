@@ -30,12 +30,12 @@
 </style>
 
 <body>
-@extends('admin-layout.menu.menu')
+@extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Thêm phòng khám</h2>
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
-                onclick="window.location.href='{{URL::asset('admin/quanlyphongkham')}}';">Quay lại
+                onclick="window.location.href='{{URL::asset('admin/thongtinphongkham')}}';">Quay lại
         </button>
 
         <form action="{{ URL::asset('admin/quanlyphongkham/add') }}" class="a1" method="POST">
@@ -55,10 +55,11 @@
             <button type="submit" class=" btn btn-success" id="add" name="add"><i class="fa-regular fa-plus"></i>Thêm phòng khám</button>
         </form>
     </div>
-@endsection
+
 </body>
 <!-- DataTable -->
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
+@endsection
 </html>

@@ -30,7 +30,7 @@
 </style>
 
 <body>
-@extends('admin-layout.menu.menu')
+@extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Thêm gói khám</h2>
@@ -61,13 +61,14 @@
                 <textarea type="text" class="form-control" id="description" name="description" placeholder="Nhập mô tả gói khám" required></textarea>
             </div>
 
-            <button type="submit" class=" btn btn-success" id="add" name="add"><i class="fa-regular fa-plus"></i>Thêm gói khám</button>
+            <button type="submit" class=" btn btn-success" id="add" name="add">Thêm gói khám</button>
         </form>
     </div>
-@endsection
+
 </body>
 <!-- DataTable -->
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
+@endsection
 </html>

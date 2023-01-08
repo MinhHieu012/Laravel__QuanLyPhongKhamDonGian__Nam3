@@ -39,11 +39,11 @@
 </style>
 
 <body>
-@extends('doctor-layout.menu.menu')
+@extends('doctor-layout.menu.DoctorMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Lịch hẹn đã khám</h2>
-        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary">Lịch hẹn đã
+        <button type="button" style="position: relative; right: -270px; top: 60px" class="btn btn-primary">Lịch hẹn đã
             khám
         </button>
         @if (session('success'))
@@ -130,10 +130,8 @@
                     </tbody>
                 </table>
         </div>
-
-
     </div>
-@endsection
+
 </body>
 <!-- DataTable -->
 <script type="text/javascript"
@@ -163,4 +161,5 @@
     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+@endsection
 </html>

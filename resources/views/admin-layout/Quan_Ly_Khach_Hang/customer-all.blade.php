@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.css"/>
 
+
 </head>
 
 <style>
@@ -39,7 +40,8 @@
 </style>
 
 <body>
-@extends('admin-layout.menu.menu')
+{{--@extends('admin-layout.menu.menu')--}}
+@extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Quản lý khách hàng</h2>
@@ -91,7 +93,7 @@
         @endif
 
         <div class="table1">
-            <table id="hosobacsi" class="table table-bordered border-dark" style="width: 100%">
+            <table id="hosobacsi" class="table table-bordered border-dark" style="width: 100%;">
                 <!-- tiêu đề bảng -->
                 <thead>
                 <tr>
@@ -142,11 +144,10 @@
             </table>
         </div>
     </div>
-@endsection
+
 </body>
 <!-- DataTable -->
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
 
 <script>
@@ -171,7 +172,6 @@
 
     });
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+@endsection
 </html>

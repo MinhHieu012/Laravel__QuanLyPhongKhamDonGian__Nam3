@@ -22,7 +22,7 @@
     }
 </style>
 <body>
-@extends('admin-layout.menu.menu')
+@extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Sửa thông tin bác sĩ</h2>

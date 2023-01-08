@@ -9,7 +9,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <style>
-    p {
+    #p1 {
         position: relative;
         right: -270px;
         top: 65px;
@@ -17,19 +17,19 @@
     }
 </style>
 <body>
-@extends('doctor-layout.menu.menu')
+@extends('doctor-layout.menu.DoctorMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Thông tin cá nhân</h2>
         <button type="button" style="position: relative; right: -270px; top: 40px; font-size: 18px"
                 class="btn btn-primary">Thông tin cá nhân
         </button>
-        <p>ID: {{Auth::user()->id}}</p>
-        <p>Họ tên: {{Auth::user()->name}}</p>
-        <p>Số điện thoại: {{Auth::user()->phones}}</p>
-        <p>Ngày sinh: {{ date('d/m/Y', strtotime(Auth::user()->date_of_births))}}</p>
-        <p>Giới tính: {{Auth::user()->genders}}</p>
-        <p>Địa chỉ: {{Auth::user()->address}}</p>
+        <p id="p1">ID: {{Auth::user()->id}}</p>
+        <p id="p1">Họ tên: {{Auth::user()->name}}</p>
+        <p id="p1">Số điện thoại: {{Auth::user()->phones}}</p>
+        <p id="p1">Ngày sinh: {{ date('d/m/Y', strtotime(Auth::user()->date_of_births))}}</p>
+        <p id="p1">Giới tính: {{Auth::user()->genders}}</p>
+        <p id="p1">Địa chỉ: {{Auth::user()->address}}</p>
     </div>
 @endsection
 </body>

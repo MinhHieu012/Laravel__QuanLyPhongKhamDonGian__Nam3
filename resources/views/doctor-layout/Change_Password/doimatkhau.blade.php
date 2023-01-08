@@ -35,7 +35,7 @@
         }
     </style>
 <body>
-@extends('doctor-layout.menu.menu')
+@extends('doctor-layout.menu.DoctorMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Đổi mật khẩu</h2>
@@ -89,7 +89,7 @@
         </form>
     </div>
 
-@endsection
+
 </body>
 <!-- DataTable -->
 <script type="text/javascript"
@@ -97,4 +97,5 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+@endsection
 </html>

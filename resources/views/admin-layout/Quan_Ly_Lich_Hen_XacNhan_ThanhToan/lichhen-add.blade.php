@@ -27,7 +27,7 @@
 </style>
 
 <body>
-@extends('admin-layout.menu.menu')
+@extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Thêm lịch hẹn</h2>
@@ -102,9 +102,10 @@
             <button type="submit" class="btn btn-warning" id="edit" name="edit">Thêm</button>
         </form>
     </div>
-@endsection
+
 </body>
 <!-- DataTable -->
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+@endsection
 </html>

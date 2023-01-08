@@ -39,7 +39,7 @@
 </style>
 
 <body>
-@extends('admin-layout.menu.menu')
+@extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Thông tin các phòng khám</h2>
@@ -85,8 +85,8 @@
             </script>
         @endif
 
-        <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
-                onclick="window.location.href='{{URL::asset('admin/quanlyphongkham/add')}}';">+ Thêm phòng khám
+        <button type="button" style="position: relative; right: -270px; bottom: -60px" class="btn btn-primary"
+                onclick="window.location.href='{{URL::asset('admin/thongtinphongkham/add')}}';">+ Thêm phòng khám
         </button>
         <br> <br>
 
@@ -110,13 +110,13 @@
                         <td>{{ $room->types }}</td>
                         <td>{{ $room->rooms }}</td>
                         <td>
-                            <form action="{{ url('admin/quanlyphongkham/edit/' . $room->id) }}"
+                            <form action="{{ url('admin/thongtinphongkham/edit/' . $room->id) }}"
                                   method="GET">
                                 <button type="submit" class="btn btn-outline-warning">Sửa</button>
                             </form>
                         </td>
                         <td>
-                            <form action="{{ url('admin/quanlyphongkham/delete/' . $room->id) }}" method="GET">
+                            <form action="{{ url('admin/thongtinphongkham/delete/' . $room->id) }}" method="GET">
                                 <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa phòng khám này?')"
                                         class="btn btn-outline-danger">Xóa
                                 </button>
@@ -129,7 +129,7 @@
             </table>
         </div>
     </div>
-@endsection
+
 </body>
 <!-- DataTable -->
 <script type="text/javascript"
@@ -160,5 +160,5 @@
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+@endsection
 </html>

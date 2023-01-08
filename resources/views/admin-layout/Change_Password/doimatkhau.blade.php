@@ -39,7 +39,7 @@
 </style>
 
 <body>
-@extends('admin-layout.menu.menu')
+@extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Đổi mật khẩu</h2>
@@ -92,7 +92,7 @@
             </button>
         </form>
     </div>
-@endsection
+
 </body>
 <!-- DataTable -->
 <script type="text/javascript"
@@ -123,5 +123,5 @@
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+@endsection
 </html>
