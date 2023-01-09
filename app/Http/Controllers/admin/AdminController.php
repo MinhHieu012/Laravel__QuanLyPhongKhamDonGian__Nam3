@@ -464,7 +464,8 @@ class AdminController extends Controller
                 })
                 ->first();*/
 
-            $selected = appointment_schedules::where('id', '!=', $id)  // exclude the current appointment
+            // exclude the current appointment
+            $selected = appointment_schedules::where('id', '!=', $id)
             ->where(function($query) use ($request) {
                 $query->where('dates', $request->date)
                     ->where('times', $request->time)
@@ -484,7 +485,7 @@ class AdminController extends Controller
                 ->first();
 
             if ($selected) {
-                return redirect()->back()->with('errorSuaLich', 'Bác sĩ hoặc phòng khám đã được chọn hoặc đang được sử dụng!');
+                return redirect()->back()->with('errorSuaLich', 'Bác sĩ hoặc phòng khám bạn đã được chọn hoặc đang được sử dụng!');
             } else {
                 $appointment_schedule = appointment_schedules::findOrFail($id);
                 $appointment_schedule->names = $request->name;

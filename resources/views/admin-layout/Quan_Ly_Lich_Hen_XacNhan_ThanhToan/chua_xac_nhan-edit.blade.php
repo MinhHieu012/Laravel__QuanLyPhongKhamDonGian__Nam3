@@ -98,7 +98,11 @@
                         <option value="{{ $doctor->name }}">{{ $doctor->name }}</option>
                     @endforeach
                 </select>
+                {{--@if (session()->has('doctor_examine'))
+                    <div class="error" style="color: red; font-size: 17px">{{ session()->get('doctor_examine') }}</div>
+                @endif--}}
             </div>
+
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Phòng khám</label>
                 <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" name="room" id="room">
@@ -110,7 +114,9 @@
                         </optgroup>
                     @endforeach
                 </select>
-
+                {{--@if (session()->has('room'))
+                    <div class="error" style="color: red; font-size: 17px">{{ session()->get('room') }}</div>
+                @endif--}}
             </div>
             <button type="submit" class="btn btn-warning" id="edit" name="edit">Sửa</button>
         </form>
