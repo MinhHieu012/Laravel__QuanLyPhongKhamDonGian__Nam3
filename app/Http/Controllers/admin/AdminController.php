@@ -430,6 +430,7 @@ class AdminController extends Controller
         function editLichHen(Request $request, $id)
         {
             $appointment_schedule = appointment_schedules::where('id', '=', $id)->first();
+
             $doctors = accounts::where('isDoctor', '=', '1')->get();
 
             // Gói các gói khám có cùng types và hiển thị trên select
@@ -451,15 +452,34 @@ class AdminController extends Controller
         // update thông tin lịch hẹn
         function updateLichHen(Request $request, $id)
         {
-            $selected = appointment_schedules::where('dates', $request->date)
+            /*$selected = appointment_schedules::where('dates', $request->date)
                 ->where('times', $request->time)
-                ->where(function($query) use ($request) {
+                ->orWhere(function($query) use ($request) {
                     $query->where('doctor_examines', $request->doctor_examine)
                         ->where('rooms', '!=', $request->doctor_examine);
                 })
                 ->orWhere(function($query) use ($request) {
                     $query->where('doctor_examines', '!=', $request->room)
                         ->where('rooms', $request->room);
+                })
+                ->first();*/
+
+            $selected = appointment_schedules::where('id', '!=', $id)  // exclude the current appointment
+            ->where(function($query) use ($request) {
+                $query->where('dates', $request->date)
+                    ->where('times', $request->time)
+                    ->where(function($query) use ($request) {
+                        $query->where('doctor_examines', $request->doctor_examine)
+                            ->orWhere('rooms', $request->doctor_examine);
+                    });
+            })
+                ->orWhere(function($query) use ($request) {
+                    $query->where('dates', $request->date)
+                        ->where('times', $request->time)
+                        ->where(function($query) use ($request) {
+                            $query->where('doctor_examines', $request->room)
+                                ->orWhere('rooms', $request->room);
+                        });
                 })
                 ->first();
 

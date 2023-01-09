@@ -220,10 +220,7 @@
                     </tbody>
                 </table>
         </div>
-
-
     </div>
-
 </body>
 <!-- DataTable -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
