@@ -137,6 +137,7 @@ class AdminController extends Controller
                 $accounts->genders = $request->gender;
                 $accounts->address = $request->address;
                 $accounts->work_areas = $request->work_area;
+                $accounts->doctorStatus = "0";
                 $accounts->isDoctor = "1";
                 $accounts->status = "0";
                 $accounts->save();
@@ -297,6 +298,8 @@ class AdminController extends Controller
             // syntax: $variable -> column(db) = $request -> name(giá trị thẻ name trong html)
             $room->types = $request->type;
             $room->rooms = $request->room;
+            $room->isRoom = "0";
+            $room->roomsStatus = "0";
             $room->save();
             return redirect('admin/quanlyphongkham/')->with('success', 'Thêm phòng khám thành công!');
         }
@@ -424,7 +427,7 @@ class AdminController extends Controller
         }
 
         // Trang sửa lịch hen
-        function editLichHen($id)
+        function editLichHen(Request $request, $id)
         {
             $appointment_schedule = appointment_schedules::where('id', '=', $id)->first();
             $doctors = accounts::where('isDoctor', '=', '1')->get();
@@ -448,16 +451,32 @@ class AdminController extends Controller
         // update thông tin lịch hẹn
         function updateLichHen(Request $request, $id)
         {
-            $appointment_schedule = appointment_schedules::findOrFail($id);
-            $appointment_schedule->names = $request->name;
-            $appointment_schedule->phones = $request->phone;
-            $appointment_schedule->dates = $request->date;
-            $appointment_schedule->times = $request->time;
-            $appointment_schedule->prices = $request->price;
-            $appointment_schedule->doctor_examines = $request->doctor_examine;
-            $appointment_schedule->rooms = $request->room;
-            $appointment_schedule->save();
-            return redirect('admin/lichhenchuaxacnhan')->with('editDone', 'Cập nhật thông tin lịch hẹn thành công!');
+            $selected = appointment_schedules::where('dates', $request->date)
+                ->where('times', $request->time)
+                ->where(function($query) use ($request) {
+                    $query->where('doctor_examines', $request->doctor_examine)
+                        ->where('rooms', '!=', $request->doctor_examine);
+                })
+                ->orWhere(function($query) use ($request) {
+                    $query->where('doctor_examines', '!=', $request->room)
+                        ->where('rooms', $request->room);
+                })
+                ->first();
+
+            if ($selected) {
+                return redirect()->back()->with('errorSuaLich', 'Bác sĩ hoặc phòng khám đã được chọn hoặc đang được sử dụng!');
+            } else {
+                $appointment_schedule = appointment_schedules::findOrFail($id);
+                $appointment_schedule->names = $request->name;
+                $appointment_schedule->phones = $request->phone;
+                $appointment_schedule->dates = $request->date;
+                $appointment_schedule->times = $request->time;
+                $appointment_schedule->prices = $request->price;
+                $appointment_schedule->doctor_examines = $request->doctor_examine;
+                $appointment_schedule->rooms = $request->room;
+                $appointment_schedule->save();
+                return redirect('admin/lichhenchuaxacnhan')->with('editDone', 'Cập nhật thông tin lịch hẹn thành công!');
+            }
         }
 
         // GET: http://localhost/Project2Final/admin/quanlylichhen/delete/{id}

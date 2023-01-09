@@ -35,6 +35,20 @@
                 onclick="window.location.href='{{URL::asset('admin/lichhenchuaxacnhan')}}';">Quay lại
         </button>
 
+        @if (session('errorSuaLich'))
+            <script>
+                window.onload = function () {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('errorSuaLich') }}",
+                        textColor: 'black',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
         <form method="POST" class="a3">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Họ tên</label>
@@ -81,7 +95,7 @@
                 <label for="exampleInputPassword1" class="form-label">Bác sĩ khám</label>
                 <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" id="doctor_examine" name="doctor_examine">
                     @foreach ($doctors as $doctor)
-                        <option value="{{ $doctor->id }} - {{ $doctor->name }}">ID: {{ $doctor->id }} - Họ tên: {{ $doctor->name }}</option>
+                        <option value="{{ $doctor->name }}">{{ $doctor->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -106,5 +120,6 @@
 <!-- DataTable -->
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 @endsection
 </html>

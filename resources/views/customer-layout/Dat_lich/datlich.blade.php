@@ -31,6 +31,16 @@
             color: black;
         }
 
+        #calendar {
+            position: relative;
+            top: 50px;
+            width: 420px;
+            margin-left: 118px;
+            justify-content: left;
+            color: black;
+
+        }
+
         td, th {
             border: 1px solid #dddddd;
             text-align: left;
@@ -41,13 +51,7 @@
             background-color: #dddddd;
         }
 
-        h2 {
-            position: relative;
-            top: 70px;
-            display: flex;
-            justify-content: center;
 
-        }
     </style>
 <body>
 @extends('customer-layout.Menu.menu')
@@ -125,7 +129,8 @@
     </div>
 
     <!-- Bảng lịch hẹn đã đặt -->
-    <h2 style="font-size: 45px">Lịch đã hẹn</h2>
+    <h2 style="font-size: 45px; position: relative; top: 70px; display: flex;
+            justify-content: center;">Lịch đã hẹn</h2>
 
     @if (session('done'))
         <script>
@@ -288,7 +293,6 @@
             </table>
     </div>
 
-
 @endsection
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -299,29 +303,9 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        $.fn.dataTableExt.sErrMode = 'throw';
-        $('#lich_da_hen').DataTable({
-            language: {
-                search: "Tìm kiếm",
-                lengthMenu: "Hiển thị 1 trang _MENU_ cột",
-                info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
-                infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
-                zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
-                emptyTable: "Chưa có lịch hẹn nào được đặt",
-                paginate: {
-                    first: "Trang đầu",
-                    previous: "Trang trước",
-                    next: "Trang sau",
-                    last: "Trang cuối"
-                },
-            },
-        });
 
-    });
 
-</script>
+
 
 <!-- Messenger Plugin chat Code -->
 <div id="fb-root"></div>

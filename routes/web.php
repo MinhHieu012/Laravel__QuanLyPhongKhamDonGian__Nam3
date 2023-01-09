@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\doctor\DoctorController;
+use App\Models\appointment_schedules;
 use http\Client\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -169,9 +170,6 @@ Route::post('/admin/thongtinphongkham/edit/{id}', [AdminController::class, 'upda
 
 // Xóa phòng khám
 Route::get('/admin/thongtinphongkham/delete/{id}', [AdminController::class, 'deletePhongKham']);
-
-
-
 
 
 

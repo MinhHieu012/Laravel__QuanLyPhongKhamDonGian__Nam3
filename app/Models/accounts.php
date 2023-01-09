@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use \Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
 
 class accounts extends Authenticatable
 {
@@ -17,6 +18,11 @@ class accounts extends Authenticatable
     function accounts(): HasMany
     {
         return $this->hasMany(appointment_schedules:: class);
+    }
+
+    public function getDoctorStatusAttribute($value)
+    {
+        return $value == 0 ? 'Đang rảnh' : 'Đang khám';
     }
 
     /**

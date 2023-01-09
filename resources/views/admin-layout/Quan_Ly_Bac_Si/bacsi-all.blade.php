@@ -106,6 +106,7 @@
                     <th>Giới tính</th>
                     <th>Địa chỉ</th>
                     <th>Lĩnh vực khám</th>
+                    <th>Trạng thái</th>
                     <th>Sửa</th>
                     <th>Xóa</th>
                     <th>Khóa</th>
@@ -122,6 +123,7 @@
                         <td>{{ $bacsi->genders }}</td>
                         <td>{{ $bacsi->address }}</td>
                         <td>{{ $bacsi->work_areas }}</td>
+                        <td>{{ $bacsi->doctorStatus }}</td>
                         <td>
                             <form action="{{ url('admin/quanlybacsi/edit/' . $bacsi->id) }}"
                                   method="GET">

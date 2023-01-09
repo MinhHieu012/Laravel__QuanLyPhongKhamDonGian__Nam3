@@ -7,6 +7,7 @@ use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\accounts;
 use App\Models\appointment_schedules;
+use App\Models\rooms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -125,8 +126,14 @@ class DoctorController extends Controller
     }
 
     function ChuaKham_sang_DangKham(Request $request, $id) {
+
         $appointment_schedules = appointment_schedules::findOrFail($id);
         $appointment_schedules->appointment_status = 1;
+
+        accounts::where('isDoctor', 1)
+            ->where('doctorStatus', 0)
+            ->update(['doctorStatus' => 1]);
+
         $appointment_schedules->save();
         return redirect('/doctor/lichhendangkham')->with('success', 'Chuyển về lịch hẹn đang khám thành công');
     }
@@ -134,6 +141,11 @@ class DoctorController extends Controller
     function DangKham_sang_ChuaKham(Request $request, $id) {
         $appointment_schedules = appointment_schedules::findOrFail($id);
         $appointment_schedules->appointment_status = 0;
+
+        accounts::where('isDoctor', 1)
+            ->where('doctorStatus', 1)
+            ->update(['doctorStatus' => 0]);
+
         $appointment_schedules->save();
         return redirect('/doctor/lichhenchuakham')->with('success', 'Chuyển về lịch hẹn chưa khám thành công');
     }
@@ -141,6 +153,11 @@ class DoctorController extends Controller
     function DangKham_sang_DaKham(Request $request, $id) {
         $appointment_schedules = appointment_schedules::findOrFail($id);
         $appointment_schedules->appointment_status = 2;
+
+        accounts::where('isDoctor', 1)
+            ->where('doctorStatus', 1)
+            ->update(['doctorStatus' => 0]);
+
         $appointment_schedules->save();
         return redirect('/doctor/lichhendakham')->with('success', 'Chuyển về lịch hẹn đã khám xong thành công');
     }
@@ -148,6 +165,11 @@ class DoctorController extends Controller
     function DaKham_sang_DangKham(Request $request, $id) {
         $appointment_schedules = appointment_schedules::findOrFail($id);
         $appointment_schedules->appointment_status = 1;
+
+        accounts::where('isDoctor', 1)
+            ->where('doctorStatus', 0)
+            ->update(['doctorStatus' => 1]);
+
         $appointment_schedules->save();
         return redirect('/doctor/lichhendangkham')->with('success1', 'Chuyển về lịch hẹn đã khám xong thành công');
     }
