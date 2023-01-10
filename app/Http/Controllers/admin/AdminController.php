@@ -394,7 +394,28 @@ class AdminController extends Controller
         }
 
         // Xử lý thêm lịch
-        function addLichHen1(Request $request) {
+        function addLichHen1(Request $request, $id) {
+
+            // exclude the current appointment
+            /*$selected = appointment_schedules::where('id', '!=', $id)
+                ->where(function($query) use ($request) {
+                    $query->where('dates', $request->date)
+                        ->where('times', $request->time)
+                        ->where(function($query) use ($request) {
+                            $query->where('doctor_examines', $request->doctor_examine)
+                                ->orWhere('rooms', $request->doctor_examine);
+                        });
+                })
+                ->orWhere(function($query) use ($request) {
+                    $query->where('dates', $request->date)
+                        ->where('times', $request->time)
+                        ->where(function($query) use ($request) {
+                            $query->where('doctor_examines', $request->room)
+                                ->orWhere('rooms', $request->room);
+                        });
+                })
+                ->first();*/
+
             // Kiểm tra ngày, thời gian đã đc chọn quá 5 lần hay chưa
             $selectedTime = appointment_schedules::where('dates', $request->date)
                 ->where('times', $request->time)
@@ -409,6 +430,10 @@ class AdminController extends Controller
                 return redirect()->back()->with('errorDatLich', 'Thời gian đặt lịch này đã quá nhiều người đặt! Vui lòng chọn ngày hoặc mốc thời gian khác');
             }
 
+            /*elseif ($selected) {
+                return redirect()->back()->with('errorSuaLich', 'Bác sĩ hoặc phòng khám bạn đã được chọn hoặc đang được sử dụng!');
+            }*/
+
             $appointment_schedules = new appointment_schedules;
             $appointment_schedules->accounts_id = Auth::id();
             $appointment_schedules->names = $request->name;
@@ -421,7 +446,7 @@ class AdminController extends Controller
 
             $appointment_schedules->payment_status = $request->payment_status=0;
             $appointment_schedules->appointment_status = $request->appointment_status=0;
-            $appointment_schedules->status = $request->status=0;
+            $appointment_schedules->status = $request->status=1;
             $appointment_schedules->save();
             return redirect('/admin/lichhenchuaxacnhan')->with('success2', 'Đặt lịch thành công!');
         }

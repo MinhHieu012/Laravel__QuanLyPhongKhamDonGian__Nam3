@@ -196,8 +196,8 @@ Route::get('/admin/lichhendaxacnhan', [AdminController::class, 'viewLichHenDaXac
 Route::get('/admin/lichhenchuathanhtoan', [AdminController::class, 'viewLichHenChuaThanhToan']);
 
 // admin - trang quản lý lịch hẹn (thêm lịch hẹn)
-Route::get('/admin/quanlylichhen/add', [AdminController::class, 'viewLichHen_Add']);
-Route::post('/admin/quanlylichhen/add', [AdminController::class, 'addLichHen1']);
+/*Route::get('/admin/quanlylichhen/add', [AdminController::class, 'viewLichHen_Add']);
+Route::post('/admin/quanlylichhen/add', [AdminController::class, 'addLichHen1']);*/
 
 // admin - trang quản lý lịch hẹn (sửa lịch hẹn)
 Route::get('/admin/quanlylichhen/edit/{id}', [AdminController::class, 'editLichHen'])->name('admin.editLichHen');

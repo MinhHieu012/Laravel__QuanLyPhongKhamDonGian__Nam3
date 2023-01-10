@@ -35,6 +35,20 @@
                 onclick="window.location.href='{{URL::asset('admin/lichhenchuaxacnhan')}}';">Quay lại
         </button>
 
+        @if (session('errorSuaLich'))
+            <script>
+                window.onload = function () {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('errorSuaLich') }}",
+                        textColor: 'black',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
         <form method="POST" class="a3">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Họ tên</label>
@@ -107,5 +121,6 @@
 <!-- DataTable -->
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 @endsection
 </html>
