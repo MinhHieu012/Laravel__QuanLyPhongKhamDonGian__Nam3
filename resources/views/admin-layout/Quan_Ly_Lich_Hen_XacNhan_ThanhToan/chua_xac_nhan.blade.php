@@ -152,7 +152,6 @@
                         <th>Bác sĩ khám</th>
                         <th>Thao tác</th>
                         <th>Thao tác</th>
-                        <th>Thao tác</th>
                     </tr>
                     </thead>
                     <!-- thân bảng -->
@@ -171,7 +170,7 @@
                             <td>{{ $appointment->doctor_examines }}</td>
                             <td>
                                 <form action="{{ url('/admin/quanlylichhen/edit/' . $appointment->id) }}" method="GET">
-                                    <button type="submit" class="btn btn-outline-warning">Sửa</button>
+                                    <button type="submit" class="btn btn-outline-warning">Xác nhận</button>
                                 </form>
                             </td>
                             <td>
@@ -181,14 +180,14 @@
                                     </button>
                                 </form>
                             </td>
-                            <td>
+                            {{--<td>
                                 <form action="{{ url('/admin/lichhen/xacnhan/'. $appointment->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" onclick="return confirm('Xác nhận lịch hẹn này?')"
                                             class="btn btn-outline-success">Xác nhận lịch hẹn
                                     </button>
                                 </form>
-                            </td>
+                            </td>--}}
                         </tr>
                     @empty
                         <tr>

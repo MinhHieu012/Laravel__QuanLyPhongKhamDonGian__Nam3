@@ -352,22 +352,6 @@
                 <a href="{{URL::asset('/admin/lichhenchuaxacnhan')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
-                    Tất cả lịch hẹn
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{URL::asset('/admin/quanlylichhen/add')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Thêm lịch hẹn
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{URL::asset('/admin/lichhenchuaxacnhan')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
                     Lịch hẹn chưa xác nhận
                   </p>
                 </a>

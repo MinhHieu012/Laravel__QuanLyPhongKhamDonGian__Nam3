@@ -456,7 +456,10 @@ class AdminController extends Controller
         {
             $appointment_schedule = appointment_schedules::where('id', '=', $id)->first();
 
+            //$doctors = accounts::where('isDoctor', '=', '1')->get();
+            // Gói các gói khám có cùng types và hiển thị trên select
             $doctors = accounts::where('isDoctor', '=', '1')->get();
+            $grouped_packages_doctor = $doctors->groupBy('work_areas');
 
             // Gói các gói khám có cùng types và hiển thị trên select
             $health_checkup_packages = health_checkup_packages::all();
@@ -470,25 +473,13 @@ class AdminController extends Controller
             $rooms = rooms::all();
             $grouped_packages_rooms = $rooms->groupBy('types');
 
-            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan-edit', compact('appointment_schedule', 'doctors', 'grouped_packages', 'grouped_packages_times', 'grouped_packages_rooms'));
+            return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan-edit', compact('appointment_schedule', 'doctors', 'grouped_packages', 'grouped_packages_times', 'grouped_packages_rooms', 'grouped_packages_doctor'));
         }
 
         // POST: http://localhost/Project2Final/admin/quanlylichhen/edit/{id}
         // update thông tin lịch hẹn
         function updateLichHen(Request $request, $id)
         {
-            /*$selected = appointment_schedules::where('dates', $request->date)
-                ->where('times', $request->time)
-                ->orWhere(function($query) use ($request) {
-                    $query->where('doctor_examines', $request->doctor_examine)
-                        ->where('rooms', '!=', $request->doctor_examine);
-                })
-                ->orWhere(function($query) use ($request) {
-                    $query->where('doctor_examines', '!=', $request->room)
-                        ->where('rooms', $request->room);
-                })
-                ->first();*/
-
             // exclude the current appointment
             $selected = appointment_schedules::where('id', '!=', $id)
             ->where(function($query) use ($request) {
@@ -520,8 +511,9 @@ class AdminController extends Controller
                 $appointment_schedule->prices = $request->price;
                 $appointment_schedule->doctor_examines = $request->doctor_examine;
                 $appointment_schedule->rooms = $request->room;
+                $appointment_schedule->status = 1;
                 $appointment_schedule->save();
-                return redirect('admin/lichhenchuaxacnhan')->with('editDone', 'Cập nhật thông tin lịch hẹn thành công!');
+                return redirect('admin/lichhendaxacnhan')->with('editDone', 'Xác nhận thông tin lịch hẹn thành công!');
             }
         }
 
@@ -556,12 +548,12 @@ class AdminController extends Controller
             return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan', ['appointments' => $appointmentsByDate]);
         }
 
-        function LichHenChuaXacNhan_sang_LichHenDaXacNhan(Request $request, $id) {
+        /*function LichHenChuaXacNhan_sang_LichHenDaXacNhan(Request $request, $id) {
             $appointment_schedules = appointment_schedules::findOrFail($id);
             $appointment_schedules->status = 1;
             $appointment_schedules->save();
             return redirect('/admin/lichhendaxacnhan')->with('success', 'Lịch hẹn đã xác nhận thành công');
-        }
+        }*/
 
         function LichHenDaXacNhan_sang_LichHenChuaXacNhan(Request $request, $id) {
             $appointment_schedules = appointment_schedules::findOrFail($id);

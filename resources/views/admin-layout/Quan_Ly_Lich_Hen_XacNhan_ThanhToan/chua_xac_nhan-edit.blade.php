@@ -30,7 +30,7 @@
 @extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
 @section('content2')
     <div>
-        <h2 style="position: relative; right: -270px; top: 15px">Sửa lịch hẹn</h2>
+        <h2 style="position: relative; right: -270px; top: 15px">Xác nhận lịch hẹn</h2>
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
                 onclick="window.location.href='{{URL::asset('admin/lichhenchuaxacnhan')}}';">Quay lại
         </button>
@@ -94,13 +94,14 @@
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Bác sĩ khám</label>
                 <select style="position: relative; top:4px; margin-bottom: 10px; width: 1400px; height: 40px; border-radius: 3px" id="doctor_examine" name="doctor_examine">
-                    @foreach ($doctors as $doctor)
-                        <option value="{{ $doctor->name }}">{{ $doctor->name }}</option>
+                    @foreach ($grouped_packages_doctor as $type => $doctors)
+                        <optgroup label="{{ $type }}">
+                            @foreach ($doctors as $doctor)
+                                <option value="{{ $doctor->name }}">{{ $doctor->name }}</option>
+                            @endforeach
+                        </optgroup>
                     @endforeach
                 </select>
-                {{--@if (session()->has('doctor_examine'))
-                    <div class="error" style="color: red; font-size: 17px">{{ session()->get('doctor_examine') }}</div>
-                @endif--}}
             </div>
 
             <div class="mb-3">
@@ -118,7 +119,7 @@
                     <div class="error" style="color: red; font-size: 17px">{{ session()->get('room') }}</div>
                 @endif--}}
             </div>
-            <button type="submit" class="btn btn-warning" id="edit" name="edit">Sửa</button>
+            <button type="submit" class="btn btn-warning" id="edit" name="edit">Xác nhận</button>
         </form>
     </div>
 

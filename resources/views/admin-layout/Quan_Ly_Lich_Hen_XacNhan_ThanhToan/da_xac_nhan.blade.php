@@ -54,6 +54,20 @@
             </script>
         @endif
 
+        @if (session('editDone'))
+            <script>
+                window.onload = function () {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('editDone') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
                 onclick="window.location.href='{{URL::asset('/admin/lichhenchuaxacnhan')}}';">Quay lại
         </button>
@@ -102,7 +116,7 @@
                                       method="POST">
                                     @csrf
                                     <button type="submit" onclick="return confirm('Hủy xác nhận lịch hẹn này?')"
-                                            class="btn btn-outline-warning">Hủy xác nhận lịch hẹn
+                                            class="btn btn-outline-warning">Hủy
                                     </button>
                                 </form>
                             </td>
@@ -137,8 +151,6 @@
                     </tbody>
                 </table>
         </div>
-
-
         </div>
     </div>
     </div>
@@ -149,27 +161,6 @@
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $.fn.dataTableExt.sErrMode = 'throw';
-        $('#lich_da_xac_nhan').DataTable({
-            language: {
-                search: "Tìm kiếm",
-                lengthMenu: "Hiển thị 1 trang _MENU_ cột",
-                info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_",
-                infoEmpty: "0 bản ghi trong 0 tổng cộng 0",
-                zeroRecords: "Không có lịch hoặc dữ liệu bạn tìm kiếm",
-                emptyTable: "Chưa có lịch hẹn nào được thanh toán",
-                paginate: {
-                    first: "Trang đầu",
-                    previous: "Trang trước",
-                    next: "Trang sau",
-                    last: "Trang cuối"
-                },
-            },
-        });
-    });
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 @endsection
