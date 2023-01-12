@@ -48,11 +48,15 @@ class CustomerController extends Controller
         $accounts = new accounts();
         // syntax: $tên_biến -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
         $accounts -> name = $request -> name;
-        $accounts -> phones = $request -> phone;
         $accounts -> username = $request -> username;
         $accounts -> password = bcrypt($request -> password);
         // set quyền cho tk đăng kí là tài khoản khách hàng
-        $accounts -> isCustomer = "1";
+        // levels: 1 -> Admin
+        // levels: 2 -> Doctor
+        // levels: 3 - > Khách
+        // status = 0 -> Mở tk
+        // status = 1 -> Khóa tk
+        $accounts -> levels = "3";
         $accounts -> status = "0";
         $accounts->save();
         return redirect('/login')->with('success', 'Bạn đã đăng kí thành công!');
@@ -84,13 +88,18 @@ class CustomerController extends Controller
         }
         else {
             $user = Auth::user();
-            if ($user -> isAdmin == 1) {
+            // levels: 1 -> Admin
+            // levels: 2 -> Doctor
+            // levels: 3 - > Khách
+            // status = 0 -> Mở tk
+            // status = 1 -> Khóa tk
+            if ($user -> levels == 1) {
                 return redirect('/admin/home')->with('success', 'Đăng nhập thành công!');
             }
-            if ($user -> isDoctor == 1) {
+            if ($user -> levels == 2) {
                 return redirect('/doctor/home')->with('success', 'Đăng nhập thành công!');
             }
-            elseif ($user -> isCustomer == 1) {
+            elseif ($user -> levels == 3) {
                 return redirect('/')->with('success', 'Đăng nhập thành công!');
             }
         }
@@ -183,7 +192,6 @@ class CustomerController extends Controller
             $appointment_schedules->dates = $request->date;
             $appointment_schedules->times = $request->time;
             $appointment_schedules->prices = $request->price;
-            $appointment_schedules->notes = $request->note;
             $appointment_schedules->payment_status = $request->payment_status=0;
             $appointment_schedules->appointment_status = $request->appointment_status=0;
             $appointment_schedules->status = $request->status=0;

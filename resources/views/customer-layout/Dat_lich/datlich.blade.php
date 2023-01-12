@@ -75,21 +75,6 @@
                 <input type="date" id="date" name="date" required>
                 <br>
                 <label for="cars">Thời gian hẹn</label>
-                {{--<select style="position: relative; top:20px;" name="time" id="time">
-                    <optgroup label="Sáng">
-                        <option value="Sáng 8:00 giờ - 9:00 giờ">Sáng 08:00 giờ đến 09:00 giờ</option>
-                        <option value="Sáng 9:00 giờ đến 10:00 giờ">Sáng 09:00 giờ đến 10:00 giờ</option>
-                        <option value="Sáng 10:00 giờ đến 11:00 giờ">Sáng 10:00 giờ đến 11:00 giờ</option>
-                    </optgroup>
-                    <optgroup label="Chiều">
-                        <option value="Chiều 01:00 giờ đến 02:00 giờ">Chiều 01:00 giờ đến 02:00 giờ</option>
-                        <option value="Chiều 02:00 giờ đến 03:00 giờ">Chiều 02:00 giờ đến 03:00 giờ</option>
-                        <option value="Chiều 03:00 giờ đến 04:00 giờ">Chiều 03:00 giờ đến 04:00 giờ</option>
-                        <option value="Chiều 04:00 giờ đến 05:00 giờ">Chiều 04:00 giờ đến 05:00 giờ</option>
-                        <option value="Chiều 05:00 giờ đến 06:00 giờ">Chiều 05:00 giờ đến 06:00 giờ</option>
-                    </optgroup>
-                </select>--}}
-
                 <select style="position: relative; top:20px;" name="time" id="time">
                     @foreach($grouped_packages_times as $type => $times)
                         <optgroup label="{{ $type }}">
@@ -111,9 +96,6 @@
                         </optgroup>
                     @endforeach
                 </select>
-
-                <label>Ghi chú</label>
-                <input type="text" id="note" name="note" placeholder="Nhập thông tin thêm (nếu có)">
                 <br> <br>
                 <span style="position: relative; right: 17px; text-decoration: none;">Xem thông tin chuyển khoản tại <a
                         href="{{URL::asset('/lienhe')}}">trang Liên Hệ</a> nếu thanh toán online</span>

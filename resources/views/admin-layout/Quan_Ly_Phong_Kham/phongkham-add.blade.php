@@ -38,7 +38,7 @@
                 onclick="window.location.href='{{URL::asset('admin/thongtinphongkham')}}';">Quay lại
         </button>
 
-        <form action="{{ URL::asset('admin/quanlyphongkham/add') }}" class="a1" method="POST">
+        <form action="{{ URL::asset('admin/thongtinphongkham/add') }}" class="a1" method="POST">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Loại phòng</label>
                 <input type="text" class="form-control" id="type" name="type" aria-describedby="emailHelp"
@@ -52,7 +52,7 @@
                        placeholder="Nhập tên phòng khám" required>
             </div>
 
-            <button type="submit" class=" btn btn-success" id="add" name="add"><i class="fa-regular fa-plus"></i>Thêm phòng khám</button>
+            <button type="submit" class=" btn btn-success" id="add" name="add">Thêm phòng khám</button>
         </form>
     </div>
 

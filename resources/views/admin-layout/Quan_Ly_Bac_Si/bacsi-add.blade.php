@@ -40,6 +40,11 @@
 
         <form action="{{ URL::asset('admin/quanlybacsi/add') }}" class="a1" method="POST">
             <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Họ và tên</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nhập họ tên của bác sĩ"
+                       required>
+            </div>
+            <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Tên đăng nhập</label>
                 <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp"
                        placeholder="Nhập tên đăng nhập của bác sĩ" required>
@@ -65,38 +70,7 @@
                 </p>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Họ và tên</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Nhập họ tên của bác sĩ"
-                       required>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
-                <input type="phone" class="form-control" id="phone" name="phone"
-                       placeholder="Nhập số điện thoại của bác sĩ" required>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Ngày sinh</label>
-                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Giới tính</label> <br>
-                <select style="width: 1400px; height: 38px; padding-left: 10px" name="gender" id="gender" required>
-                    <option value="Nam">Nam</option>
-                    <option value="Nữ">Nữ</option>
-                    <option value="Khác">Khác</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Địa chỉ</label>
-                <input type="text" class="form-control" id="address" name="address"
-                       placeholder="Nhập địa chỉ của bác sĩ" required>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Lĩnh vực khám</label>
-                <input type="text" class="form-control" id="work_area" name="work_area" placeholder="Nhập lĩnh vực khám của bác sĩ" required>
-            </div>
-            <button type="submit" class=" btn btn-success" id="add" name="add">+ Thêm
+            <button type="submit" class=" btn btn-success" id="add" name="add">Thêm
                 bác sĩ
             </button>
         </form>

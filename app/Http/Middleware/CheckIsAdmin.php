@@ -20,7 +20,7 @@ class CheckIsAdmin
         if (Auth::check()) {
             // Kiểm tra có phải là admin ko
             $user = Auth::user();
-            if ($user -> isAdmin == 0) {
+            if ($user -> levels == 0) {
                 return redirect('/')->with('permissionDenied', 'Bạn không có quyền truy cập');
             }
         } else {

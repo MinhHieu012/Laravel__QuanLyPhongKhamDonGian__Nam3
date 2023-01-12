@@ -86,6 +86,20 @@
             </script>
         @endif
 
+        @if (session('resetDone'))
+            <script>
+                window.onload = function () {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('resetDone') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
                 onclick="window.location.href='{{URL::asset('admin/quanlybacsi/add')}}';">+ Thêm bác sĩ
         </button>
@@ -103,12 +117,10 @@
                     <th>Họ tên</th>
                     <th>Số điện thoại</th>
                     <th>Ngày sinh</th>
-                    <th>Giới tính</th>
-                    <th>Địa chỉ</th>
                     <th>Lĩnh vực khám</th>
                     <th>Trạng thái</th>
-                    <th>Sửa</th>
                     <th>Xóa</th>
+                    <th>Reset mật khẩu</th>
                     <th>Khóa</th>
                 </tr>
                 </thead>
@@ -120,21 +132,26 @@
                         <td>{{ $bacsi->name }}</td>
                         <td>{{ $bacsi->phones }}</td>
                         <td>{{ date('d/m/Y', strtotime($bacsi->date_of_births))}}</td>
-                        <td>{{ $bacsi->genders }}</td>
-                        <td>{{ $bacsi->address }}</td>
                         <td>{{ $bacsi->work_areas }}</td>
                         <td>{{ $bacsi->doctorStatus }}</td>
-                        <td>
+                        {{--<td>
                             <form action="{{ url('admin/quanlybacsi/edit/' . $bacsi->id) }}"
                                   method="GET">
                                 <button type="submit" class="btn btn-outline-warning">Sửa</button>
                             </form>
-                        </td>
+                        </td>--}}
+
                         <td>
                             <form action="{{ url('admin/quanlybacsi/delete/' . $bacsi->id) }}" method="GET">
                                 <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa bác sĩ này?')"
                                         class="btn btn-outline-danger">Xóa
                                 </button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form action="{{ url('/admin/quanlybacsi/resetpassword/' . $bacsi->id) }}" method="POST">
+                                <button type="submit" class="btn btn-outline-warning" onclick="confirm('Bạn muốn reset mật khẩu tài khoản này?')">Reset</button>
                             </form>
                         </td>
 

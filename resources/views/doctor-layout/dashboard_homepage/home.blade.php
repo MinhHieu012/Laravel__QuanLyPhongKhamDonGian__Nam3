@@ -33,6 +33,11 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
+
+        #p1 {
+            position: relative; right: -270px; top: 35px;
+            font-size: 18px;
+        }
     </style>
 <body>
 @extends('doctor-layout.menu.DoctorMenu.AdminLTE.menu')
@@ -41,16 +46,13 @@
         <h2 style="position: relative; right: -270px; top: 15px">Dashboard</h2>
         <br>
         <div>
-            <h3 style="position: relative; right: -270px; top: 35px;">Thông tin cá nhân</h3>
-            <p style="position: relative; right: -270px; top: 45px; font-size: 18px">ID: {{Auth::user()->id}}</p>
-            <p style="position: relative; right: -270px; top: 45px; font-size: 18px">Họ tên: {{Auth::user()->name}}</p>
-            <p style="position: relative; right: -270px; top: 45px; font-size: 18px">Số điện
-                thoại: {{Auth::user()->phones}}</p>
-            <p style="position: relative; right: -270px; top: 45px; font-size: 18px">Ngày
-                sinh: {{ date('d/m/Y', strtotime(Auth::user()->date_of_births))}}</p>
-            <p style="position: relative; right: -270px; top: 45px; font-size: 18px">Giới
-                tính: {{Auth::user()->genders}}</p>
-            <p>Địa chỉ: {{Auth::user()->address}}</p>
+            <p id="p1">ID: {{ $accounts_details->accounts_id }}</p>
+            <p id="p1">Họ tên: {{Auth::user()->name}}</p>
+            <p id="p1">Số điện thoại: {{ $accounts_details->phones }}</p>
+            <p id="p1">Ngày sinh: {{ date('d/m/Y', strtotime( $accounts_details->date_of_births ))}}</p>
+            <p id="p1">Giới tính: {{ $accounts_details->genders }}</p>
+            <p id="p1">Địa chỉ: {{ $accounts_details->address }}</p>
+            <p id="p1">Lĩnh vực, ngành khám: {{ $accounts_details->doctor_specialty }}</p>
         </div>
     </div>
 

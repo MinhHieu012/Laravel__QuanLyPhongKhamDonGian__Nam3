@@ -114,6 +114,9 @@ Route::post('/admin/quanlybacsi/edit/{id}', [AdminController::class, 'updateDoct
 // trang khóa tài khoản bác sĩ
 Route::get('/admin/quanlybacsi/lock', [AdminController::class, 'viewQuanLyBacsi_KhoaTaiKhoan']);
 
+// Reset mật khẩu bác sĩ
+Route::post('/admin/quanlybacsi/resetpassword/{id}', [AdminController::class, 'ResetPassword_Bacsi']);
+
 // Xử lý khóa tài khoản bác sĩ
 Route::post('/admin/quanlybacsi/lock/{id}', [AdminController::class, 'KhoaTaiKhoan_Bacsi']);
 
@@ -222,6 +225,11 @@ Route::post('/admin/quanlylichhen/unpaid/{id}', [AdminController::class, 'DaThan
 //---------------------------DoctorController-----------------------------
 // trang home doctor
 Route::get('/doctor/home', [DoctorController::class, 'viewHome']);
+
+// trang giao diện sửa thông tin bác sĩ
+Route::get('/doctor/hoso/edit', [DoctorController::class, 'viewHoSo_Edit']);
+// trang cập nhật thông tin bác sĩ (không giao diện)
+Route::post('/doctor/hoso/edit', [DoctorController::class, 'HoSo_Update']);
 
 // trang đổi mật khẩu doctor
 Route::get('/doctor/changepassword', [DoctorController::class, 'viewDoiMatKhau']);

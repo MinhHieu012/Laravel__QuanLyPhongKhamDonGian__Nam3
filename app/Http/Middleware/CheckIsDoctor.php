@@ -20,7 +20,7 @@ class CheckIsDoctor
         if (Auth::check()) {
             // Kiểm tra có phải là bác sĩ ko
             $user = Auth::user();
-            if ($user -> isDoctor == 0) {
+            if ($user -> levels == 0) {
                 return redirect('/')->with('permissionDenied', 'Bạn không có quyền truy cập');
             }
         } else {

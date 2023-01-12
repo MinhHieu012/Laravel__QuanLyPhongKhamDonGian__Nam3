@@ -20,7 +20,12 @@ class accounts extends Authenticatable
         return $this->hasMany(appointment_schedules:: class);
     }
 
-    public function getDoctorStatusAttribute($value)
+    function accounts_details(): HasMany
+    {
+        return $this->hasMany(accounts_details::class);
+    }
+
+    public function getDoctorStatusAttribute($value): string
     {
         return $value == 0 ? 'Đang rảnh' : 'Đang khám';
     }

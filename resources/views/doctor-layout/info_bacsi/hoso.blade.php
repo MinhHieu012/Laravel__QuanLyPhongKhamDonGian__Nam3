@@ -21,19 +21,38 @@
 @section('content2')
     <div>
         <h2 style="position: relative; right: -270px; top: 15px">Thông tin cá nhân</h2>
+        @if (session('editDone'))
+            <script>
+                window.onload = function () {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('editDone') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
         <button type="button" style="position: relative; right: -270px; top: 40px; font-size: 18px"
                 class="btn btn-primary">Thông tin cá nhân
         </button>
-        <p id="p1">ID: {{Auth::user()->id}}</p>
+        <p id="p1">ID: {{ $accounts_details->accounts_id }}</p>
         <p id="p1">Họ tên: {{Auth::user()->name}}</p>
-        <p id="p1">Số điện thoại: {{Auth::user()->phones}}</p>
-        <p id="p1">Ngày sinh: {{ date('d/m/Y', strtotime(Auth::user()->date_of_births))}}</p>
-        <p id="p1">Giới tính: {{Auth::user()->genders}}</p>
-        <p id="p1">Địa chỉ: {{Auth::user()->address}}</p>
+        <p id="p1">Số điện thoại: {{ $accounts_details->phones }}</p>
+        <p id="p1">Ngày sinh: {{ date('d/m/Y', strtotime( $accounts_details->date_of_births ))}}</p>
+        <p id="p1">Giới tính: {{ $accounts_details->genders }}</p>
+        <p id="p1">Địa chỉ: {{ $accounts_details->address }}</p>
+        <p id="p1">Lĩnh vực, ngành khám: {{ $accounts_details->doctor_specialty }}</p>
+
+        <form id="p1" action="{{ url('/doctor/hoso/edit') }}" method="GET">
+            <button type="submit" class="btn btn-success">Sửa thông tin</button>
+        </form>
     </div>
 @endsection
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </html>

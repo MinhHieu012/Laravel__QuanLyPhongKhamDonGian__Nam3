@@ -52,7 +52,12 @@ class AdminController extends Controller
 
         function viewQuanLyKhachHang()
         {
-            $accounts = accounts::where('isCustomer', '=', '1')
+            // levels: 1 -> Admin
+            // levels: 2 -> Doctor
+            // levels: 3 - > Khách
+            // status = 0 -> Mở tk
+            // status = 1 -> Khóa tk
+            $accounts = accounts::where('levels', '=', '3')
                 ->where('status', '=', '0')
                 ->get();
             return view('admin-layout/Quan_Ly_Khach_Hang/customer-all', ['accounts' => $accounts]);
@@ -86,7 +91,12 @@ class AdminController extends Controller
 
         function viewQuanLyKhachHang_KhoaTaiKhoan()
         {
-            $accounts = accounts::where('isCustomer', '=', '1')
+            // levels: 1 -> Admin
+            // levels: 2 -> Doctor
+            // levels: 3 - > Khách
+            // status = 0 -> Mở tk
+            // status = 1 -> Khóa tk
+            $accounts = accounts::where('levels', '=', '3')
                 ->where('status', '=', '1')
                 ->get();
             return view('admin-layout/Quan_Ly_Khach_Hang/khoa_tai_khoan', ['accounts' => $accounts]);
@@ -110,7 +120,12 @@ class AdminController extends Controller
         // Trang giao diện quản lý bác sĩ chung
         function viewQuanLyBacsi()
         {
-            $bacsi = accounts::where('isDoctor', '=', '1')
+            // levels: 1 -> Admin
+            // levels: 2 -> Doctor
+            // levels: 3 - > Khách
+            // status = 0 -> Mở tk
+            // status = 1 -> Khóa tk
+            $bacsi = accounts::where('levels', '=', '2')
                 ->where('status' , '=', 0)
                 ->get();
             return view('admin-layout/Quan_Ly_Bac_Si/bacsi-all', ['bacsi' => $bacsi]);
@@ -125,6 +140,11 @@ class AdminController extends Controller
         // Xử lý thêm bác sĩ
         function addbacsi(RegisterRequest $request)
         {
+            // kiểm tra: rỗng -> id reset -> 1
+            if(DB::table('accounts')->count() == 0) {
+                DB::statement("ALTER TABLE accounts AUTO_INCREMENT = 1;");
+            }
+
             $validated = $request->validated();
             if ($validated) {
                 $accounts = new accounts();
@@ -132,13 +152,12 @@ class AdminController extends Controller
                 $accounts->username = $request->username;
                 $accounts->password = bcrypt($request->password);
                 $accounts->name = $request->name;
-                $accounts->phones = $request->phone;
-                $accounts->date_of_births = $request->date_of_birth;
-                $accounts->genders = $request->gender;
-                $accounts->address = $request->address;
-                $accounts->work_areas = $request->work_area;
-                $accounts->doctorStatus = "0";
-                $accounts->isDoctor = "1";
+                // levels: 1 -> Admin
+                // levels: 2 -> Doctor
+                // levels: 3 - > Khách
+                // status = 0 -> Mở tk
+                // status = 1 -> Khóa tk
+                $accounts->levels = "2";
                 $accounts->status = "0";
                 $accounts->save();
                 return redirect('admin/quanlybacsi/')->with('success', 'Thêm bác sĩ thành công!');
@@ -172,6 +191,14 @@ class AdminController extends Controller
             }
         }
 
+        // Reset password bác sĩ
+        function ResetPassword_Bacsi(Request $request, $id) {
+            $accounts = accounts::findOrFail($id);
+            $accounts->password=bcrypt('Admin123456@');
+            $accounts->save();
+            return redirect('admin/quanlybacsi/')->with('resetDone', 'Reset mật khẩu bác sĩ thành công!');
+        }
+
         // POST: http://localhost/Project2Final/admin/quanlybacsi/delete/{id}
         // Trang giao diện xóa bác sĩ
         function deletedoctor($id) {
@@ -196,6 +223,11 @@ class AdminController extends Controller
         // Xử lý thêm bác sĩ
         function addGoiKham(Request $request)
         {
+            // kiểm tra: rỗng -> id reset -> 1
+            if(DB::table('health_checkup_packages')->count() == 0) {
+                DB::statement("ALTER TABLE health_checkup_packages AUTO_INCREMENT = 1;");
+            }
+
             $goikham = new health_checkup_packages();
             // syntax: $tên_biến -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
             $goikham->types = $request->type;
@@ -247,6 +279,11 @@ class AdminController extends Controller
         // Xử lý thêm bác sĩ
         function addThoiGianHen(Request $request)
         {
+            // kiểm tra: rỗng -> id reset -> 1
+            if(DB::table('appointment_times')->count() == 0) {
+                DB::statement("ALTER TABLE appointment_times AUTO_INCREMENT = 1;");
+            }
+
             $time = new appointment_times();
             // syntax: $variable -> column(db) = $request -> name(giá trị thẻ name trong html)
             $time->types = $request->type;
@@ -294,14 +331,17 @@ class AdminController extends Controller
         // Xử lý thêm phòng khám
         function addPhongKham(Request $request)
         {
+            // kiểm tra: rỗng -> id reset -> 1
+            if(DB::table('rooms')->count() == 0) {
+                DB::statement("ALTER TABLE rooms AUTO_INCREMENT = 1;");
+            }
+
             $room = new rooms();
             // syntax: $variable -> column(db) = $request -> name(giá trị thẻ name trong html)
             $room->types = $request->type;
             $room->rooms = $request->room;
-            $room->isRoom = "0";
-            $room->roomsStatus = "0";
             $room->save();
-            return redirect('admin/quanlyphongkham/')->with('success', 'Thêm phòng khám thành công!');
+            return redirect('admin/thongtinphongkham/')->with('success', 'Thêm phòng khám thành công!');
         }
 
         // Trang giao diện sửa phòng khám
@@ -330,7 +370,12 @@ class AdminController extends Controller
 
         function viewQuanLyBacsi_KhoaTaiKhoan()
         {
-            $bacsi = accounts::where('isDoctor', '=', '1')
+            // levels: 1 -> Admin
+            // levels: 2 -> Doctor
+            // levels: 3 - > Khách
+            // status = 0 -> Mở tk
+            // status = 1 -> Khóa tk
+            $bacsi = accounts::where('levels', '=', '2')
                 ->where('status', '=', '1')
                 ->get();
             return view('admin-layout/Quan_Ly_Bac_Si/khoa_tai_khoan', ['bacsi' => $bacsi]);
@@ -388,33 +433,18 @@ class AdminController extends Controller
             $rooms = rooms::all();
             $grouped_packages_rooms = $rooms->groupBy('types');
 
-            $doctors = accounts::where('isDoctor', '=', '1')->get();
+            // levels: 1 -> Admin
+            // levels: 2 -> Doctor
+            // levels: 3 - > Khách
+            // status = 0 -> Mở tk
+            // status = 1 -> Khóa tk
+            $doctors = accounts::where('levels', '=', '2')->get();
 
             return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/lichhen-add', compact( 'doctors', 'grouped_packages', 'grouped_packages_times', 'grouped_packages_rooms'));
         }
 
         // Xử lý thêm lịch
         function addLichHen1(Request $request, $id) {
-
-            // exclude the current appointment
-            /*$selected = appointment_schedules::where('id', '!=', $id)
-                ->where(function($query) use ($request) {
-                    $query->where('dates', $request->date)
-                        ->where('times', $request->time)
-                        ->where(function($query) use ($request) {
-                            $query->where('doctor_examines', $request->doctor_examine)
-                                ->orWhere('rooms', $request->doctor_examine);
-                        });
-                })
-                ->orWhere(function($query) use ($request) {
-                    $query->where('dates', $request->date)
-                        ->where('times', $request->time)
-                        ->where(function($query) use ($request) {
-                            $query->where('doctor_examines', $request->room)
-                                ->orWhere('rooms', $request->room);
-                        });
-                })
-                ->first();*/
 
             // Kiểm tra ngày, thời gian đã đc chọn quá 5 lần hay chưa
             $selectedTime = appointment_schedules::where('dates', $request->date)
@@ -429,10 +459,6 @@ class AdminController extends Controller
             if ($selectedTime && $count > 4) {
                 return redirect()->back()->with('errorDatLich', 'Thời gian đặt lịch này đã quá nhiều người đặt! Vui lòng chọn ngày hoặc mốc thời gian khác');
             }
-
-            /*elseif ($selected) {
-                return redirect()->back()->with('errorSuaLich', 'Bác sĩ hoặc phòng khám bạn đã được chọn hoặc đang được sử dụng!');
-            }*/
 
             $appointment_schedules = new appointment_schedules;
             $appointment_schedules->accounts_id = Auth::id();
@@ -456,9 +482,8 @@ class AdminController extends Controller
         {
             $appointment_schedule = appointment_schedules::where('id', '=', $id)->first();
 
-            //$doctors = accounts::where('isDoctor', '=', '1')->get();
-            // Gói các gói khám có cùng types và hiển thị trên select
-            $doctors = accounts::where('isDoctor', '=', '1')->get();
+            // Gói các bác sĩ có cùng types và hiển thị trên select
+            $doctors = accounts::where('levels', '=', '2')->get();
             $grouped_packages_doctor = $doctors->groupBy('work_areas');
 
             // Gói các gói khám có cùng types và hiển thị trên select
@@ -511,7 +536,6 @@ class AdminController extends Controller
                 $appointment_schedule->prices = $request->price;
                 $appointment_schedule->doctor_examines = $request->doctor_examine;
                 $appointment_schedule->rooms = $request->room;
-                $appointment_schedule->status = 1;
                 $appointment_schedule->save();
                 return redirect('admin/lichhendaxacnhan')->with('editDone', 'Xác nhận thông tin lịch hẹn thành công!');
             }

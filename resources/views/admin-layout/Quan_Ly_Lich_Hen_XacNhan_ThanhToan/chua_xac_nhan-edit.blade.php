@@ -115,9 +115,7 @@
                         </optgroup>
                     @endforeach
                 </select>
-                {{--@if (session()->has('room'))
-                    <div class="error" style="color: red; font-size: 17px">{{ session()->get('room') }}</div>
-                @endif--}}
+
             </div>
             <button type="submit" class="btn btn-warning" id="edit" name="edit">Xác nhận</button>
         </form>
