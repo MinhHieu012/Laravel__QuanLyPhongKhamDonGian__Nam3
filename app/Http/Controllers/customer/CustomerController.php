@@ -45,6 +45,11 @@ class CustomerController extends Controller
             'confirm_password' => ['required', 'same:password'],
         ]);
 
+        // kiểm tra: rỗng -> id reset -> 1
+        if(DB::table('accounts')->count() == 0) {
+            DB::statement("ALTER TABLE accounts AUTO_INCREMENT = 1;");
+        }
+
         $accounts = new accounts();
         // syntax: $tên_biến -> tên_cột_trên_bảng = $request -> name(giá trị thẻ name trong html)
         $accounts -> name = $request -> name;
@@ -171,6 +176,11 @@ class CustomerController extends Controller
     // Xử lý việc đặt lịch của khách hàng
     function datlich(Request $request) {
 
+        // kiểm tra: rỗng -> id reset -> 1
+        if(DB::table('appointment_schedules')->count() == 0) {
+            DB::statement("ALTER TABLE appointment_schedules AUTO_INCREMENT = 1;");
+        }
+
         // Kiểm tra ngày, thời gian đã đc chọn quá 5 lần hay chưa
         $selectedTime = appointment_schedules::where('dates', $request->date)
             ->where('times', $request->time)
@@ -184,19 +194,20 @@ class CustomerController extends Controller
         if ($selectedTime && $count > 4) {
             return redirect()->back()->with('errorDatLich', 'Thời gian bạn đặt lịch đã quá nhiều người đặt! Vui lòng chọn ngày hoặc mốc thời gian khác');
         }
-
-            $appointment_schedules = new Appointment_schedules;
-            $appointment_schedules->accounts_id = Auth::id();
-            $appointment_schedules->names = $request->name;
-            $appointment_schedules->phones = $request->phone;
-            $appointment_schedules->dates = $request->date;
-            $appointment_schedules->times = $request->time;
-            $appointment_schedules->prices = $request->price;
-            $appointment_schedules->payment_status = $request->payment_status=0;
-            $appointment_schedules->appointment_status = $request->appointment_status=0;
-            $appointment_schedules->status = $request->status=0;
-            $appointment_schedules->save();
-            return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
+        else {
+                $appointment_schedules = new Appointment_schedules;
+                $appointment_schedules->accounts_id = Auth::id();
+                $appointment_schedules->names = $request->name;
+                $appointment_schedules->phones = $request->phone;
+                $appointment_schedules->dates = $request->date;
+                $appointment_schedules->times = $request->time;
+                $appointment_schedules->prices = $request->price;
+                $appointment_schedules->payment_status = $request->payment_status = 0;
+                $appointment_schedules->appointment_status = $request->appointment_status = 0;
+                $appointment_schedules->status = $request->status = 0;
+                $appointment_schedules->save();
+                return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
+            }
         }
 
     // GET: http://localhost/Project2Final/lichhen/edit/{id}

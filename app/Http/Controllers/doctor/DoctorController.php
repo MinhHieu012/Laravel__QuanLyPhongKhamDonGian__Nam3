@@ -56,7 +56,6 @@ class DoctorController extends Controller
     // Trang hồ sơ thông tin bác sĩ
     function viewHoSo() {
         $accounts_details = accounts_details::where('accounts_id', Auth::id())->first();
-        //dd($accounts_details);
         return view('doctor-layout/info_bacsi/hoso', compact('accounts_details'));
     }
 
