@@ -152,7 +152,10 @@ class CustomerController extends Controller
 
         if (Auth::check()) {
 
-            $appointments = appointment_schedules::where('accounts_id', Auth::id())->get();
+            //$appointments = appointment_schedules::where('accounts_id', Auth::id())->get();
+            $appointments = appointment_schedules::with('appointment_times', 'health_checkup_packages', 'rooms')
+                ->where('accounts_id', Auth::id())
+                ->get();
 
             // Convert the dates field to a Carbon instance
             $appointments->transform(function ($appointment) {
@@ -166,7 +169,7 @@ class CustomerController extends Controller
             });
 
             // Pass the grouped appointments to the view
-            return view('customer-layout/Dat_lich/datlich', ['appointments' => $appointmentsByDate], compact('grouped_packages', 'grouped_packages_times'));
+            return view('customer-layout/Dat_lich/datlich', ['appointments' => $appointmentsByDate], compact('grouped_packages', 'grouped_packages_times', 'appointment_times'));
 
             //return view('customer-layout/Dat_lich/datlich', ['datlichs' => $datlichs]);
         } else {

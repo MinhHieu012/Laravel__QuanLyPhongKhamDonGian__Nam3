@@ -90,7 +90,7 @@ class DoctorController extends Controller
 
         $appointments = appointment_schedules::where('appointment_status_id', '=', '1')
                 ->where('status', '=', '1')
-                ->where('doctor_examines', Auth::user()->id)
+                ->where('doctor_examines', Auth::user()->name)
                 ->get();
 
         // Convert the dates field to a Carbon instance

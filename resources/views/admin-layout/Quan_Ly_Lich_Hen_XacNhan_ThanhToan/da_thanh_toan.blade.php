@@ -72,6 +72,7 @@
                         <th>Ngày hẹn</th>
                         <th>Thời gian hẹn</th>
                         <th>Gói khám</th>
+                        <th>Phòng khám</th>
                         <th>Ngày đặt lịch</th>
                         <th>Ngày thanh toán</th>
                         <th>Thao tác</th>
@@ -86,11 +87,12 @@
                             <td>{{ $appointment->phones }}</td>
                             <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
 
-                            <td>{{ $appointment->appointment_times_id }}</td>
-                            <td>{{ $appointment->health_checkup_packages_id }}</td>
-
                             {{--<td>{{ $appointment->times }}</td>
                             <td>{{ $appointment->prices }}</td>--}}
+
+                            <td>{{ $appointment->appointment_times->times}}</td>
+                            <td>{{ $appointment->health_checkup_packages->names . ' - ' . $appointment->health_checkup_packages->prices }}</td>
+                            <td>{{ $appointment->rooms->rooms }}</td>
 
                             <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>
                             <td>{{ date('d/m/Y, H:i', strtotime($appointment->updated_at)) }}</td>

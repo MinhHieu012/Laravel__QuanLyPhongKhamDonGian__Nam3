@@ -97,7 +97,7 @@
                     @foreach ($grouped_packages_doctor as $type => $doctors)
                         <optgroup label="{{ $type }}">
                             @foreach ($doctors as $doctor)
-                                <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                <option value="{{ $doctor->name }}">{{ $doctor->name }}</option>
                             @endforeach
                         </optgroup>
                     @endforeach

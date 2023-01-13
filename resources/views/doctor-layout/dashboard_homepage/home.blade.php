@@ -50,7 +50,7 @@
         </button>
         <br> <br>
         <div>
-            <p id="p1">ID: {{ $accounts_details ? $accounts_details->accounts_id : '' }}</p>
+            <p id="p1">ID: {{ Auth::user()->id }}</p>
             <p id="p1">Họ tên: {{Auth::user()->name}}</p>
             <p id="p1">Số điện thoại: {{ $accounts_details ? $accounts_details->phones : '' }}</p>
             <p id="p1">Ngày sinh: {{ $accounts_details ? date('d/m/Y', strtotime( $accounts_details->date_of_births )) : '' }}</p>

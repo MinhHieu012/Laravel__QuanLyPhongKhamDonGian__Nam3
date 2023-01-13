@@ -102,13 +102,13 @@
                             <td>{{ $appointment->names }}</td>
                             <td>{{ $appointment->phones }}</td>
 
-                            {{--<td>{{ $appointment->times }}</td>
-                            <td>{{ $appointment->prices }}</td>
-                            <td>{{ $appointment->rooms }}</td>--}}
-
-                            <td>{{ $appointment->appointment_times_id }}</td>
+                            {{--<td>{{ $appointment->appointment_times_id }}</td>
                             <td>{{ $appointment->health_checkup_packages_id }}</td>
-                            <td>{{ $appointment->rooms_id }}</td>
+                            <td>{{ $appointment->rooms_id }}</td>--}}
+
+                            <td>{{ $appointment->appointment_times->times}}</td>
+                            <td>{{ $appointment->health_checkup_packages->names . ' - ' . $appointment->health_checkup_packages->prices }}</td>
+                            <td>{{ $appointment->rooms->rooms }}</td>
 
                             <td>{{ date('d/m/Y, H:i:s', strtotime($appointment->created_at)) }}</td>
                             <td>{{ date('d/m/Y, H:i:s', strtotime($appointment->updated_at)) }}</td>

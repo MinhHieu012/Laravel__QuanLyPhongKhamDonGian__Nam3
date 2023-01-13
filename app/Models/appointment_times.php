@@ -14,4 +14,5 @@ class appointment_times extends Model
     {
         return $this->hasMany(appointment_schedules::class);
     }
+
 }
