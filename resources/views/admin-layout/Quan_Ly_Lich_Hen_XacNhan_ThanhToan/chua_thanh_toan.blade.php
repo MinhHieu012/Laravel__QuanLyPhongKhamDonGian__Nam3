@@ -115,8 +115,13 @@
                             <td>{{ $appointment->names }}</td>
                             <td>{{ $appointment->phones }}</td>
                             <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
-                            <td>{{ $appointment->times }}</td>
-                            <td>{{ $appointment->prices }}</td>
+
+                            {{--<td>{{ $appointment->times }}</td>
+                            <td>{{ $appointment->prices }}</td>--}}
+
+                            <td>{{ $appointment->appointment_times_id }}</td>
+                            <td>{{ $appointment->health_checkup_packages_id }}</td>
+
                             <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>
                             <td>
                                 <form action="{{ url('/admin/quanlylichhen/paid/'. $appointment->id) }}"

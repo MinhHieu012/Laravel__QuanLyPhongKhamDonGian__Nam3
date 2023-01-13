@@ -151,6 +151,7 @@ class CustomerController extends Controller
         $grouped_packages_times = $appointment_times->groupBy('types');
 
         if (Auth::check()) {
+
             $appointments = appointment_schedules::where('accounts_id', Auth::id())->get();
 
             // Convert the dates field to a Carbon instance
@@ -183,11 +184,11 @@ class CustomerController extends Controller
 
         // Kiểm tra ngày, thời gian đã đc chọn quá 5 lần hay chưa
         $selectedTime = appointment_schedules::where('dates', $request->date)
-            ->where('times', $request->time)
+            ->where('appointment_times_id', $request->appointment_times_id)
             ->first();
 
         $count = appointment_schedules::where('dates', $request->date)
-            ->where('times', $request->time)
+            ->where('appointment_times_id', $request->appointment_times_id)
             ->count();
 
         // Nếu lịch hẹn có ngày và tgian trùng nhau quá 5 lần hiện tbao
@@ -200,11 +201,27 @@ class CustomerController extends Controller
                 $appointment_schedules->names = $request->name;
                 $appointment_schedules->phones = $request->phone;
                 $appointment_schedules->dates = $request->date;
-                $appointment_schedules->times = $request->time;
-                $appointment_schedules->prices = $request->price;
-                $appointment_schedules->payment_status = $request->payment_status = 0;
-                $appointment_schedules->appointment_status = $request->appointment_status = 0;
+
+                // appointment_times_id
+                //$appointment_schedules->times = $request->time;
+                $appointment_schedules->appointment_times_id = $request->input('time');
+
+                // health_checkup_packages_id
+                //$appointment_schedules->prices = $request->price;
+                $appointment_schedules->health_checkup_packages_id = $request->input('price');
+
+                // rooms_id
+                //$appointment_schedules->rooms_id = $request->input('rooms_id', 17);
+                $appointment_schedules->rooms_id = 17;
+
+                // appointment_status_id (trạng thái khám)
+                $appointment_schedules->appointment_status_id = $request->input('appointment_status_id', 1);
+
+                // payment_status_id
+                $appointment_schedules->payment_status_id = $request->input('payment_status_id', 1);
+
                 $appointment_schedules->status = $request->status = 0;
+
                 $appointment_schedules->save();
                 return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
             }

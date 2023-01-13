@@ -35,6 +35,6 @@ class appointment_schedules extends Authenticatable
     }
 
     function rooms() {
-        $this->belongsTo(rooms::class, 'room_id');
+        $this->belongsTo(rooms::class, 'rooms_id');
     }
 }

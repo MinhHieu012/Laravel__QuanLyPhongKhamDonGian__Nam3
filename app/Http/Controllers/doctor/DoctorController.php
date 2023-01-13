@@ -78,7 +78,6 @@ class DoctorController extends Controller
                 'date_of_births' => $request->input('date_of_birth'),
                 'genders' => $request->input('gender'),
                 'address' => $request->input('address'),
-                'doctor_specialty' => $request->input('doctor_specialty')
             ]
         );
         return redirect('/doctor/hoso')->with('editDone', 'Cập nhật thông tin thành công');
@@ -89,9 +88,9 @@ class DoctorController extends Controller
     // Trang hồ sơ thông tin bác sĩ
     function viewLichHenChuaKham(Request $request) {
 
-        $appointments = appointment_schedules::where('appointment_status', '=', '0')
+        $appointments = appointment_schedules::where('appointment_status_id', '=', '1')
                 ->where('status', '=', '1')
-                ->where('doctor_examines', Auth::user()->name)
+                ->where('doctor_examines', Auth::user()->id)
                 ->get();
 
         // Convert the dates field to a Carbon instance
@@ -112,7 +111,7 @@ class DoctorController extends Controller
     }
 
     function viewLichHenDangKham() {
-        $appointments = appointment_schedules::where('appointment_status', '=', '1')
+        $appointments = appointment_schedules::where('appointment_status_id', '=', '2')
             ->where('status', '=', '1')
             ->get();
 
@@ -135,7 +134,7 @@ class DoctorController extends Controller
     // GET: http://localhost/Project2Final/doctor/lichhendakham
     // trang lịch hẹn đã khám
     function viewLichHenDaKham() {
-        $appointments = appointment_schedules::where('appointment_status', '=', '2')
+        $appointments = appointment_schedules::where('appointment_status_id', '=', '3')
             ->where('status', '=', '1')
             ->get();
 
@@ -158,8 +157,12 @@ class DoctorController extends Controller
 
     function ChuaKham_sang_DangKham(Request $request, $id) {
 
+        // Chưa khám: 0
+        // Đang khám: 1
+        // Đã khám xong: 2
+
         $appointment_schedules = appointment_schedules::findOrFail($id);
-        $appointment_schedules->appointment_status = 1;
+        $appointment_schedules->appointment_status_id = 2;
 
         // levels: 1 -> Admin
         // levels: 2 -> Doctor
@@ -177,7 +180,7 @@ class DoctorController extends Controller
 
     function DangKham_sang_ChuaKham(Request $request, $id) {
         $appointment_schedules = appointment_schedules::findOrFail($id);
-        $appointment_schedules->appointment_status = 0;
+        $appointment_schedules->appointment_status_id = 1;
 
         /*accounts::where('isDoctor', 1)
             ->where('doctorStatus', 1)
@@ -189,7 +192,7 @@ class DoctorController extends Controller
 
     function DangKham_sang_DaKham(Request $request, $id) {
         $appointment_schedules = appointment_schedules::findOrFail($id);
-        $appointment_schedules->appointment_status = 2;
+        $appointment_schedules->appointment_status_id = 3;
 
         /*accounts::where('isDoctor', 1)
             ->where('doctorStatus', 1)
@@ -201,7 +204,7 @@ class DoctorController extends Controller
 
     function DaKham_sang_DangKham(Request $request, $id) {
         $appointment_schedules = appointment_schedules::findOrFail($id);
-        $appointment_schedules->appointment_status = 1;
+        $appointment_schedules->appointment_status_id = 2;
 
         /*accounts::where('isDoctor', 1)
             ->where('doctorStatus', 0)

@@ -70,6 +70,11 @@
                 </p>
                 @enderror
             </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Lĩnh vực khám</label>
+                <input type="text" class="form-control" id="doctor_specialty" name="doctor_specialty" placeholder="Nhập lĩnh vực, ngành khám của bác sĩ" required>
+            </div>
             <button type="submit" class=" btn btn-success" id="add" name="add">Thêm
                 bác sĩ
             </button>

@@ -146,12 +146,12 @@
                         <th>Ngày hẹn</th>
                         <th>Thời gian hẹn</th>
                         <th>Gói khám</th>
-                        <th>Ngày đặt lịch</th>
-                        <th>Ghi chú</th>
                         <th>Phòng khám</th>
                         <th>Bác sĩ khám</th>
+                        <th>Ngày đặt lịch</th>
                         <th>Thao tác</th>
-                        <th>Thao tác</th>
+                        <th>Sửa</th>
+                        <th>Hủy</th>
                     </tr>
                     </thead>
                     <!-- thân bảng -->
@@ -162,15 +162,29 @@
                             <td>{{ $appointment->names }}</td>
                             <td>{{ $appointment->phones }}</td>
                             <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
-                            <td>{{ $appointment->times }}</td>
+
+                            {{--<td>{{ $appointment->times }}</td>
                             <td>{{ $appointment->prices }}</td>
-                            <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>
-                            <td>{{ $appointment->notes }}</td>
-                            <td>{{ $appointment->rooms }}</td>
+                            <td>{{ $appointment->rooms }}</td>--}}
+
+                            <td>{{ $appointment->appointment_times_id }}</td>
+                            <td>{{ $appointment->health_checkup_packages_id }}</td>
+                            <td>{{ $appointment->rooms_id }}</td>
+
                             <td>{{ $appointment->doctor_examines }}</td>
+                            <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>
+
+                            <td>
+                                <form action="{{ url('/admin/lichhen/xacnhan/' . $appointment->id) }}" method="POST">
+                                    <button type="submit" onclick="return confirm('Bạn muốn xác nhận lịch hẹn này?')"
+                                            class="btn btn-outline-success">Xác nhận
+                                    </button>
+                                </form>
+                            </td>
+
                             <td>
                                 <form action="{{ url('/admin/quanlylichhen/edit/' . $appointment->id) }}" method="GET">
-                                    <button type="submit" class="btn btn-outline-warning">Xác nhận</button>
+                                    <button type="submit" class="btn btn-outline-warning">Sửa</button>
                                 </form>
                             </td>
                             <td>
@@ -180,14 +194,6 @@
                                     </button>
                                 </form>
                             </td>
-                            {{--<td>
-                                <form action="{{ url('/admin/lichhen/xacnhan/'. $appointment->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" onclick="return confirm('Xác nhận lịch hẹn này?')"
-                                            class="btn btn-outline-success">Xác nhận lịch hẹn
-                                    </button>
-                                </form>
-                            </td>--}}
                         </tr>
                     @empty
                         <tr>

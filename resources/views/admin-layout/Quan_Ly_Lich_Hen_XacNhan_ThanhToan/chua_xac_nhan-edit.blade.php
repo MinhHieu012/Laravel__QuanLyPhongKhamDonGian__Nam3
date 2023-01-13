@@ -71,7 +71,7 @@
                     @foreach($grouped_packages_times as $type => $times)
                         <optgroup label="{{ $type }}">
                             @foreach($times as $time)
-                                <option value="{{ $time->times }}">{{ $time->times }}</option>
+                                <option value="{{ $time->id }}">{{ $time->times }}</option>
                             @endforeach
                         </optgroup>
                     @endforeach
@@ -84,7 +84,7 @@
                     @foreach ($grouped_packages as $type => $packages)
                         <optgroup label="{{ $type }}">
                             @foreach ($packages as $package)
-                                <option value="{{ $package->names }}">{{ $package->names }} - Giá: {{ $package->prices }}</option>
+                                <option value="{{ $package->id }}">{{ $package->names }} - Giá: {{ $package->prices }}</option>
                             @endforeach
                         </optgroup>
                     @endforeach
@@ -97,7 +97,7 @@
                     @foreach ($grouped_packages_doctor as $type => $doctors)
                         <optgroup label="{{ $type }}">
                             @foreach ($doctors as $doctor)
-                                <option value="{{ $doctor->name }}">{{ $doctor->name }}</option>
+                                <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
                             @endforeach
                         </optgroup>
                     @endforeach
@@ -110,7 +110,7 @@
                     @foreach ($grouped_packages_rooms as $type => $rooms)
                         <optgroup label="{{ $type }}">
                             @foreach ($rooms as $room)
-                                <option value="{{ $room->rooms }}">{{ $room->rooms }}</option>
+                                <option value="{{ $room->id }}">{{ $room->rooms }}</option>
                             @endforeach
                         </optgroup>
                     @endforeach

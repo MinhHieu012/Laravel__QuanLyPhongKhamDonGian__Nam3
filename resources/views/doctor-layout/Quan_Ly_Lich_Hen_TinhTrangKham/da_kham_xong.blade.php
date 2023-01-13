@@ -87,9 +87,15 @@
                             <td>{{ $appointment->names }}</td>
                             <td>{{ $appointment->phones }}</td>
                             <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
-                            <td>{{ $appointment->times }}</td>
+
+                            {{--<td>{{ $appointment->times }}</td>
                             <td>{{ $appointment->prices }}</td>
-                            <td>{{ $appointment->rooms }}</td>
+                            <td>{{ $appointment->rooms }}</td>--}}
+
+                            <td>{{ $appointment->appointment_times_id }}</td>
+                            <td>{{ $appointment->health_checkup_packages_id }}</td>
+                            <td>{{ $appointment->rooms_id }}</td>
+
                             <td>{{ date('d/m/Y, H:i:s', strtotime($appointment->updated_at)) }}</td>
                             <td>
                                 <form action="{{ url('/doctor/lichhen/backdangkham/'. $appointment->id) }}" method="POST">

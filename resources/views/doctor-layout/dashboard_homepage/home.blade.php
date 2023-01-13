@@ -56,7 +56,7 @@
             <p id="p1">Ngày sinh: {{ $accounts_details ? date('d/m/Y', strtotime( $accounts_details->date_of_births )) : '' }}</p>
             <p id="p1">Giới tính: {{ $accounts_details ? $accounts_details->genders : '' }}</p>
             <p id="p1">Địa chỉ: {{ $accounts_details ? $accounts_details->address : '' }}</p>
-            <p id="p1">Lĩnh vực, ngành khám: {{ $accounts_details ? $accounts_details->doctor_specialty : '' }}</p>
+            <p id="p1">Lĩnh vực, ngành khám: {{ Auth::user()->specialty }}</p>
 
         </div>
     </div>

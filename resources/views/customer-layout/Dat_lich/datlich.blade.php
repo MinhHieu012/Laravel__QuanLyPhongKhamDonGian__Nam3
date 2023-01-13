@@ -79,7 +79,7 @@
                     @foreach($grouped_packages_times as $type => $times)
                         <optgroup label="{{ $type }}">
                             @foreach($times as $time)
-                                <option value="{{ $time->times }}">{{ $time->times }}</option>
+                                <option value="{{ $time->id }}">{{ $time->times }}</option>
                             @endforeach
                         </optgroup>
                     @endforeach
@@ -91,7 +91,7 @@
                     @foreach ($grouped_packages as $type => $packages)
                         <optgroup label="{{ $type }}">
                             @foreach ($packages as $package)
-                                <option value="{{ $package->names }}">{{ $package->names }} - Giá: {{ $package->prices }}</option>
+                                <option value="{{ $package->id }}">{{ $package->names }} - Giá: {{ $package->prices }}</option>
                             @endforeach
                         </optgroup>
                     @endforeach
@@ -210,10 +210,10 @@
                     <th>Số điện thoại</th>
                     <th>Ngày hẹn</th>
                     <th>Thời gian hẹn</th>
-                    <th>Ngày giờ đặt lịch</th>
                     <th>Gói khám</th>
                     <th>Phòng khám</th>
                     <th>Bác sĩ khám</th>
+                    <th>Ngày đặt lịch</th>
                     <th>Thao tác</th>
                     <th>Thao tác</th>
                 </tr>
@@ -225,11 +225,15 @@
                         <td>{{ $appointment->names }}</td>
                         <td>{{ $appointment->phones }}</td>
                         <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
-                        <td>{{ $appointment->times }}</td>
-                        <td>{{ date('d/m/Y, H:i:s', strtotime($appointment->created_at)) }}</td>
-                        <td>{{ $appointment->prices }}</td>
-                        <td>{{ $appointment->rooms }}</td>
+
+                        {{--<td>{{ $appointment->appointment_times_id}}</td>--}}
+
+                        <td>{{ $appointment->appointment_times_id }}</td>
+
+                        <td>{{ $appointment->health_checkup_packages_id }}</td>
+                        <td>{{ $appointment->rooms_id }}</td>
                         <td>{{ $appointment->doctor_examines }}</td>
+                        <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>
                         <td>
                             <form action="{{ url('/datlich/edit/' . $appointment->id)}}" method="GET">
                                 <button type="submit" class="btn btn-outline-warning">Sửa lịch hẹn</button>

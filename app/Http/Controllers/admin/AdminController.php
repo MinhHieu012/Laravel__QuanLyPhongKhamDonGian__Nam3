@@ -152,6 +152,7 @@ class AdminController extends Controller
                 $accounts->username = $request->username;
                 $accounts->password = bcrypt($request->password);
                 $accounts->name = $request->name;
+                $accounts->doctor_specialty = $request->doctor_specialty;
                 // levels: 1 -> Admin
                 // levels: 2 -> Doctor
                 // levels: 3 - > Khách
@@ -397,7 +398,7 @@ class AdminController extends Controller
 
         function viewLichHenChuaThanhToan()
         {
-            $appointments = appointment_schedules::where('payment_status', '=', '0')
+            $appointments = appointment_schedules::where('payment_status_id', '=', '1')
                 ->where('status', '=', '1')
                 ->get();
 
@@ -484,7 +485,8 @@ class AdminController extends Controller
 
             // Gói các bác sĩ có cùng types và hiển thị trên select
             $doctors = accounts::where('levels', '=', '2')->get();
-            $grouped_packages_doctor = $doctors->groupBy('work_areas');
+            $grouped_packages_doctor = $doctors->groupBy('specialty');
+
 
             // Gói các gói khám có cùng types và hiển thị trên select
             $health_checkup_packages = health_checkup_packages::all();
@@ -509,18 +511,18 @@ class AdminController extends Controller
             $selected = appointment_schedules::where('id', '!=', $id)
             ->where(function($query) use ($request) {
                 $query->where('dates', $request->date)
-                    ->where('times', $request->time)
+                    ->where('appointment_times_id', $request->input('time'))
                     ->where(function($query) use ($request) {
                         $query->where('doctor_examines', $request->doctor_examine)
-                            ->orWhere('rooms', $request->doctor_examine);
+                            ->orWhere('rooms_id', $request->doctor_examine);
                     });
             })
                 ->orWhere(function($query) use ($request) {
                     $query->where('dates', $request->date)
-                        ->where('times', $request->time)
+                        ->where('appointment_times_id',  $request->input('time'))
                         ->where(function($query) use ($request) {
-                            $query->where('doctor_examines', $request->room)
-                                ->orWhere('rooms', $request->room);
+                            $query->where('doctor_examines',  $request->input('room'))
+                                ->orWhere('rooms_id',  $request->input('room'));
                         });
                 })
                 ->first();
@@ -532,12 +534,21 @@ class AdminController extends Controller
                 $appointment_schedule->names = $request->name;
                 $appointment_schedule->phones = $request->phone;
                 $appointment_schedule->dates = $request->date;
-                $appointment_schedule->times = $request->time;
-                $appointment_schedule->prices = $request->price;
-                $appointment_schedule->doctor_examines = $request->doctor_examine;
-                $appointment_schedule->rooms = $request->room;
+
+                //$appointment_schedule->times = $request->time;
+                $appointment_schedule->appointment_times_id = $request->input('time');
+
+                //$appointment_schedule->prices = $request->price;
+                $appointment_schedule->health_checkup_packages_id = $request->input('price');
+
+                //$appointment_schedule->doctor_examines = $request->doctor_examine;
+                $appointment_schedule->doctor_examines = $request->input('doctor_examine');
+
+                //$appointment_schedule->rooms = $request->room;
+                $appointment_schedule->rooms_id = $request->input('room');
+
                 $appointment_schedule->save();
-                return redirect('admin/lichhendaxacnhan')->with('editDone', 'Xác nhận thông tin lịch hẹn thành công!');
+                return redirect('admin/lichhenchuaxacnhan')->with('editDone', 'Thêm/Sửa thông tin lịch hẹn thành công!');
             }
         }
 
@@ -572,12 +583,12 @@ class AdminController extends Controller
             return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan', ['appointments' => $appointmentsByDate]);
         }
 
-        /*function LichHenChuaXacNhan_sang_LichHenDaXacNhan(Request $request, $id) {
+        function LichHenChuaXacNhan_sang_LichHenDaXacNhan(Request $request, $id) {
             $appointment_schedules = appointment_schedules::findOrFail($id);
             $appointment_schedules->status = 1;
             $appointment_schedules->save();
             return redirect('/admin/lichhendaxacnhan')->with('success', 'Lịch hẹn đã xác nhận thành công');
-        }*/
+        }
 
         function LichHenDaXacNhan_sang_LichHenChuaXacNhan(Request $request, $id) {
             $appointment_schedules = appointment_schedules::findOrFail($id);
@@ -611,7 +622,7 @@ class AdminController extends Controller
         // Trang lịch hẹn đã thanh toán
         function viewLichHenDaThanhToan()
         {
-            $appointments = appointment_schedules::where('payment_status', '=', '1')
+            $appointments = appointment_schedules::where('payment_status_id', '=', '2')
                 ->where('status', '=', '1')
                 ->get();
 
@@ -634,14 +645,14 @@ class AdminController extends Controller
 
         function TrangThaiLichHen_sang_DaThanhToan(Request $request, $id) {
             $appointment_schedules = appointment_schedules::findOrFail($id);
-            $appointment_schedules->payment_status = 1;
+            $appointment_schedules->payment_status_id = 2;
             $appointment_schedules->save();
             return redirect('/admin/lichhendathanhtoan')->with('success', 'Chuyển về lịch hẹn đã thanh toán thành công');
         }
 
         function DaThanhToan_sang_ChuaThanhToan(Request $request, $id) {
             $appointment_schedules = appointment_schedules::findOrFail($id);
-            $appointment_schedules->payment_status = 0;
+            $appointment_schedules->payment_status_id = 1;
             $appointment_schedules->save();
             return redirect('/admin/lichhenchuathanhtoan')->with('success', 'Chuyển về lịch hẹn chưa thanh toán thành công');
         }
