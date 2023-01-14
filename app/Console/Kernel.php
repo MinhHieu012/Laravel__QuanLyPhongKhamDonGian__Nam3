@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('reset:count')->monthly();
         // $schedule->command('inspire')->hourly();
+        $schedule->command('reset:count:doctor')->monthly();
     }
 
     /**

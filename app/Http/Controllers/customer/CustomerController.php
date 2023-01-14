@@ -155,6 +155,7 @@ class CustomerController extends Controller
             //$appointments = appointment_schedules::where('accounts_id', Auth::id())->get();
             $appointments = appointment_schedules::with('appointment_times', 'health_checkup_packages', 'rooms')
                 ->where('accounts_id', Auth::id())
+                ->where('cancelled', '=', '0')
                 ->get();
 
             // Convert the dates field to a Carbon instance
@@ -225,6 +226,10 @@ class CustomerController extends Controller
 
                 $appointment_schedules->status = $request->status = 0;
 
+                // cancelled = 0 -> trạng thái thường
+                // cancelled = 1 -> trạng thái hủy (nhưng ko xóa)
+                $appointment_schedules->cancelled = 0;
+
                 $appointment_schedules->save();
                 return redirect('/datlich')->with('done', 'Bạn đã đặt lịch thành công!');
             }
@@ -277,7 +282,8 @@ class CustomerController extends Controller
             return redirect()->back()->with('form_expired', 'Lịch hẹn đã xác nhận không thể hủy hay chỉnh sửa! Liên hệ qua FB để được hỗ trợ');
         } else {
             $appointment_schedules = appointment_schedules::findOrFail($id);
-            $appointment_schedules->delete();
+            $appointment_schedules->cancelled = 1;
+            $appointment_schedules->save();
             return redirect()->back()->with('deleteDone', 'Bạn đã hủy lịch hẹn thành công thành công!');
         }
     }

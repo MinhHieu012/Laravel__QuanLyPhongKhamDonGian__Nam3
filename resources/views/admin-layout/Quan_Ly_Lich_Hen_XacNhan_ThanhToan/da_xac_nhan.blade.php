@@ -77,6 +77,7 @@
         </button>
 
         <div class="table1">
+            @if(count($appointments) > 0)
             @foreach ($appointments as $date => $appointmentsForDate)
                 <table id="{{ $date }}" class="table table-bordered border-dark" style="width: 100%">
                     <br>
@@ -155,6 +156,11 @@
                     </tbody>
                 </table>
         </div>
+
+        @else
+            <h4 style="margin-top: 10px">Không có lịch hẹn nào đã xác nhận</h4>
+        @endif
+
         </div>
     </div>
     </div>

@@ -42,23 +42,149 @@
 <body>
 @extends('doctor-layout.menu.DoctorMenu.AdminLTE.menu')
 @section('content2')
-    <div>
-        <h2 style="position: relative; right: -270px; top: 15px">Dashboard</h2>
-        <br>
-        <button type="button" style="position: relative; right: -270px; top: 40px; font-size: 18px"
-                class="btn btn-primary">Thông tin cá nhân
-        </button>
-        <br> <br>
-        <div>
-            <p id="p1">ID: {{ Auth::user()->id }}</p>
-            <p id="p1">Họ tên: {{Auth::user()->name}}</p>
-            <p id="p1">Số điện thoại: {{ $accounts_details ? $accounts_details->phones : '' }}</p>
-            <p id="p1">Ngày sinh: {{ $accounts_details ? date('d/m/Y', strtotime( $accounts_details->date_of_births )) : '' }}</p>
-            <p id="p1">Giới tính: {{ $accounts_details ? $accounts_details->genders : '' }}</p>
-            <p id="p1">Địa chỉ: {{ $accounts_details ? $accounts_details->address : '' }}</p>
-            <p id="p1">Lĩnh vực, ngành khám: {{ Auth::user()->specialty }}</p>
-
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Thống kê</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{URL::asset('/admin/home')}}">Home</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                @if($appointments_by_doctor == 0)
+                                    <div>
+                                        <h3>0</h3>
+                                    </div>
+                                @else
+                                    @if($appointments_by_doctor < 10)
+                                        <div>
+                                            <h3>0{{ $appointments_by_doctor }} </h3>
+                                        </div>
+                                    @else
+                                        <div>
+                                            <h3>{{ $appointments_by_doctor }} </h3>
+                                        </div>
+                                    @endif
+                                @endif
+
+                                <h5>Lịch hẹn nhận được trong</h5>
+                                <h5>Tháng {{ $current_month }}/{{ $current_year }}</h5>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="{{URL::asset('/doctor/lichhenchuakham')}}" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                @if($appointments_un_examines == 0)
+                                    <div>
+                                        <h3>0</h3>
+                                    </div>
+                                @else
+                                    @if($appointments_un_examines < 10)
+                                        <div>
+                                            <h3>0{{ $appointments_un_examines }} </h3>
+                                        </div>
+                                    @else
+                                        <div>
+                                            <h3>{{ $appointments_un_examines }} </h3>
+                                        </div>
+                                    @endif
+                                @endif
+
+                                <h5>Lịch hẹn chưa khám trong</h5>
+                                <h5>Tháng {{ $current_month }}/{{ $current_year }}</h5>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="{{URL::asset('/doctor/lichhenchuakham')}}" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-primary">
+                            <div class="inner">
+                                @if($appointments_being_examines == 0)
+                                    <div>
+                                        <h3>0</h3>
+                                    </div>
+                                @else
+                                    @if($appointments_being_examines < 10)
+                                        <div>
+                                            <h3>0{{ $appointments_being_examines }} </h3>
+                                        </div>
+                                    @else
+                                        <div>
+                                            <h3>{{ $appointments_being_examines }} </h3>
+                                        </div>
+                                    @endif
+                                @endif
+
+                                <h5>Lịch hẹn đang khám trong</h5>
+                                <h5>Tháng {{ $current_month }}/{{ $current_year }}</h5>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="{{URL::asset('/doctor/lichhendangkham')}}" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                @if($appointments_done_examines == 0)
+                                    <div>
+                                        <h3>0</h3>
+                                    </div>
+                                @else
+                                    @if($appointments_done_examines < 10)
+                                        <div>
+                                            <h3>0{{ $appointments_done_examines }} </h3>
+                                        </div>
+                                    @else
+                                        <div>
+                                            <h3>{{ $appointments_done_examines }} </h3>
+                                        </div>
+                                    @endif
+                                @endif
+
+                                <h5>Lịch hẹn đã khám xong</h5>
+                                <h5>Tháng {{ $current_month }}/{{ $current_year }}</h5>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="{{URL::asset('/doctor/lichhendakham')}}" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     @if (session('success'))
@@ -74,7 +200,6 @@
             }
         </script>
     @endif
-
 </body>
 <!-- DataTable -->
 <script type="text/javascript"

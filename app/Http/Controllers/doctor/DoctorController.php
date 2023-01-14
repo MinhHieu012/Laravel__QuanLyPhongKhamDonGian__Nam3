@@ -9,6 +9,7 @@ use App\Models\accounts;
 use App\Models\accounts_details;
 use App\Models\appointment_schedules;
 use App\Models\rooms;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -28,9 +29,32 @@ class DoctorController extends Controller
     // GET: http://localhost/Project2Final/doctor/home
     // Trang home của doctor
     function viewHome() {
-        $accounts_details = accounts_details::where('accounts_id', Auth::id())->first();
-        //dd($accounts_details);
-        return view('doctor-layout/dashboard_homepage/home', compact('accounts_details'));
+
+        $doctor_name = Auth::user()->name;
+
+        // đếm lịch hẹn của doctor logged
+        $appointments_by_doctor = appointment_schedules::where('doctor_examines', $doctor_name)->count();
+
+        // đếm lịch chưa khám
+        $appointments_un_examines = appointment_schedules::where('doctor_examines', $doctor_name)
+            ->where('appointment_status_id' , '=', '1')
+            ->count();
+
+        // đếm lịch đang khám
+        $appointments_being_examines = appointment_schedules::where('doctor_examines', $doctor_name)
+            ->where('appointment_status_id' , '=', '2')
+            ->count();
+
+        // đếm lịch đã khám xong
+        $appointments_done_examines = appointment_schedules::where('doctor_examines', $doctor_name)
+            ->where('appointment_status_id' , '=', '3')
+            ->count();
+
+        // ngày tháng thực tế
+        $current_month = trans(Carbon::now()->format('m'));
+        $current_year = trans(Carbon::now()->format('Y'));
+
+        return view('doctor-layout/dashboard_homepage/home', compact('appointments_by_doctor', 'appointments_un_examines', 'appointments_being_examines', 'appointments_done_examines','current_month', 'current_year'));
     }
 
     function viewDoiMatKhau() {
@@ -90,6 +114,7 @@ class DoctorController extends Controller
 
         $appointments = appointment_schedules::where('appointment_status_id', '=', '1')
                 ->where('status', '=', '1')
+                ->where('cancelled', '=', '0')
                 ->where('doctor_examines', Auth::user()->name)
                 ->get();
 
@@ -113,6 +138,7 @@ class DoctorController extends Controller
     function viewLichHenDangKham() {
         $appointments = appointment_schedules::where('appointment_status_id', '=', '2')
             ->where('status', '=', '1')
+            ->where('cancelled', '=', '0')
             ->get();
 
         // Convert the dates field to a Carbon instance
@@ -136,6 +162,7 @@ class DoctorController extends Controller
     function viewLichHenDaKham() {
         $appointments = appointment_schedules::where('appointment_status_id', '=', '3')
             ->where('status', '=', '1')
+            ->where('cancelled', '=', '0')
             ->get();
 
         // Convert the dates field to a Carbon instance

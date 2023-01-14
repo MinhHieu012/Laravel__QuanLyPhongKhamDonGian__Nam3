@@ -10,6 +10,7 @@ use App\Models\appointment_times;
 use App\Models\health_checkup_packages;
 use App\Models\payment_status;
 use App\Models\rooms;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Password;
+use mysql_xdevapi\Session;
 
 class AdminController extends Controller
 {
@@ -30,7 +32,18 @@ class AdminController extends Controller
         // Trang home của admin
         function viewHome()
         {
-            return view('admin-layout/dashboard_homepage/home');
+            $appointment_count = appointment_schedules::whereMonth('dates', Carbon::now()->month)->count();
+            $paid_appointments = appointment_schedules::whereMonth('dates', Carbon::now()->month)
+                ->where('payment_status_id', 2)
+                ->count();
+            $unpaid_appointments = appointment_schedules::where('payment_status_id', 1)
+                ->where('cancelled', 0)
+                ->count();
+            $cancelled_appointments = appointment_schedules::where('cancelled', 1)->count();
+
+            $current_month = trans(Carbon::now()->format('m'));
+            $current_year = trans(Carbon::now()->format('Y'));
+            return view('admin-layout/dashboard_homepage/home' , compact('appointment_count', 'paid_appointments', 'unpaid_appointments', 'cancelled_appointments','current_month', 'current_year'));
         }
 
         function viewDoiMatKhau() {
@@ -400,6 +413,7 @@ class AdminController extends Controller
         {
             $appointments = appointment_schedules::where('payment_status_id', '=', '1')
                 ->where('status', '=', '1')
+                ->where('cancelled', '=', '0')
                 ->get();
 
             // Convert the dates field to a Carbon instance
@@ -557,7 +571,8 @@ class AdminController extends Controller
         function deleteLichHen($id) {
             // Tìm đến đối tượng muốn xóa
             $accounts = appointment_schedules::findOrFail($id);
-            $accounts->delete();
+            $accounts->cancelled = 1;
+            $accounts->save();
             return redirect('admin/lichhenchuaxacnhan/')->with('deleteDone', 'Xóa lịch hẹn thành công!');
         }
 
@@ -566,7 +581,9 @@ class AdminController extends Controller
             // $lich_chua_xac_nhan = appointment_schedules::where('status', '=', '0')->get();
             // return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/chua_xac_nhan', ['lich_chua_xac_nhan' => $lich_chua_xac_nhan]);
 
-            $appointments = appointment_schedules::where('status', '=', '0')->get();
+            $appointments = appointment_schedules::where('status', '=', '0')
+                ->where('cancelled', '=', '0')
+                ->get();
 
             // Convert the dates field to a Carbon instance
             $appointments->transform(function ($appointment) {
@@ -602,7 +619,9 @@ class AdminController extends Controller
             //$lich_da_xac_nhan = appointment_schedules::where('status', '=', '1')->get();
             //return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/da_xac_nhan', ['lich_da_xac_nhan' => $lich_da_xac_nhan]);
 
-            $appointments = appointment_schedules::where('status', '=', '1')->get();
+            $appointments = appointment_schedules::where('status', '=', '1')
+                ->where('cancelled', '=', '0')
+                ->get();
 
             // Convert the dates field to a Carbon instance
             $appointments->transform(function ($appointment) {
@@ -624,6 +643,7 @@ class AdminController extends Controller
         {
             $appointments = appointment_schedules::where('payment_status_id', '=', '2')
                 ->where('status', '=', '1')
+                ->where('cancelled', '=', '0')
                 ->get();
 
             // Convert the dates field to a Carbon instance
