@@ -68,6 +68,20 @@
             </script>
         @endif
 
+        @if (session('editDone1'))
+            <script>
+                window.onload = function () {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('editDone1') }}",
+                        textColor: 'black',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
                 onclick="window.location.href='{{URL::asset('/admin/lichhenchuaxacnhan')}}';">Quay lại
         </button>
@@ -88,12 +102,11 @@
                         <th>ID</th>
                         <th>Họ tên</th>
                         <th>Số điện thoại</th>
-                        <th>Ngày hẹn</th>
                         <th>Thời gian hẹn</th>
                         <th>Gói khám</th>
-                        <th>Ngày đặt lịch</th>
                         <th>Phòng khám</th>
                         <th>Bác sĩ khám</th>
+                        <th>Ngày đặt lịch</th>
                         <th>Thao tác</th>
                     </tr>
                     </thead>
@@ -104,7 +117,6 @@
                             <td>{{ $appointment->id }}</td>
                             <td>{{ $appointment->names }}</td>
                             <td>{{ $appointment->phones }}</td>
-                            <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
 
                             {{--<td>{{ $appointment->times }}</td>
                             <td>{{ $appointment->prices }}</td>
@@ -115,7 +127,7 @@
                             <td>{{ $appointment->rooms->rooms }}</td>
 
                             <td>{{ $appointment->doctor_examines }}</td>
-                            <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>
+                            <td>{{ date('d/m/Y', strtotime($appointment->created_at)) }}</td>
                             <td>
                                 <form action="{{ url('/admin/lichhen/chuaxacnhan/'. $appointment->id) }}"
                                       method="POST">

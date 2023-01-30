@@ -150,8 +150,8 @@
                         <th>Phòng khám</th>
                         <th>Bác sĩ khám</th>
                         <th>Ngày đặt lịch</th>
-                        <th>Thao tác</th>
-                        <th>Sửa</th>
+                        {{--<th>Thao tác</th>--}}
+                        <th>Xác nhận</th>
                         <th>Hủy</th>
                     </tr>
                     </thead>
@@ -175,17 +175,17 @@
                             <td>{{ $appointment->doctor_examines }}</td>
                             <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>
 
-                            <td>
+                            {{--<td>
                                 <form action="{{ url('/admin/lichhen/xacnhan/' . $appointment->id) }}" method="POST">
                                     <button type="submit" onclick="return confirm('Bạn muốn xác nhận lịch hẹn này?')"
                                             class="btn btn-outline-success">Xác nhận
                                     </button>
                                 </form>
-                            </td>
+                            </td>--}}
 
                             <td>
                                 <form action="{{ url('/admin/quanlylichhen/edit/' . $appointment->id) }}" method="GET">
-                                    <button type="submit" class="btn btn-outline-warning">Sửa</button>
+                                    <button type="submit" class="btn btn-outline-primary">Xác nhận</button>
                                 </form>
                             </td>
                             <td>
