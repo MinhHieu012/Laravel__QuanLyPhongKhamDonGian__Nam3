@@ -235,6 +235,12 @@ class CustomerController extends Controller
             }
         }
 
+    // Trang chi tiết lịch hẹn
+    function viewChiTietDatLich(Request $request, $id) {
+        $lichhen = appointment_schedules::where('id', $id)->first();
+        return view('customer-layout/Dat_lich/chitiet', compact('lichhen'));
+    }
+
     // GET: http://localhost/Project2Final/lichhen/edit/{id}
     // Trang giao diện lịch hẹn
     function editLich(Request $request, $id)

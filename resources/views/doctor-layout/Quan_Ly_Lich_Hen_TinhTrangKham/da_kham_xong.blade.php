@@ -72,7 +72,7 @@
                         <th>ID</th>
                         <th>Họ tên</th>
                         <th>Số điện thoại</th>
-                        <th>Ngày hẹn</th>
+                        {{--<th>Ngày hẹn</th>--}}
                         <th>Thời gian hẹn</th>
                         <th>Gói khám</th>
                         <th>Phòng khám</th>
@@ -87,7 +87,7 @@
                             <td>{{ $appointment->id }}</td>
                             <td>{{ $appointment->names }}</td>
                             <td>{{ $appointment->phones }}</td>
-                            <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
+                            {{--<td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>--}}
 
                             {{--<td>{{ $appointment->appointment_times_id }}</td>
                             <td>{{ $appointment->health_checkup_packages_id }}</td>

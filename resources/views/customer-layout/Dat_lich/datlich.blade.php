@@ -25,7 +25,7 @@
         .table1 {
             position: relative;
             top: 100px;
-            width: 1550px;
+            width: 1350px;
             margin-left: auto;
             margin-right: auto;
             color: black;
@@ -50,7 +50,6 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
-
 
     </style>
 <body>
@@ -208,14 +207,15 @@
                 <tr>
                     <th>Họ tên</th>
                     <th>Số điện thoại</th>
-                    <th>Ngày hẹn</th>
+                    {{--<th>Ngày hẹn</th>--}}
                     <th>Thời gian hẹn</th>
                     <th>Gói khám</th>
-                    <th>Phòng khám</th>
+                    {{--<th>Phòng khám</th>
                     <th>Bác sĩ khám</th>
-                    <th>Ngày đặt lịch</th>
-                    <th>Thao tác</th>
-                    <th>Thao tác</th>
+                    <th>Ngày đặt lịch</th>--}}
+                    <th>Chi tiết</th>
+                    <th>Sửa</th>
+                    <th>Hủy</th>
                 </tr>
                 </thead>
                 <!-- thân bảng -->
@@ -224,14 +224,21 @@
                     <tr>
                         <td>{{ $appointment->names }}</td>
                         <td>{{ $appointment->phones }}</td>
-                        <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
+                        {{--<td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>--}}
 
                         <td>{{ $appointment->appointment_times->times}}</td>
                         <td>{{ $appointment->health_checkup_packages->names . ' - ' . $appointment->health_checkup_packages->prices }}</td>
-                        <td>{{ $appointment->rooms->rooms }}</td>
+                        {{--<td>{{ $appointment->rooms->rooms }}</td>
 
                         <td>{{ $appointment->doctor_examines }}</td>
-                        <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>
+                        <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>--}}
+
+                        <td>
+                            <form action="{{ url('/datlich/chitiet/' . $appointment->id)}}" method="GET">
+                                <button type="submit" class="btn btn-outline-primary">Chi tiết</button>
+                            </form>
+                        </td>
+
                         <td>
                             <form action="{{ url('/datlich/edit/' . $appointment->id)}}" method="GET">
                                 <button type="submit" class="btn btn-outline-warning">Sửa lịch hẹn</button>
@@ -286,10 +293,6 @@
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
-
-
-
-
 
 <!-- Messenger Plugin chat Code -->
 <div id="fb-root"></div>
