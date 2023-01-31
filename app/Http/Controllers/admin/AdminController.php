@@ -612,13 +612,15 @@ class AdminController extends Controller
 
         function LichHenDaXacNhan_sang_LichHenChuaXacNhan(Request $request, $id) {
             $appointment_schedules = appointment_schedules::findOrFail($id);
-            $appointment_schedules->status = 0;
-
-            $appointment_schedules->rooms_id = 17;
-            $appointment_schedules->doctor_examines = NULL;
-
-            $appointment_schedules->save();
-            return redirect('/admin/lichhenchuaxacnhan')->with('success1', 'Hủy xác nhận lịch hẹn thành công');
+            if ($appointment_schedules->payment_status_id == 1 && $appointment_schedules->appointment_status_id == 1) {
+                $appointment_schedules->status = 0;
+                $appointment_schedules->rooms_id = 17;
+                $appointment_schedules->doctor_examines = NULL;
+                $appointment_schedules->save();
+                return redirect('/admin/lichhenchuaxacnhan')->with('success1', 'Hủy xác nhận lịch hẹn thành công');
+            } else {
+                return redirect('/admin/lichhendaxacnhan')->with('error', 'Lịch hẹn đã được thanh toán hoặc không đang/đã khám không thể hủy xác nhận');
+            }
         }
 
         function viewLichHenDaXacNhan()

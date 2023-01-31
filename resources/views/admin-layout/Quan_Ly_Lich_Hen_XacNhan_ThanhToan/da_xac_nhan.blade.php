@@ -82,6 +82,20 @@
             </script>
         @endif
 
+        @if (session('error'))
+            <script>
+                window.onload = function () {
+                    // Display the message box
+                    Swal.fire({
+                        text: "{{ session('error') }}",
+                        textColor: 'black',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    })
+                }
+            </script>
+        @endif
+
         <button type="button" style="position: relative; right: -270px; top: 40px" class="btn btn-primary"
                 onclick="window.location.href='{{URL::asset('/admin/lichhenchuaxacnhan')}}';">Quay lại
         </button>
