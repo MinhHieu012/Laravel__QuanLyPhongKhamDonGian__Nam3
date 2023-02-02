@@ -33,21 +33,29 @@ class DoctorController extends Controller
         $doctor_name = Auth::user()->name;
 
         // đếm lịch hẹn của doctor logged
-        $appointments_by_doctor = appointment_schedules::where('doctor_examines', $doctor_name)->count();
+        $appointments_by_doctor = appointment_schedules::whereMonth('dates', Carbon::now()->month)
+            ->where('doctor_examines', $doctor_name)
+            ->where('cancelled', 0)
+            ->count();
 
         // đếm lịch chưa khám
-        $appointments_un_examines = appointment_schedules::where('doctor_examines', $doctor_name)
+        $appointments_un_examines = appointment_schedules::whereMonth('dates', Carbon::now()->month)
+            ->where('doctor_examines', $doctor_name)
             ->where('appointment_status_id' , '=', '1')
+            ->where('cancelled', 0)
             ->count();
 
         // đếm lịch đang khám
-        $appointments_being_examines = appointment_schedules::where('doctor_examines', $doctor_name)
+        $appointments_being_examines = appointment_schedules::whereMonth('dates', Carbon::now()->month)
+            ->where('doctor_examines', $doctor_name)
             ->where('appointment_status_id' , '=', '2')
             ->count();
 
         // đếm lịch đã khám xong
-        $appointments_done_examines = appointment_schedules::where('doctor_examines', $doctor_name)
+        $appointments_done_examines = appointment_schedules::whereMonth('dates', Carbon::now()->month)
+            ->where('doctor_examines', $doctor_name)
             ->where('appointment_status_id' , '=', '3')
+            ->where('cancelled', 0)
             ->count();
 
         // ngày tháng thực tế

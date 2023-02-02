@@ -32,14 +32,23 @@ class AdminController extends Controller
         // Trang home của admin
         function viewHome()
         {
-            $appointment_count = appointment_schedules::whereMonth('dates', Carbon::now()->month)->count();
-            $paid_appointments = appointment_schedules::whereMonth('dates', Carbon::now()->month)
-                ->where('payment_status_id', 2)
-                ->count();
-            $unpaid_appointments = appointment_schedules::where('payment_status_id', 1)
+            $appointment_count = appointment_schedules::whereMonth('dates', Carbon::now()->month)
                 ->where('cancelled', 0)
                 ->count();
-            $cancelled_appointments = appointment_schedules::where('cancelled', 1)->count();
+
+            $paid_appointments = appointment_schedules::whereMonth('dates', Carbon::now()->month)
+                ->where('payment_status_id', 2)
+                ->where('cancelled', 0)
+                ->count();
+
+            $unpaid_appointments = appointment_schedules::whereMonth('dates', Carbon::now()->month)
+                ->where('payment_status_id', 1)
+                ->where('cancelled', 0)
+                ->count();
+
+            $cancelled_appointments = appointment_schedules::whereMonth('dates', Carbon::now()->month)
+                ->where('cancelled', 1)
+                ->count();
 
             $current_month = trans(Carbon::now()->format('m'));
             $current_year = trans(Carbon::now()->format('Y'));
@@ -58,7 +67,7 @@ class AdminController extends Controller
             ]);
 
             accounts::whereId(auth()->user()->id)->update([
-            'password' => bcrypt($request->password)
+                'password' => bcrypt($request->password)
             ]);
             return redirect('/admin/changepassword')->with("success", "Mật khẩu đã được đổi thành công");
         }
@@ -610,7 +619,8 @@ class AdminController extends Controller
             return redirect('/admin/lichhendaxacnhan')->with('success', 'Lịch hẹn đã xác nhận thành công');
         }
 
-        function LichHenDaXacNhan_sang_LichHenChuaXacNhan(Request $request, $id) {
+        function LichHenDaXacNhan_sang_LichHenChuaXacNhan(Request $request, $id)
+        {
             $appointment_schedules = appointment_schedules::findOrFail($id);
             if ($appointment_schedules->payment_status_id == 1 && $appointment_schedules->appointment_status_id == 1) {
                 $appointment_schedules->status = 0;
@@ -625,9 +635,6 @@ class AdminController extends Controller
 
         function viewLichHenDaXacNhan()
         {
-            //$lich_da_xac_nhan = appointment_schedules::where('status', '=', '1')->get();
-            //return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/da_xac_nhan', ['lich_da_xac_nhan' => $lich_da_xac_nhan]);
-
             $appointments = appointment_schedules::where('status', '=', '1')
                 ->where('cancelled', '=', '0')
                 ->get();

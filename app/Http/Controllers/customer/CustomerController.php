@@ -253,9 +253,9 @@ class CustomerController extends Controller
         $appointment_times = appointment_times::all();
         $grouped_packages_times = $appointment_times->groupBy('types');
 
-        $info = appointment_schedules::where('status', '=', '1')->first();
+        $info = appointment_schedules::where('id', $id)->first();
 
-        if ($info) {
+        if ($info->status == 1) {
             return redirect()->back()->with('form_expired', 'Lịch hẹn đã xác nhận không thể hủy hay chỉnh sửa! Liên hệ qua FB để được hỗ trợ');
         }
         else {
@@ -282,16 +282,28 @@ class CustomerController extends Controller
     // Trang hủy lịch hẹn
     function deleteLich(Request $request, $id)
     {
-        $info = appointment_schedules::where('status', '=', '1')->first();
+        //$info = appointment_schedules::where('status', '=','1')->first();
 
-        if ($info) {
+        $appointment = appointment_schedules::where('id', $id)->first();
+
+        if ($appointment->status == 1) {
             return redirect()->back()->with('form_expired', 'Lịch hẹn đã xác nhận không thể hủy hay chỉnh sửa! Liên hệ qua FB để được hỗ trợ');
-        } else {
+        }
+        else {
+            $appointment->cancelled = 1;
+            $appointment->save();
+            return redirect()->back()->with('deleteDone', 'Bạn đã hủy lịch hẹn thành công thành công!');
+        }
+
+        /*if ($info) {
+            return redirect()->back()->with('form_expired', 'Lịch hẹn đã xác nhận không thể hủy hay chỉnh sửa! Liên hệ qua FB để được hỗ trợ');
+        }
+        else {
             $appointment_schedules = appointment_schedules::findOrFail($id);
             $appointment_schedules->cancelled = 1;
             $appointment_schedules->save();
             return redirect()->back()->with('deleteDone', 'Bạn đã hủy lịch hẹn thành công thành công!');
-        }
+        }*/
     }
 
     // GET: http://localhost/Project2Final/public/lienhe
