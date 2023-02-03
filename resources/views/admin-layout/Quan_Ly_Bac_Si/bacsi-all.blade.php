@@ -118,7 +118,6 @@
                     <th>Số điện thoại</th>
                     <th>Ngày sinh</th>
                     <th>Lĩnh vực khám</th>
-                    <th>Trạng thái</th>
                     <th>Xóa</th>
                     <th>Reset mật khẩu</th>
                     <th>Khóa</th>
@@ -132,8 +131,7 @@
                         <td>{{ $bacsi->name }}</td>
                         <td>{{ $bacsi->phones }}</td>
                         <td>{{ date('d/m/Y', strtotime($bacsi->date_of_births))}}</td>
-                        <td>{{ $bacsi->work_areas }}</td>
-                        <td>{{ $bacsi->doctorStatus }}</td>
+                        <td>{{ $bacsi->specialty }}</td>
                         {{--<td>
                             <form action="{{ url('admin/quanlybacsi/edit/' . $bacsi->id) }}"
                                   method="GET">

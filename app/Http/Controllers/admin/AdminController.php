@@ -174,7 +174,7 @@ class AdminController extends Controller
                 $accounts->username = $request->username;
                 $accounts->password = bcrypt($request->password);
                 $accounts->name = $request->name;
-                $accounts->doctor_specialty = $request->doctor_specialty;
+                $accounts->specialty = $request->specialty;
                 // levels: 1 -> Admin
                 // levels: 2 -> Doctor
                 // levels: 3 - > Khách

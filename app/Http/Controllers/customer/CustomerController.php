@@ -271,9 +271,16 @@ class CustomerController extends Controller
         $appointment_schedule = appointment_schedules::findOrFail($id);
         $appointment_schedule->names = $request->name;
         $appointment_schedule->phones = $request->phone;
+
         $appointment_schedule->dates = $request->date;
-        $appointment_schedule->times = $request->time;
-        $appointment_schedule->prices = $request->price;
+
+        //$appointment_schedule->times = $request->time;
+        //$appointment_schedule->appointment_times_id = $request->input('time');
+        $appointment_schedule->appointment_times_id = $request->input('time');
+
+        //$appointment_schedule->prices = $request->price;
+        $appointment_schedule->health_checkup_packages_id = $request->input('price');
+
         $appointment_schedule->save();
         return redirect('/datlich')->with('editDone', 'Sửa thông tin lịch hẹn thành công!');
     }

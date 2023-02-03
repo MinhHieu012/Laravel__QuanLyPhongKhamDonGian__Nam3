@@ -97,7 +97,7 @@
                     @foreach($grouped_packages_times as $type => $times)
                         <optgroup label="{{ $type }}">
                             @foreach($times as $time)
-                                <option value="{{ $time->times }}">{{ $time->times }}</option>
+                                <option value="{{ $time->id }}">{{ $time->times }}</option>
                             @endforeach
                         </optgroup>
                     @endforeach
@@ -110,7 +110,7 @@
                     @foreach ($grouped_packages as $type => $packages)
                         <optgroup label="{{ $type }}">
                             @foreach ($packages as $package)
-                                <option value="{{ $package->names }}">{{ $package->names }} - Giá: {{ $package->prices }}</option>
+                                <option value="{{ $package->id }}">{{ $package->names }} - Giá: {{ $package->prices }}</option>
                             @endforeach
                         </optgroup>
                     @endforeach

@@ -205,6 +205,7 @@
                 <!-- tiêu đề bảng -->
                 <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Họ tên</th>
                     <th>Số điện thoại</th>
                     {{--<th>Ngày hẹn</th>--}}
@@ -222,6 +223,7 @@
                 <tbody>
                 @forelse($appointmentsForDate as $appointment)
                     <tr>
+                        <td>{{ $appointment->id }}</td>
                         <td>{{ $appointment->names }}</td>
                         <td>{{ $appointment->phones }}</td>
                         {{--<td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>--}}
