@@ -25,13 +25,21 @@
                 <p style="font-size: 18px">Địa Chỉ: 306 - Nguyễn Trãi - Hà Nội</p>
                 <p style="font-size: 18px">Phone Number: 0967710509</p>
                 <p style="font-size: 18px">Email: 0967710509hieu@gmail.com</p>
+<<<<<<< HEAD
                 <p style="font-size: 18px">Thông tin chuyển khoản thanh toán: 1401205172948 Agribank Lê Minh Hiếu</p>
+=======
+                {{--<p style="font-size: 18px">Thông tin chuyển khoản thanh toán: 1401205172948 Agribank Lê Minh Hiếu</p>
+>>>>>>> aa55a96 (fix nho)
                 <p style="font-size: 18px">Nội dung chuyển khoản 'Họ tên + số điện thoại + thời gian hẹn + gói giá'</p>
                 <p style="font-size: 18px">Ví dụ: Lê Minh Hiếu + 0967710509 + 12/10/2022 - 14h30 + Gói 200.000đ</p>
                 <img src="{{ URL::asset('image/QRPay.jpg') }}" width="70%" alt="QRPayImage">
                 <br> <br>
                 <p style="font-size: 18px">Nếu thanh toán online sau khi chuyển khoản liên hệ đến <a
+<<<<<<< HEAD
                         href="https://www.facebook.com/lehieu911">FB: Minh Hiếu Lê</a></p>
+=======
+                        href="https://www.facebook.com/lehieu911">FB: Minh Hiếu Lê</a></p> --}}
+>>>>>>> aa55a96 (fix nho)
             </div>
             <div class="col">
                 <iframe

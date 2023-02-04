@@ -32,9 +32,7 @@ class AdminController extends Controller
         // Trang home của admin
         function viewHome()
         {
-            $appointment_count = appointment_schedules::whereMonth('dates', Carbon::now()->month)
-                ->where('cancelled', 0)
-                ->count();
+            $appointment_count = appointment_schedules::whereMonth('dates', Carbon::now()->month)->count();
 
             $paid_appointments = appointment_schedules::whereMonth('dates', Carbon::now()->month)
                 ->where('payment_status_id', 2)
@@ -43,6 +41,7 @@ class AdminController extends Controller
 
             $unpaid_appointments = appointment_schedules::whereMonth('dates', Carbon::now()->month)
                 ->where('payment_status_id', 1)
+                ->where('status', 1)
                 ->where('cancelled', 0)
                 ->count();
 
