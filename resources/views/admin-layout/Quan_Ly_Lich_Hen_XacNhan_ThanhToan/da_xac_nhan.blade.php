@@ -131,11 +131,6 @@
                             <td>{{ $appointment->id }}</td>
                             <td>{{ $appointment->names }}</td>
                             <td>{{ $appointment->phones }}</td>
-
-                            {{--<td>{{ $appointment->times }}</td>
-                            <td>{{ $appointment->prices }}</td>
-                            <td>{{ $appointment->rooms }}</td>--}}
-
                             <td>{{ $appointment->appointment_times->times}}</td>
                             <td>{{ $appointment->health_checkup_packages->names . ' - ' . $appointment->health_checkup_packages->prices }}</td>
                             <td>{{ $appointment->rooms->rooms }}</td>

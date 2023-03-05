@@ -77,7 +77,6 @@
                         <th>Gói khám</th>
                         <th>Phòng khám</th>
                         <th>Ngày khám xong</th>
-                        <th>Thao tác</th>
                     </tr>
                     </thead>
                     <!-- thân bảng -->
@@ -87,25 +86,19 @@
                             <td>{{ $appointment->id }}</td>
                             <td>{{ $appointment->names }}</td>
                             <td>{{ $appointment->phones }}</td>
-                            {{--<td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>--}}
-
-                            {{--<td>{{ $appointment->appointment_times_id }}</td>
-                            <td>{{ $appointment->health_checkup_packages_id }}</td>
-                            <td>{{ $appointment->rooms_id }}</td>--}}
-
                             <td>{{ $appointment->appointment_times->times}}</td>
                             <td>{{ $appointment->health_checkup_packages->names . ' - ' . $appointment->health_checkup_packages->prices }}</td>
                             <td>{{ $appointment->rooms->rooms }}</td>
-
                             <td>{{ date('d/m/Y, H:i:s', strtotime($appointment->updated_at)) }}</td>
-                            <td>
+
+                            {{--<td>
                                 <form action="{{ url('/doctor/lichhen/backdangkham/'. $appointment->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" onclick="return confirm('Lịch hẹn này chưa khám xong?')"
                                             class="btn btn-outline-warning">Chưa khám xong
                                     </button>
                                 </form>
-                            </td>
+                            </td>--}}
                         </tr>
                     @empty
                         <tr>

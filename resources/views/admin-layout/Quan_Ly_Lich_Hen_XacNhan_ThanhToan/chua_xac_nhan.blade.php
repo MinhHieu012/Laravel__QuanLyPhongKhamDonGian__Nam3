@@ -33,6 +33,8 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
+
+
 </style>
 <body>
 @extends('admin-layout.menu.AdminMenu.AdminLTE.menu')
@@ -144,7 +146,6 @@
                         <th>ID</th>
                         <th>Họ tên</th>
                         <th>Số điện thoại</th>
-                        <th>Ngày hẹn</th>
                         <th>Thời gian hẹn</th>
                         <th>Gói khám</th>
                         <th>Phòng khám</th>
@@ -162,26 +163,29 @@
                             <td>{{ $appointment->id }}</td>
                             <td>{{ $appointment->names }}</td>
                             <td>{{ $appointment->phones }}</td>
-                            <td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>
-
-                            {{--<td>{{ $appointment->appointment_times_id }}</td>
-                            <td>{{ $appointment->health_checkup_packages_id }}</td>
-                            <td>{{ $appointment->rooms_id }}</td>--}}
-
                             <td>{{ $appointment->appointment_times->times}}</td>
                             <td>{{ $appointment->health_checkup_packages->names . ' - ' . $appointment->health_checkup_packages->prices }}</td>
-                            <td>{{ $appointment->rooms->rooms }}</td>
 
-                            <td>{{ $appointment->doctor_examines }}</td>
+                            {{--<td>{{ $appointment->rooms->rooms }}</td>
+                            <td>{{ $appointment->doctor_examines }}</td>--}}
+
+                            <td>
+                                @if($appointment->rooms->rooms !== 'Chưa có')
+                                    {{ $appointment->rooms->rooms }}
+                                @else
+                                    <span>Chưa có</span>
+                                @endif
+                            </td>
+
+                            <td>
+                                @if($appointment->doctor_examines)
+                                    {{ $appointment->doctor_examines }}
+                                @else
+                                    <span>Chưa có</span>
+                                @endif
+                            </td>
+
                             <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>
-
-                            {{--<td>
-                                <form action="{{ url('/admin/lichhen/xacnhan/' . $appointment->id) }}" method="POST">
-                                    <button type="submit" onclick="return confirm('Bạn muốn xác nhận lịch hẹn này?')"
-                                            class="btn btn-outline-success">Xác nhận
-                                    </button>
-                                </form>
-                            </td>--}}
 
                             <td>
                                 <form action="{{ url('/admin/quanlylichhen/edit/' . $appointment->id) }}" method="GET">
@@ -191,7 +195,7 @@
                             <td>
                                 <form action="{{ url('/admin/quanlylichhen/delete/' . $appointment->id) }}" method="GET">
                                     <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                            class="btn btn-outline-danger">Xóa
+                                            class="btn btn-outline-danger">Hủy
                                     </button>
                                 </form>
                             </td>

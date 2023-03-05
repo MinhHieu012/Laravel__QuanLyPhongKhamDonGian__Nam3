@@ -139,8 +139,6 @@ class DoctorController extends Controller
 
         // Pass the grouped appointments to the view
         return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/chua_kham', ['appointments' => $appointmentsByDate]);
-
-        //return view('/doctor-layout/Quan_Ly_Lich_Hen_TinhTrangKham/chua_kham', ['datlich' => $datlich]);
     }
 
     function viewLichHenDangKham() {
@@ -216,11 +214,6 @@ class DoctorController extends Controller
     function DangKham_sang_ChuaKham(Request $request, $id) {
         $appointment_schedules = appointment_schedules::findOrFail($id);
         $appointment_schedules->appointment_status_id = 1;
-
-        /*accounts::where('isDoctor', 1)
-            ->where('doctorStatus', 1)
-            ->update(['doctorStatus' => 0]);*/
-
         $appointment_schedules->save();
         return redirect('/doctor/lichhenchuakham')->with('success', 'Chuyển về lịch hẹn chưa khám thành công');
     }
@@ -228,25 +221,15 @@ class DoctorController extends Controller
     function DangKham_sang_DaKham(Request $request, $id) {
         $appointment_schedules = appointment_schedules::findOrFail($id);
         $appointment_schedules->appointment_status_id = 3;
-
-        /*accounts::where('isDoctor', 1)
-            ->where('doctorStatus', 1)
-            ->update(['doctorStatus' => 0]);*/
-
         $appointment_schedules->save();
         return redirect('/doctor/lichhendakham')->with('success', 'Chuyển về lịch hẹn đã khám xong thành công');
     }
 
-    function DaKham_sang_DangKham(Request $request, $id) {
+    /*function DaKham_sang_DangKham(Request $request, $id) {
         $appointment_schedules = appointment_schedules::findOrFail($id);
         $appointment_schedules->appointment_status_id = 2;
-
-        /*accounts::where('isDoctor', 1)
-            ->where('doctorStatus', 0)
-            ->update(['doctorStatus' => 1]);*/
-
         $appointment_schedules->save();
         return redirect('/doctor/lichhendangkham')->with('success1', 'Chuyển về lịch hẹn đã khám xong thành công');
-    }
+    }*/
 }
 

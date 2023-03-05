@@ -152,7 +152,6 @@ class CustomerController extends Controller
 
         if (Auth::check()) {
 
-            //$appointments = appointment_schedules::where('accounts_id', Auth::id())->get();
             $appointments = appointment_schedules::with('appointment_times', 'health_checkup_packages', 'rooms')
                 ->where('accounts_id', Auth::id())
                 ->where('cancelled', '=', '0')
@@ -301,16 +300,6 @@ class CustomerController extends Controller
             $appointment->save();
             return redirect()->back()->with('deleteDone', 'Bạn đã hủy lịch hẹn thành công thành công!');
         }
-
-        /*if ($info) {
-            return redirect()->back()->with('form_expired', 'Lịch hẹn đã xác nhận không thể hủy hay chỉnh sửa! Liên hệ qua FB để được hỗ trợ');
-        }
-        else {
-            $appointment_schedules = appointment_schedules::findOrFail($id);
-            $appointment_schedules->cancelled = 1;
-            $appointment_schedules->save();
-            return redirect()->back()->with('deleteDone', 'Bạn đã hủy lịch hẹn thành công thành công!');
-        }*/
     }
 
     // GET: http://localhost/Project2Final/public/lienhe

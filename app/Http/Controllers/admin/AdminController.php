@@ -125,6 +125,7 @@ class AdminController extends Controller
 
         function KhoaTaiKhoan_Khach(Request $request, $id) {
             $accounts = accounts::findOrFail($id);
+            // status = 1 là khóa
             $accounts->status = 1;
             $accounts->save();
             return redirect('/admin/quanlykhachhang/lock')->with('success', 'Khóa tài khoản thành công');
@@ -132,6 +133,7 @@ class AdminController extends Controller
 
         function MoKhoaTaiKhoan_Khach(Request $request, $id) {
             $accounts = accounts::findOrFail($id);
+            // status = 0 là không khóa
             $accounts->status = 0;
             $accounts->save();
             return redirect('/admin/quanlykhachhang')->with('success', 'Mở khóa tài khoản thành công');
@@ -187,7 +189,7 @@ class AdminController extends Controller
         }
         // GET: http://localhost/Project2Final/admin/quanlybacsi/edit/{id}
         // Trang giao diện sửa bác sĩ
-        function editDoctor(Request $request, $id)
+        /*function editDoctor(Request $request, $id)
         {
             $accounts = accounts::where('id', '=', $id)->first();
             return view('admin-layout/Quan_Ly_Bac_Si/bacsi-edit', compact('accounts'));
@@ -211,7 +213,7 @@ class AdminController extends Controller
                 $accounts->save();
                 return redirect('admin/quanlybacsi/')->with('editDone', 'Cập nhật thông tin bác sĩ thành công!');
             }
-        }
+        } */
 
         // Reset password bác sĩ
         function ResetPassword_Bacsi(Request $request, $id) {
@@ -442,7 +444,7 @@ class AdminController extends Controller
         }
 
         // Trang thêm lịch hẹn (tự chọn tgian cho khách chưa đặt lịch) ở trang lịch hẹn chưa xác nhân
-        function viewLichHen_Add() {
+        /*function viewLichHen_Add() {
 
             // Gói các gói khám có cùng types và hiển thị trên select
             $health_checkup_packages = health_checkup_packages::all();
@@ -464,10 +466,10 @@ class AdminController extends Controller
             $doctors = accounts::where('levels', '=', '2')->get();
 
             return view('admin-layout/Quan_Ly_Lich_Hen_XacNhan_ThanhToan/lichhen-add', compact( 'doctors', 'grouped_packages', 'grouped_packages_times', 'grouped_packages_rooms'));
-        }
+        }*/
 
         // Xử lý thêm lịch
-        function addLichHen1(Request $request, $id) {
+        /*function addLichHen1(Request $request, $id) {
 
             // Kiểm tra ngày, thời gian đã đc chọn quá 5 lần hay chưa
             $selectedTime = appointment_schedules::where('dates', $request->date)
@@ -498,7 +500,7 @@ class AdminController extends Controller
             $appointment_schedules->status = $request->status=1;
             $appointment_schedules->save();
             return redirect('/admin/lichhenchuaxacnhan')->with('success2', 'Đặt lịch thành công!');
-        }
+        } */
 
         // Trang sửa lịch hen
         function editLichHen(Request $request, $id)
@@ -685,10 +687,10 @@ class AdminController extends Controller
             return redirect('/admin/lichhendathanhtoan')->with('success', 'Chuyển về lịch hẹn đã thanh toán thành công');
         }
 
-        function DaThanhToan_sang_ChuaThanhToan(Request $request, $id) {
+        /*function DaThanhToan_sang_ChuaThanhToan(Request $request, $id) {
             $appointment_schedules = appointment_schedules::findOrFail($id);
             $appointment_schedules->payment_status_id = 1;
             $appointment_schedules->save();
             return redirect('/admin/lichhenchuathanhtoan')->with('success', 'Chuyển về lịch hẹn chưa thanh toán thành công');
-        }
+        }*/
 }

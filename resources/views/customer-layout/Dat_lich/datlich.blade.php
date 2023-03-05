@@ -208,12 +208,8 @@
                     <th>ID</th>
                     <th>Họ tên</th>
                     <th>Số điện thoại</th>
-                    {{--<th>Ngày hẹn</th>--}}
                     <th>Thời gian hẹn</th>
                     <th>Gói khám</th>
-                    {{--<th>Phòng khám</th>
-                    <th>Bác sĩ khám</th>
-                    <th>Ngày đặt lịch</th>--}}
                     <th>Chi tiết</th>
                     <th>Sửa</th>
                     <th>Hủy</th>
@@ -226,14 +222,16 @@
                         <td>{{ $appointment->id }}</td>
                         <td>{{ $appointment->names }}</td>
                         <td>{{ $appointment->phones }}</td>
-                        {{--<td>{{ date('d/m/Y', strtotime($appointment->dates)) }}</td>--}}
-
                         <td>{{ $appointment->appointment_times->times}}</td>
                         <td>{{ $appointment->health_checkup_packages->names . ' - ' . $appointment->health_checkup_packages->prices }}</td>
-                        {{--<td>{{ $appointment->rooms->rooms }}</td>
 
-                        <td>{{ $appointment->doctor_examines }}</td>
-                        <td>{{ date('d/m/Y, H:i', strtotime($appointment->created_at)) }}</td>--}}
+                        @if($appointment->status == 1)
+                            <style>
+                                th:nth-child(7), th:nth-child(8), th:nth-child(9), td:nth-child(8), td:nth-child(9) {
+                                    display: none;
+                                }
+                            </style>
+                        @endif
 
                         <td>
                             <form action="{{ url('/datlich/chitiet/' . $appointment->id)}}" method="GET">
@@ -246,6 +244,7 @@
                                 <button type="submit" class="btn btn-outline-warning">Sửa lịch hẹn</button>
                             </form>
                         </td>
+
                         <td>
                             <form action="{{ url('/datlich/delete/'. $appointment->id)}}" method="POST">
                                 <button type="submit"
